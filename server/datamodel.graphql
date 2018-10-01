@@ -1,0 +1,23 @@
+enum Permission {
+  ADMIN
+  USER
+  DEMO
+}
+
+type User {
+  id: ID! @unique
+  name: String!
+  email: String! @unique
+  password: String!
+  resetToken: String
+  resetTokenExpiry: Float
+  permissions: [Permission]
+  application: Application
+}
+
+type Application {
+  id: ID! @unique
+  user: User! @unique
+  otherinfo1: String!
+  gpa: Float!
+}
