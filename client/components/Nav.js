@@ -3,6 +3,18 @@ import React from 'react';
 import styled from 'styled-components';
 import User from './User';
 import Logout from './Logout';
+import Router from 'next/router';
+import NProgress from 'nprogress';
+
+Router.onRouteChangeStart = () => {
+  NProgress.start();
+};
+Router.onRouteChangeComplete = () => {
+  NProgress.done();
+};
+Router.onRouteChangeError = () => {
+  NProgress.done();
+};
 
 const StyledDiv = styled.div`
   border: 1px solid blue;

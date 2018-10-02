@@ -1,3 +1,3 @@
 // client side config
-export const endpoint = `http://localhost:7777`;
-export const prodEndpoint = `https://server-vtepqvrinu.now.sh`;
+export const endpoint = `http://localhost:4000`;
+export const prodEndpoint = `http://localhost:4000`;
