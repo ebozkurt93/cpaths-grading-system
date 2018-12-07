@@ -1,9 +1,10 @@
 import Nav from '../components/Nav';
+import FirstForm from '../components/FirstForm';
 
 const HomePage = props => (
   <div>
-    <Nav />
-    <p>Home page</p>
+    {/* <Nav /> */}
+    <FirstForm />
   </div>
 );
 
