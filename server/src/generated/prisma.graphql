@@ -1,344 +1,5 @@
-# timestamp: Mon Oct 01 2018 13:03:47 GMT+0300 (Türkiye Standart Saati)
-
-type AggregateApplication {
+type AggregateInitialForm {
   count: Int!
-}
-
-type AggregateUser {
-  count: Int!
-}
-
-type Application implements Node {
-  id: ID!
-  user: User!
-  otherinfo1: String!
-  gpa: Float!
-}
-
-"""
-A connection to a list of items.
-"""
-type ApplicationConnection {
-  """
-  Information to aid in pagination.
-  """
-  pageInfo: PageInfo!
-
-  """
-  A list of edges.
-  """
-  edges: [ApplicationEdge]!
-  aggregate: AggregateApplication!
-}
-
-input ApplicationCreateInput {
-  otherinfo1: String!
-  gpa: Float!
-  user: UserCreateOneWithoutApplicationInput!
-}
-
-input ApplicationCreateOneWithoutUserInput {
-  create: ApplicationCreateWithoutUserInput
-  connect: ApplicationWhereUniqueInput
-}
-
-input ApplicationCreateWithoutUserInput {
-  otherinfo1: String!
-  gpa: Float!
-}
-
-"""
-An edge in a connection.
-"""
-type ApplicationEdge {
-  """
-  The item at the end of the edge.
-  """
-  node: Application!
-
-  """
-  A cursor for use in pagination.
-  """
-  cursor: String!
-}
-
-enum ApplicationOrderByInput {
-  id_ASC
-  id_DESC
-  otherinfo1_ASC
-  otherinfo1_DESC
-  gpa_ASC
-  gpa_DESC
-  updatedAt_ASC
-  updatedAt_DESC
-  createdAt_ASC
-  createdAt_DESC
-}
-
-type ApplicationPreviousValues {
-  id: ID!
-  otherinfo1: String!
-  gpa: Float!
-}
-
-type ApplicationSubscriptionPayload {
-  mutation: MutationType!
-  node: Application
-  updatedFields: [String!]
-  previousValues: ApplicationPreviousValues
-}
-
-input ApplicationSubscriptionWhereInput {
-  """
-  Logical AND on all given filters.
-  """
-  AND: [ApplicationSubscriptionWhereInput!]
-
-  """
-  Logical OR on all given filters.
-  """
-  OR: [ApplicationSubscriptionWhereInput!]
-
-  """
-  Logical NOT on all given filters combined by AND.
-  """
-  NOT: [ApplicationSubscriptionWhereInput!]
-
-  """
-  The subscription event gets dispatched when it's listed in mutation_in
-  """
-  mutation_in: [MutationType!]
-
-  """
-  The subscription event gets only dispatched when one of the updated fields names is included in this list
-  """
-  updatedFields_contains: String
-
-  """
-  The subscription event gets only dispatched when all of the field names included in this list have been updated
-  """
-  updatedFields_contains_every: [String!]
-
-  """
-  The subscription event gets only dispatched when some of the field names included in this list have been updated
-  """
-  updatedFields_contains_some: [String!]
-  node: ApplicationWhereInput
-}
-
-input ApplicationUpdateInput {
-  otherinfo1: String
-  gpa: Float
-  user: UserUpdateOneRequiredWithoutApplicationInput
-}
-
-input ApplicationUpdateOneWithoutUserInput {
-  create: ApplicationCreateWithoutUserInput
-  connect: ApplicationWhereUniqueInput
-  disconnect: Boolean
-  delete: Boolean
-  update: ApplicationUpdateWithoutUserDataInput
-  upsert: ApplicationUpsertWithoutUserInput
-}
-
-input ApplicationUpdateWithoutUserDataInput {
-  otherinfo1: String
-  gpa: Float
-}
-
-input ApplicationUpsertWithoutUserInput {
-  update: ApplicationUpdateWithoutUserDataInput!
-  create: ApplicationCreateWithoutUserInput!
-}
-
-input ApplicationWhereInput {
-  """
-  Logical AND on all given filters.
-  """
-  AND: [ApplicationWhereInput!]
-
-  """
-  Logical OR on all given filters.
-  """
-  OR: [ApplicationWhereInput!]
-
-  """
-  Logical NOT on all given filters combined by AND.
-  """
-  NOT: [ApplicationWhereInput!]
-  id: ID
-
-  """
-  All values that are not equal to given value.
-  """
-  id_not: ID
-
-  """
-  All values that are contained in given list.
-  """
-  id_in: [ID!]
-
-  """
-  All values that are not contained in given list.
-  """
-  id_not_in: [ID!]
-
-  """
-  All values less than the given value.
-  """
-  id_lt: ID
-
-  """
-  All values less than or equal the given value.
-  """
-  id_lte: ID
-
-  """
-  All values greater than the given value.
-  """
-  id_gt: ID
-
-  """
-  All values greater than or equal the given value.
-  """
-  id_gte: ID
-
-  """
-  All values containing the given string.
-  """
-  id_contains: ID
-
-  """
-  All values not containing the given string.
-  """
-  id_not_contains: ID
-
-  """
-  All values starting with the given string.
-  """
-  id_starts_with: ID
-
-  """
-  All values not starting with the given string.
-  """
-  id_not_starts_with: ID
-
-  """
-  All values ending with the given string.
-  """
-  id_ends_with: ID
-
-  """
-  All values not ending with the given string.
-  """
-  id_not_ends_with: ID
-  otherinfo1: String
-
-  """
-  All values that are not equal to given value.
-  """
-  otherinfo1_not: String
-
-  """
-  All values that are contained in given list.
-  """
-  otherinfo1_in: [String!]
-
-  """
-  All values that are not contained in given list.
-  """
-  otherinfo1_not_in: [String!]
-
-  """
-  All values less than the given value.
-  """
-  otherinfo1_lt: String
-
-  """
-  All values less than or equal the given value.
-  """
-  otherinfo1_lte: String
-
-  """
-  All values greater than the given value.
-  """
-  otherinfo1_gt: String
-
-  """
-  All values greater than or equal the given value.
-  """
-  otherinfo1_gte: String
-
-  """
-  All values containing the given string.
-  """
-  otherinfo1_contains: String
-
-  """
-  All values not containing the given string.
-  """
-  otherinfo1_not_contains: String
-
-  """
-  All values starting with the given string.
-  """
-  otherinfo1_starts_with: String
-
-  """
-  All values not starting with the given string.
-  """
-  otherinfo1_not_starts_with: String
-
-  """
-  All values ending with the given string.
-  """
-  otherinfo1_ends_with: String
-
-  """
-  All values not ending with the given string.
-  """
-  otherinfo1_not_ends_with: String
-  gpa: Float
-
-  """
-  All values that are not equal to given value.
-  """
-  gpa_not: Float
-
-  """
-  All values that are contained in given list.
-  """
-  gpa_in: [Float!]
-
-  """
-  All values that are not contained in given list.
-  """
-  gpa_not_in: [Float!]
-
-  """
-  All values less than the given value.
-  """
-  gpa_lt: Float
-
-  """
-  All values less than or equal the given value.
-  """
-  gpa_lte: Float
-
-  """
-  All values greater than the given value.
-  """
-  gpa_gt: Float
-
-  """
-  All values greater than or equal the given value.
-  """
-  gpa_gte: Float
-  user: UserWhereInput
-}
-
-input ApplicationWhereUniqueInput {
-  id: ID
 }
 
 type BatchPayload {
@@ -348,161 +9,26 @@ type BatchPayload {
   count: Long!
 }
 
-"""
-The `Long` scalar type represents non-fractional signed whole numeric values.
-Long can represent values between -(2^63) and 2^63 - 1.
-"""
-scalar Long
-
-type Mutation {
-  createUser(data: UserCreateInput!): User!
-  createApplication(data: ApplicationCreateInput!): Application!
-  updateUser(data: UserUpdateInput!, where: UserWhereUniqueInput!): User
-  updateApplication(
-    data: ApplicationUpdateInput!
-    where: ApplicationWhereUniqueInput!
-  ): Application
-  deleteUser(where: UserWhereUniqueInput!): User
-  deleteApplication(where: ApplicationWhereUniqueInput!): Application
-  upsertUser(
-    where: UserWhereUniqueInput!
-    create: UserCreateInput!
-    update: UserUpdateInput!
-  ): User!
-  upsertApplication(
-    where: ApplicationWhereUniqueInput!
-    create: ApplicationCreateInput!
-    update: ApplicationUpdateInput!
-  ): Application!
-  updateManyUsers(data: UserUpdateInput!, where: UserWhereInput): BatchPayload!
-  updateManyApplications(
-    data: ApplicationUpdateInput!
-    where: ApplicationWhereInput
-  ): BatchPayload!
-  deleteManyUsers(where: UserWhereInput): BatchPayload!
-  deleteManyApplications(where: ApplicationWhereInput): BatchPayload!
-}
-
-enum MutationType {
-  CREATED
-  UPDATED
-  DELETED
-}
-
-"""
-An object with an ID
-"""
-interface Node {
-  """
-  The id of the object.
-  """
+type InitialForm implements Node {
   id: ID!
-}
-
-"""
-Information about pagination in a connection.
-"""
-type PageInfo {
-  """
-  When paginating forwards, are there more items?
-  """
-  hasNextPage: Boolean!
-
-  """
-  When paginating backwards, are there more items?
-  """
-  hasPreviousPage: Boolean!
-
-  """
-  When paginating backwards, the cursor to continue.
-  """
-  startCursor: String
-
-  """
-  When paginating forwards, the cursor to continue.
-  """
-  endCursor: String
-}
-
-enum Permission {
-  ADMIN
-  USER
-  DEMO
-}
-
-type Query {
-  users(
-    where: UserWhereInput
-    orderBy: UserOrderByInput
-    skip: Int
-    after: String
-    before: String
-    first: Int
-    last: Int
-  ): [User]!
-  applications(
-    where: ApplicationWhereInput
-    orderBy: ApplicationOrderByInput
-    skip: Int
-    after: String
-    before: String
-    first: Int
-    last: Int
-  ): [Application]!
-  user(where: UserWhereUniqueInput!): User
-  application(where: ApplicationWhereUniqueInput!): Application
-  usersConnection(
-    where: UserWhereInput
-    orderBy: UserOrderByInput
-    skip: Int
-    after: String
-    before: String
-    first: Int
-    last: Int
-  ): UserConnection!
-  applicationsConnection(
-    where: ApplicationWhereInput
-    orderBy: ApplicationOrderByInput
-    skip: Int
-    after: String
-    before: String
-    first: Int
-    last: Int
-  ): ApplicationConnection!
-
-  """
-  Fetches an object given its ID
-  """
-  node(
-    """
-    The ID of an object
-    """
-    id: ID!
-  ): Node
-}
-
-type Subscription {
-  user(where: UserSubscriptionWhereInput): UserSubscriptionPayload
-  application(
-    where: ApplicationSubscriptionWhereInput
-  ): ApplicationSubscriptionPayload
-}
-
-type User implements Node {
-  id: ID!
-  name: String!
   email: String!
-  password: String!
-  resetToken: String
-  resetTokenExpiry: Float
-  permissions: [Permission!]!
-  application: Application
+  name: String!
+  lastname: String!
+  university: String!
+  universityYear: String!
+  universityDept: String!
+  gpa: String!
+  longQuestion1: String!
+  longQuestion2: String!
+  longQuestion3: String!
+  longQuestion4: String!
+  aboutUs: String!
 }
 
 """
 A connection to a list of items.
 """
-type UserConnection {
+type InitialFormConnection {
   """
   Information to aid in pagination.
   """
@@ -511,46 +37,33 @@ type UserConnection {
   """
   A list of edges.
   """
-  edges: [UserEdge]!
-  aggregate: AggregateUser!
+  edges: [InitialFormEdge]!
+  aggregate: AggregateInitialForm!
 }
 
-input UserCreateInput {
-  name: String!
+input InitialFormCreateInput {
   email: String!
-  password: String!
-  resetToken: String
-  resetTokenExpiry: Float
-  permissions: UserCreatepermissionsInput
-  application: ApplicationCreateOneWithoutUserInput
-}
-
-input UserCreateOneWithoutApplicationInput {
-  create: UserCreateWithoutApplicationInput
-  connect: UserWhereUniqueInput
-}
-
-input UserCreatepermissionsInput {
-  set: [Permission!]
-}
-
-input UserCreateWithoutApplicationInput {
   name: String!
-  email: String!
-  password: String!
-  resetToken: String
-  resetTokenExpiry: Float
-  permissions: UserCreatepermissionsInput
+  lastname: String!
+  university: String!
+  universityYear: String!
+  universityDept: String!
+  gpa: String!
+  longQuestion1: String!
+  longQuestion2: String!
+  longQuestion3: String!
+  longQuestion4: String!
+  aboutUs: String!
 }
 
 """
 An edge in a connection.
 """
-type UserEdge {
+type InitialFormEdge {
   """
   The item at the end of the edge.
   """
-  node: User!
+  node: InitialForm!
 
   """
   A cursor for use in pagination.
@@ -558,57 +71,77 @@ type UserEdge {
   cursor: String!
 }
 
-enum UserOrderByInput {
+enum InitialFormOrderByInput {
   id_ASC
   id_DESC
-  name_ASC
-  name_DESC
   email_ASC
   email_DESC
-  password_ASC
-  password_DESC
-  resetToken_ASC
-  resetToken_DESC
-  resetTokenExpiry_ASC
-  resetTokenExpiry_DESC
+  name_ASC
+  name_DESC
+  lastname_ASC
+  lastname_DESC
+  university_ASC
+  university_DESC
+  universityYear_ASC
+  universityYear_DESC
+  universityDept_ASC
+  universityDept_DESC
+  gpa_ASC
+  gpa_DESC
+  longQuestion1_ASC
+  longQuestion1_DESC
+  longQuestion2_ASC
+  longQuestion2_DESC
+  longQuestion3_ASC
+  longQuestion3_DESC
+  longQuestion4_ASC
+  longQuestion4_DESC
+  aboutUs_ASC
+  aboutUs_DESC
   updatedAt_ASC
   updatedAt_DESC
   createdAt_ASC
   createdAt_DESC
 }
 
-type UserPreviousValues {
+type InitialFormPreviousValues {
   id: ID!
-  name: String!
   email: String!
-  password: String!
-  resetToken: String
-  resetTokenExpiry: Float
-  permissions: [Permission!]!
+  name: String!
+  lastname: String!
+  university: String!
+  universityYear: String!
+  universityDept: String!
+  gpa: String!
+  longQuestion1: String!
+  longQuestion2: String!
+  longQuestion3: String!
+  longQuestion4: String!
+  aboutUs: String!
 }
 
-type UserSubscriptionPayload {
+type InitialFormSubscriptionPayload {
   mutation: MutationType!
-  node: User
+  node: InitialForm
   updatedFields: [String!]
-  previousValues: UserPreviousValues
+  previousValues: InitialFormPreviousValues
 }
 
-input UserSubscriptionWhereInput {
+input InitialFormSubscriptionWhereInput {
   """
   Logical AND on all given filters.
   """
-  AND: [UserSubscriptionWhereInput!]
+  AND: [InitialFormSubscriptionWhereInput!]
 
   """
   Logical OR on all given filters.
   """
-  OR: [UserSubscriptionWhereInput!]
+  OR: [InitialFormSubscriptionWhereInput!]
 
   """
   Logical NOT on all given filters combined by AND.
   """
-  NOT: [UserSubscriptionWhereInput!]
+  NOT: [InitialFormSubscriptionWhereInput!]
 
   """
   The subscription event gets dispatched when it's listed in mutation_in
@@ -629,59 +162,54 @@ input UserSubscriptionWhereInput {
   The subscription event gets only dispatched when some of the field names included in this list have been updated
   """
   updatedFields_contains_some: [String!]
-  node: UserWhereInput
+  node: InitialFormWhereInput
 }
 
-input UserUpdateInput {
-  name: String
+input InitialFormUpdateInput {
   email: String
-  password: String
-  resetToken: String
-  resetTokenExpiry: Float
-  permissions: UserUpdatepermissionsInput
-  application: ApplicationUpdateOneWithoutUserInput
-}
-
-input UserUpdateOneRequiredWithoutApplicationInput {
-  create: UserCreateWithoutApplicationInput
-  connect: UserWhereUniqueInput
-  update: UserUpdateWithoutApplicationDataInput
-  upsert: UserUpsertWithoutApplicationInput
-}
-
-input UserUpdatepermissionsInput {
-  set: [Permission!]
-}
-
-input UserUpdateWithoutApplicationDataInput {
   name: String
+  lastname: String
+  university: String
+  universityYear: String
+  universityDept: String
+  gpa: String
+  longQuestion1: String
+  longQuestion2: String
+  longQuestion3: String
+  longQuestion4: String
+  aboutUs: String
+}
+
+input InitialFormUpdateManyMutationInput {
   email: String
-  password: String
-  resetToken: String
-  resetTokenExpiry: Float
-  permissions: UserUpdatepermissionsInput
+  name: String
+  lastname: String
+  university: String
+  universityYear: String
+  universityDept: String
+  gpa: String
+  longQuestion1: String
+  longQuestion2: String
+  longQuestion3: String
+  longQuestion4: String
+  aboutUs: String
 }
 
-input UserUpsertWithoutApplicationInput {
-  update: UserUpdateWithoutApplicationDataInput!
-  create: UserCreateWithoutApplicationInput!
-}
-
-input UserWhereInput {
+input InitialFormWhereInput {
   """
   Logical AND on all given filters.
   """
-  AND: [UserWhereInput!]
+  AND: [InitialFormWhereInput!]
 
   """
   Logical OR on all given filters.
   """
-  OR: [UserWhereInput!]
+  OR: [InitialFormWhereInput!]
 
   """
   Logical NOT on all given filters combined by AND.
   """
-  NOT: [UserWhereInput!]
+  NOT: [InitialFormWhereInput!]
   id: ID
 
   """
@@ -748,72 +276,6 @@ input UserWhereInput {
   All values not ending with the given string.
   """
   id_not_ends_with: ID
-  name: String
-
-  """
-  All values that are not equal to given value.
-  """
-  name_not: String
-
-  """
-  All values that are contained in given list.
-  """
-  name_in: [String!]
-
-  """
-  All values that are not contained in given list.
-  """
-  name_not_in: [String!]
-
-  """
-  All values less than the given value.
-  """
-  name_lt: String
-
-  """
-  All values less than or equal the given value.
-  """
-  name_lte: String
-
-  """
-  All values greater than the given value.
-  """
-  name_gt: String
-
-  """
-  All values greater than or equal the given value.
-  """
-  name_gte: String
-
-  """
-  All values containing the given string.
-  """
-  name_contains: String
-
-  """
-  All values not containing the given string.
-  """
-  name_not_contains: String
-
-  """
-  All values starting with the given string.
-  """
-  name_starts_with: String
-
-  """
-  All values not starting with the given string.
-  """
-  name_not_starts_with: String
-
-  """
-  All values ending with the given string.
-  """
-  name_ends_with: String
-
-  """
-  All values not ending with the given string.
-  """
-  name_not_ends_with: String
   email: String
 
   """
@@ -880,178 +342,838 @@ input UserWhereInput {
   All values not ending with the given string.
   """
   email_not_ends_with: String
-  password: String
+  name: String
 
   """
   All values that are not equal to given value.
   """
-  password_not: String
+  name_not: String
 
   """
   All values that are contained in given list.
   """
-  password_in: [String!]
+  name_in: [String!]
 
   """
   All values that are not contained in given list.
   """
-  password_not_in: [String!]
+  name_not_in: [String!]
 
   """
   All values less than the given value.
   """
-  password_lt: String
+  name_lt: String
 
   """
   All values less than or equal the given value.
   """
-  password_lte: String
+  name_lte: String
 
   """
   All values greater than the given value.
   """
-  password_gt: String
+  name_gt: String
 
   """
   All values greater than or equal the given value.
   """
-  password_gte: String
+  name_gte: String
 
   """
   All values containing the given string.
   """
-  password_contains: String
+  name_contains: String
 
   """
   All values not containing the given string.
   """
-  password_not_contains: String
+  name_not_contains: String
 
   """
   All values starting with the given string.
   """
-  password_starts_with: String
+  name_starts_with: String
 
   """
   All values not starting with the given string.
   """
-  password_not_starts_with: String
+  name_not_starts_with: String
 
   """
   All values ending with the given string.
   """
-  password_ends_with: String
+  name_ends_with: String
 
   """
   All values not ending with the given string.
   """
-  password_not_ends_with: String
-  resetToken: String
+  name_not_ends_with: String
+  lastname: String
 
   """
   All values that are not equal to given value.
   """
-  resetToken_not: String
+  lastname_not: String
 
   """
   All values that are contained in given list.
   """
-  resetToken_in: [String!]
+  lastname_in: [String!]
 
   """
   All values that are not contained in given list.
   """
-  resetToken_not_in: [String!]
+  lastname_not_in: [String!]
 
   """
   All values less than the given value.
   """
-  resetToken_lt: String
+  lastname_lt: String
 
   """
   All values less than or equal the given value.
   """
-  resetToken_lte: String
+  lastname_lte: String
 
   """
   All values greater than the given value.
   """
-  resetToken_gt: String
+  lastname_gt: String
 
   """
   All values greater than or equal the given value.
   """
-  resetToken_gte: String
+  lastname_gte: String
 
   """
   All values containing the given string.
   """
-  resetToken_contains: String
+  lastname_contains: String
 
   """
   All values not containing the given string.
   """
-  resetToken_not_contains: String
+  lastname_not_contains: String
 
   """
   All values starting with the given string.
   """
-  resetToken_starts_with: String
+  lastname_starts_with: String
 
   """
   All values not starting with the given string.
   """
-  resetToken_not_starts_with: String
+  lastname_not_starts_with: String
 
   """
   All values ending with the given string.
   """
-  resetToken_ends_with: String
+  lastname_ends_with: String
 
   """
   All values not ending with the given string.
   """
-  resetToken_not_ends_with: String
-  resetTokenExpiry: Float
+  lastname_not_ends_with: String
+  university: String
 
   """
   All values that are not equal to given value.
   """
-  resetTokenExpiry_not: Float
+  university_not: String
 
   """
   All values that are contained in given list.
   """
-  resetTokenExpiry_in: [Float!]
+  university_in: [String!]
 
   """
   All values that are not contained in given list.
   """
-  resetTokenExpiry_not_in: [Float!]
+  university_not_in: [String!]
 
   """
   All values less than the given value.
   """
-  resetTokenExpiry_lt: Float
+  university_lt: String
 
   """
   All values less than or equal the given value.
   """
-  resetTokenExpiry_lte: Float
+  university_lte: String
 
   """
   All values greater than the given value.
   """
-  resetTokenExpiry_gt: Float
+  university_gt: String
 
   """
   All values greater than or equal the given value.
   """
-  resetTokenExpiry_gte: Float
-  application: ApplicationWhereInput
+  university_gte: String
+
+  """
+  All values containing the given string.
+  """
+  university_contains: String
+
+  """
+  All values not containing the given string.
+  """
+  university_not_contains: String
+
+  """
+  All values starting with the given string.
+  """
+  university_starts_with: String
+
+  """
+  All values not starting with the given string.
+  """
+  university_not_starts_with: String
+
+  """
+  All values ending with the given string.
+  """
+  university_ends_with: String
+
+  """
+  All values not ending with the given string.
+  """
+  university_not_ends_with: String
+  universityYear: String
+
+  """
+  All values that are not equal to given value.
+  """
+  universityYear_not: String
+
+  """
+  All values that are contained in given list.
+  """
+  universityYear_in: [String!]
+
+  """
+  All values that are not contained in given list.
+  """
+  universityYear_not_in: [String!]
+
+  """
+  All values less than the given value.
+  """
+  universityYear_lt: String
+
+  """
+  All values less than or equal the given value.
+  """
+  universityYear_lte: String
+
+  """
+  All values greater than the given value.
+  """
+  universityYear_gt: String
+
+  """
+  All values greater than or equal the given value.
+  """
+  universityYear_gte: String
+
+  """
+  All values containing the given string.
+  """
+  universityYear_contains: String
+
+  """
+  All values not containing the given string.
+  """
+  universityYear_not_contains: String
+
+  """
+  All values starting with the given string.
+  """
+  universityYear_starts_with: String
+
+  """
+  All values not starting with the given string.
+  """
+  universityYear_not_starts_with: String
+
+  """
+  All values ending with the given string.
+  """
+  universityYear_ends_with: String
+
+  """
+  All values not ending with the given string.
+  """
+  universityYear_not_ends_with: String
+  universityDept: String
+
+  """
+  All values that are not equal to given value.
+  """
+  universityDept_not: String
+
+  """
+  All values that are contained in given list.
+  """
+  universityDept_in: [String!]
+
+  """
+  All values that are not contained in given list.
+  """
+  universityDept_not_in: [String!]
+
+  """
+  All values less than the given value.
+  """
+  universityDept_lt: String
+
+  """
+  All values less than or equal the given value.
+  """
+  universityDept_lte: String
+
+  """
+  All values greater than the given value.
+  """
+  universityDept_gt: String
+
+  """
+  All values greater than or equal the given value.
+  """
+  universityDept_gte: String
+
+  """
+  All values containing the given string.
+  """
+  universityDept_contains: String
+
+  """
+  All values not containing the given string.
+  """
+  universityDept_not_contains: String
+
+  """
+  All values starting with the given string.
+  """
+  universityDept_starts_with: String
+
+  """
+  All values not starting with the given string.
+  """
+  universityDept_not_starts_with: String
+
+  """
+  All values ending with the given string.
+  """
+  universityDept_ends_with: String
+
+  """
+  All values not ending with the given string.
+  """
+  universityDept_not_ends_with: String
+  gpa: String
+
+  """
+  All values that are not equal to given value.
+  """
+  gpa_not: String
+
+  """
+  All values that are contained in given list.
+  """
+  gpa_in: [String!]
+
+  """
+  All values that are not contained in given list.
+  """
+  gpa_not_in: [String!]
+
+  """
+  All values less than the given value.
+  """
+  gpa_lt: String
+
+  """
+  All values less than or equal the given value.
+  """
+  gpa_lte: String
+
+  """
+  All values greater than the given value.
+  """
+  gpa_gt: String
+
+  """
+  All values greater than or equal the given value.
+  """
+  gpa_gte: String
+
+  """
+  All values containing the given string.
+  """
+  gpa_contains: String
+
+  """
+  All values not containing the given string.
+  """
+  gpa_not_contains: String
+
+  """
+  All values starting with the given string.
+  """
+  gpa_starts_with: String
+
+  """
+  All values not starting with the given string.
+  """
+  gpa_not_starts_with: String
+
+  """
+  All values ending with the given string.
+  """
+  gpa_ends_with: String
+
+  """
+  All values not ending with the given string.
+  """
+  gpa_not_ends_with: String
+  longQuestion1: String
+
+  """
+  All values that are not equal to given value.
+  """
+  longQuestion1_not: String
+
+  """
+  All values that are contained in given list.
+  """
+  longQuestion1_in: [String!]
+
+  """
+  All values that are not contained in given list.
+  """
+  longQuestion1_not_in: [String!]
+
+  """
+  All values less than the given value.
+  """
+  longQuestion1_lt: String
+
+  """
+  All values less than or equal the given value.
+  """
+  longQuestion1_lte: String
+
+  """
+  All values greater than the given value.
+  """
+  longQuestion1_gt: String
+
+  """
+  All values greater than or equal the given value.
+  """
+  longQuestion1_gte: String
+
+  """
+  All values containing the given string.
+  """
+  longQuestion1_contains: String
+
+  """
+  All values not containing the given string.
+  """
+  longQuestion1_not_contains: String
+
+  """
+  All values starting with the given string.
+  """
+  longQuestion1_starts_with: String
+
+  """
+  All values not starting with the given string.
+  """
+  longQuestion1_not_starts_with: String
+
+  """
+  All values ending with the given string.
+  """
+  longQuestion1_ends_with: String
+
+  """
+  All values not ending with the given string.
+  """
+  longQuestion1_not_ends_with: String
+  longQuestion2: String
+
+  """
+  All values that are not equal to given value.
+  """
+  longQuestion2_not: String
+
+  """
+  All values that are contained in given list.
+  """
+  longQuestion2_in: [String!]
+
+  """
+  All values that are not contained in given list.
+  """
+  longQuestion2_not_in: [String!]
+
+  """
+  All values less than the given value.
+  """
+  longQuestion2_lt: String
+
+  """
+  All values less than or equal the given value.
+  """
+  longQuestion2_lte: String
+
+  """
+  All values greater than the given value.
+  """
+  longQuestion2_gt: String
+
+  """
+  All values greater than or equal the given value.
+  """
+  longQuestion2_gte: String
+
+  """
+  All values containing the given string.
+  """
+  longQuestion2_contains: String
+
+  """
+  All values not containing the given string.
+  """
+  longQuestion2_not_contains: String
+
+  """
+  All values starting with the given string.
+  """
+  longQuestion2_starts_with: String
+
+  """
+  All values not starting with the given string.
+  """
+  longQuestion2_not_starts_with: String
+
+  """
+  All values ending with the given string.
+  """
+  longQuestion2_ends_with: String
+
+  """
+  All values not ending with the given string.
+  """
+  longQuestion2_not_ends_with: String
+  longQuestion3: String
+
+  """
+  All values that are not equal to given value.
+  """
+  longQuestion3_not: String
+
+  """
+  All values that are contained in given list.
+  """
+  longQuestion3_in: [String!]
+
+  """
+  All values that are not contained in given list.
+  """
+  longQuestion3_not_in: [String!]
+
+  """
+  All values less than the given value.
+  """
+  longQuestion3_lt: String
+
+  """
+  All values less than or equal the given value.
+  """
+  longQuestion3_lte: String
+
+  """
+  All values greater than the given value.
+  """
+  longQuestion3_gt: String
+
+  """
+  All values greater than or equal the given value.
+  """
+  longQuestion3_gte: String
+
+  """
+  All values containing the given string.
+  """
+  longQuestion3_contains: String
+
+  """
+  All values not containing the given string.
+  """
+  longQuestion3_not_contains: String
+
+  """
+  All values starting with the given string.
+  """
+  longQuestion3_starts_with: String
+
+  """
+  All values not starting with the given string.
+  """
+  longQuestion3_not_starts_with: String
+
+  """
+  All values ending with the given string.
+  """
+  longQuestion3_ends_with: String
+
+  """
+  All values not ending with the given string.
+  """
+  longQuestion3_not_ends_with: String
+  longQuestion4: String
+
+  """
+  All values that are not equal to given value.
+  """
+  longQuestion4_not: String
+
+  """
+  All values that are contained in given list.
+  """
+  longQuestion4_in: [String!]
+
+  """
+  All values that are not contained in given list.
+  """
+  longQuestion4_not_in: [String!]
+
+  """
+  All values less than the given value.
+  """
+  longQuestion4_lt: String
+
+  """
+  All values less than or equal the given value.
+  """
+  longQuestion4_lte: String
+
+  """
+  All values greater than the given value.
+  """
+  longQuestion4_gt: String
+
+  """
+  All values greater than or equal the given value.
+  """
+  longQuestion4_gte: String
+
+  """
+  All values containing the given string.
+  """
+  longQuestion4_contains: String
+
+  """
+  All values not containing the given string.
+  """
+  longQuestion4_not_contains: String
+
+  """
+  All values starting with the given string.
+  """
+  longQuestion4_starts_with: String
+
+  """
+  All values not starting with the given string.
+  """
+  longQuestion4_not_starts_with: String
+
+  """
+  All values ending with the given string.
+  """
+  longQuestion4_ends_with: String
+
+  """
+  All values not ending with the given string.
+  """
+  longQuestion4_not_ends_with: String
+  aboutUs: String
+
+  """
+  All values that are not equal to given value.
+  """
+  aboutUs_not: String
+
+  """
+  All values that are contained in given list.
+  """
+  aboutUs_in: [String!]
+
+  """
+  All values that are not contained in given list.
+  """
+  aboutUs_not_in: [String!]
+
+  """
+  All values less than the given value.
+  """
+  aboutUs_lt: String
+
+  """
+  All values less than or equal the given value.
+  """
+  aboutUs_lte: String
+
+  """
+  All values greater than the given value.
+  """
+  aboutUs_gt: String
+
+  """
+  All values greater than or equal the given value.
+  """
+  aboutUs_gte: String
+
+  """
+  All values containing the given string.
+  """
+  aboutUs_contains: String
+
+  """
+  All values not containing the given string.
+  """
+  aboutUs_not_contains: String
+
+  """
+  All values starting with the given string.
+  """
+  aboutUs_starts_with: String
+
+  """
+  All values not starting with the given string.
+  """
+  aboutUs_not_starts_with: String
+
+  """
+  All values ending with the given string.
+  """
+  aboutUs_ends_with: String
+
+  """
+  All values not ending with the given string.
+  """
+  aboutUs_not_ends_with: String
 }
 
-input UserWhereUniqueInput {
+input InitialFormWhereUniqueInput {
   id: ID
-  email: String
+}
+
+"""
+The `Long` scalar type represents non-fractional signed whole numeric values.
+Long can represent values between -(2^63) and 2^63 - 1.
+"""
+scalar Long
+
+type Mutation {
+  createInitialForm(data: InitialFormCreateInput!): InitialForm!
+  updateInitialForm(
+    data: InitialFormUpdateInput!
+    where: InitialFormWhereUniqueInput!
+  ): InitialForm
+  deleteInitialForm(where: InitialFormWhereUniqueInput!): InitialForm
+  upsertInitialForm(
+    where: InitialFormWhereUniqueInput!
+    create: InitialFormCreateInput!
+    update: InitialFormUpdateInput!
+  ): InitialForm!
+  updateManyInitialForms(
+    data: InitialFormUpdateManyMutationInput!
+    where: InitialFormWhereInput
+  ): BatchPayload!
+  deleteManyInitialForms(where: InitialFormWhereInput): BatchPayload!
+}
+
+enum MutationType {
+  CREATED
+  UPDATED
+  DELETED
+}
+
+"""
+An object with an ID
+"""
+interface Node {
+  """
+  The id of the object.
+  """
+  id: ID!
+}
+
+"""
+Information about pagination in a connection.
+"""
+type PageInfo {
+  """
+  When paginating forwards, are there more items?
+  """
+  hasNextPage: Boolean!
+
+  """
+  When paginating backwards, are there more items?
+  """
+  hasPreviousPage: Boolean!
+
+  """
+  When paginating backwards, the cursor to continue.
+  """
+  startCursor: String
+
+  """
+  When paginating forwards, the cursor to continue.
+  """
+  endCursor: String
+}
+
+type Query {
+  initialForms(
+    where: InitialFormWhereInput
+    orderBy: InitialFormOrderByInput
+    skip: Int
+    after: String
+    before: String
+    first: Int
+    last: Int
+  ): [InitialForm]!
+  initialForm(where: InitialFormWhereUniqueInput!): InitialForm
+  initialFormsConnection(
+    where: InitialFormWhereInput
+    orderBy: InitialFormOrderByInput
+    skip: Int
+    after: String
+    before: String
+    first: Int
+    last: Int
+  ): InitialFormConnection!
+
+  """
+  Fetches an object given its ID
+  """
+  node(
+    """
+    The ID of an object
+    """
+    id: ID!
+  ): Node
+}
+
+type Subscription {
+  initialForm(
+    where: InitialFormSubscriptionWhereInput
+  ): InitialFormSubscriptionPayload
 }

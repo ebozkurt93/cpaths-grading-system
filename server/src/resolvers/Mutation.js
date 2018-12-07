@@ -1,10 +1,11 @@
-const bcrypt = require('bcryptjs');
-const { randomBytes } = require('crypto');
-const { promisify } = require('util');
-const { hasPermission, generateJWTToken } = require('../utils');
-const { transport, createMail } = require('../mail');
+// const bcrypt = require('bcryptjs');
+// const { randomBytes } = require('crypto');
+// const { promisify } = require('util');
+// const { hasPermission, generateJWTToken } = require('../utils');
+// const { transport, createMail } = require('../mail');
 
 const Mutation = {
+  /*
   async signup(parent, args, ctx, info) {
     // lowercase their email
     args.email = args.email.toLowerCase();
@@ -105,26 +106,27 @@ const Mutation = {
     // 8. return the new user
     return updatedUser;
   },
-  async registerApplication(parent, { otherinfo1, gpa }, ctx, info) {
+  */
+  async registerApplication(parent, args, ctx, info) {
     // 1. Check if there is a user with given email
-    const user = ctx.request.user;
-    if (!user) {
-      return new Error('Not logged in');
-    }
     // 2. Check if there is an application for current user
-    if (user.application) {
-      return new Error('Already applied?');
-    }
-    // TODO 3. Check necessary data boundaries to check if form is tampered with (Ex: GPA > 4)
-    // 4. Save form to database
-    const application = await ctx.db.mutation.createApplication({
+    // TODO
+
+    // 3. Save form to database
+    // const application = await ctx.db.mutation.createApplication({
+    //   data: {
+    //     otherinfo1,
+    //     gpa
+    //   }
+    // });
+    // 4. Send success message to client
+    console.clear();
+    console.log(args);
+    const application = await ctx.db.mutation.createInitialForm({
       data: {
-        user: { connect: { id: ctx.request.userId } },
-        otherinfo1,
-        gpa
+        ...args
       }
     });
-    // 5. Send success message to client
     return { message: 'Success' };
   }
 };

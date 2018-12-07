@@ -5,26 +5,41 @@ type SuccessMessage {
 }
 
 type Mutation {
-  signup(email: String!, password: String!, name: String!): User!
-  login(email: String!, password: String!): User!
-  logout: SuccessMessage
-  requestPasswordReset(email: String!): SuccessMessage
-  resetPassword(
-    resetToken: String!
-    password: String!
-    confirmPassword: String!
-  ): User!
-  registerApplication(otherinfo1: String!, gpa: Float!): SuccessMessage
+  # signup(email: String!, password: String!, name: String!): User!
+  # login(email: String!, password: String!): User!
+  # logout: SuccessMessage
+  # requestPasswordReset(email: String!): SuccessMessage
+  # resetPassword(
+  #   resetToken: String!
+  #   password: String!
+  #   confirmPassword: String!
+  # ): User!
+  # registerApplication(otherinfo1: String!, gpa: Float!): SuccessMessage
+  registerApplication(
+    email: String!
+    name: String!
+    lastname: String!
+    university: String!
+    universityYear: String!
+    universityDept: String!
+    gpa: String!
+    longQuestion1: String!
+    longQuestion2: String!
+    longQuestion3: String!
+    longQuestion4: String!
+    aboutUs: String!
+  ): SuccessMessage
 }
 
 type Query {
-  me: User
-  applications: [Application]!
+  forms: [InitialForm]!
+  #   me: User
+  #   applications: [Application]!
 }
 
-type User {
-  id: ID!
-  name: String!
-  email: String!
-  permissions: [Permission!]!
-}
+# type User {
+#   id: ID!
+#   name: String!
+#   email: String!
+#   permissions: [Permission!]!
+# }
