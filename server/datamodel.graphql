@@ -31,6 +31,8 @@ type InitialForm {
   universityYear: String!
   universityDept: String!
   gpa: String!
+  cv: String!
+  transcript: String!
   longQuestion1: String!
   longQuestion2: String!
   longQuestion3: String!

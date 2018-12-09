@@ -3,6 +3,28 @@
 // const { promisify } = require('util');
 // const { hasPermission, generateJWTToken } = require('../utils');
 // const { transport, createMail } = require('../mail');
+const fs = require('fs');
+const uuid = require('uuid');
+
+async function fileCheck(filePromise, fileType) {
+  const { stream, filename, mimetype } = await filePromise;
+  if (mimetype.split('/')[1] !== fileType) {
+    throw new Error(`${filename} isn't a valid ${fileType} document.`);
+  }
+  const finalFileName = await storeUploadedFile({ stream, filename }, 'pdf');
+  return finalFileName;
+}
+
+const storeUploadedFile = ({ stream, filename }, filetype) => {
+  const f = `${uuid.v4()}.${filetype}`;
+  new Promise((resolve, reject) =>
+    stream
+      .pipe(fs.createWriteStream(`files/${f}`))
+      .on('finish', () => resolve())
+      .on('error', reject)
+  );
+  return f;
+};
 
 const Mutation = {
   /*
@@ -108,23 +130,25 @@ const Mutation = {
   },
   */
   async registerApplication(parent, args, ctx, info) {
-    // 1. Check if there is a user with given email
-    // 2. Check if there is an application for current user
-    // TODO
+    // const { stream, filename, mimetype } = await args.cv;
+    // if (mimetype.split('/')[1] !== 'pdf') {
+    //   throw new Error(`${filename} isn't a valid pdf document.`);
+    // }
+    // const cvFileName = await storeUploadedFile({ stream, filename }, 'pdf');
 
-    // 3. Save form to database
-    // const application = await ctx.db.mutation.createApplication({
-    //   data: {
-    //     otherinfo1,
-    //     gpa
-    //   }
-    // });
-    // 4. Send success message to client
-    console.clear();
-    console.log(args);
+    cvFileName = await fileCheck(args.cv, 'pdf');
+    transcriptFileName = await fileCheck(args.transcript, 'pdf');
+
     const application = await ctx.db.mutation.createInitialForm({
       data: {
-        ...args
+        ...Object.keys(args)
+          .filter(key => !['cv', 'transcript'].includes(key))
+          .reduce((obj, key) => {
+            obj[key] = args[key];
+            return obj;
+          }, {}),
+        cv: cvFileName,
+        transcript: transcriptFileName
       }
     });
     return { message: 'Success' };

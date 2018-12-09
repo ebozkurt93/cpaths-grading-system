@@ -18,6 +18,8 @@ type InitialForm implements Node {
   universityYear: String!
   universityDept: String!
   gpa: String!
+  cv: String!
+  transcript: String!
   longQuestion1: String!
   longQuestion2: String!
   longQuestion3: String!
@@ -49,6 +51,8 @@ input InitialFormCreateInput {
   universityYear: String!
   universityDept: String!
   gpa: String!
+  cv: String!
+  transcript: String!
   longQuestion1: String!
   longQuestion2: String!
   longQuestion3: String!
@@ -88,6 +92,10 @@ enum InitialFormOrderByInput {
   universityDept_DESC
   gpa_ASC
   gpa_DESC
+  cv_ASC
+  cv_DESC
+  transcript_ASC
+  transcript_DESC
   longQuestion1_ASC
   longQuestion1_DESC
   longQuestion2_ASC
@@ -113,6 +121,8 @@ type InitialFormPreviousValues {
   universityYear: String!
   universityDept: String!
   gpa: String!
+  cv: String!
+  transcript: String!
   longQuestion1: String!
   longQuestion2: String!
   longQuestion3: String!
@@ -173,6 +183,8 @@ input InitialFormUpdateInput {
   universityYear: String
   universityDept: String
   gpa: String
+  cv: String
+  transcript: String
   longQuestion1: String
   longQuestion2: String
   longQuestion3: String
@@ -188,6 +200,8 @@ input InitialFormUpdateManyMutationInput {
   universityYear: String
   universityDept: String
   gpa: String
+  cv: String
+  transcript: String
   longQuestion1: String
   longQuestion2: String
   longQuestion3: String
@@ -738,6 +752,138 @@ input InitialFormWhereInput {
   All values not ending with the given string.
   """
   gpa_not_ends_with: String
+  cv: String
+
+  """
+  All values that are not equal to given value.
+  """
+  cv_not: String
+
+  """
+  All values that are contained in given list.
+  """
+  cv_in: [String!]
+
+  """
+  All values that are not contained in given list.
+  """
+  cv_not_in: [String!]
+
+  """
+  All values less than the given value.
+  """
+  cv_lt: String
+
+  """
+  All values less than or equal the given value.
+  """
+  cv_lte: String
+
+  """
+  All values greater than the given value.
+  """
+  cv_gt: String
+
+  """
+  All values greater than or equal the given value.
+  """
+  cv_gte: String
+
+  """
+  All values containing the given string.
+  """
+  cv_contains: String
+
+  """
+  All values not containing the given string.
+  """
+  cv_not_contains: String
+
+  """
+  All values starting with the given string.
+  """
+  cv_starts_with: String
+
+  """
+  All values not starting with the given string.
+  """
+  cv_not_starts_with: String
+
+  """
+  All values ending with the given string.
+  """
+  cv_ends_with: String
+
+  """
+  All values not ending with the given string.
+  """
+  cv_not_ends_with: String
+  transcript: String
+
+  """
+  All values that are not equal to given value.
+  """
+  transcript_not: String
+
+  """
+  All values that are contained in given list.
+  """
+  transcript_in: [String!]
+
+  """
+  All values that are not contained in given list.
+  """
+  transcript_not_in: [String!]
+
+  """
+  All values less than the given value.
+  """
+  transcript_lt: String
+
+  """
+  All values less than or equal the given value.
+  """
+  transcript_lte: String
+
+  """
+  All values greater than the given value.
+  """
+  transcript_gt: String
+
+  """
+  All values greater than or equal the given value.
+  """
+  transcript_gte: String
+
+  """
+  All values containing the given string.
+  """
+  transcript_contains: String
+
+  """
+  All values not containing the given string.
+  """
+  transcript_not_contains: String
+
+  """
+  All values starting with the given string.
+  """
+  transcript_starts_with: String
+
+  """
+  All values not starting with the given string.
+  """
+  transcript_not_starts_with: String
+
+  """
+  All values ending with the given string.
+  """
+  transcript_ends_with: String
+
+  """
+  All values not ending with the given string.
+  """
+  transcript_not_ends_with: String
   longQuestion1: String
 
   """

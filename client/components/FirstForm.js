@@ -11,6 +11,8 @@ const FIRST_FORM_MUTATION = gql`
     $universityYear: String!
     $universityDept: String!
     $gpa: String!
+    $cv: Upload!
+    $transcript: Upload!
     $longQuestion1: String!
     $longQuestion2: String!
     $longQuestion3: String!
@@ -25,6 +27,8 @@ const FIRST_FORM_MUTATION = gql`
       universityYear: $universityYear
       universityDept: $universityDept
       gpa: $gpa
+      cv: $cv
+      transcript: $transcript
       longQuestion1: $longQuestion1
       longQuestion2: $longQuestion2
       longQuestion3: $longQuestion3
@@ -41,8 +45,6 @@ class FirstForm extends Component {
     errorMsg: '',
     // form elements
     // TODO move them to required
-    cv: '',
-    transcript: '',
     // required fields
     required: {
       email: 'a@a.com',
@@ -52,6 +54,8 @@ class FirstForm extends Component {
       universityYear: '3',
       universityDept: 'asd',
       gpa: '3.45',
+      cv: '',
+      transcript: '',
       longQuestion1: 'asd',
       longQuestion2: 'asd',
       longQuestion3: 'asd',
@@ -102,13 +106,14 @@ class FirstForm extends Component {
       Object.values(this.state.required).every(v => !this.valueIsEmpty(v)) &&
       (temp || (!temp && !this.valueIsEmpty(this.state.aboutUsOther)))
     ) {
-      console.log('demo');
+      console.log('form fields are valid');
       return true;
     } else {
       this.setState({ warningMsg: 'Eksik yada hatalı veri' });
       return false;
     }
   };
+
   render() {
     var renderOptionalField = this.state.required.aboutUs === 'Diğer:';
     return (
@@ -139,7 +144,7 @@ class FirstForm extends Component {
                 }
               }}
             >
-              <fieldset>
+              <fieldset disabled={loading}>
                 <div className='form-group'>
                   <label htmlFor='email' className='form-label'>
                     Email
@@ -254,9 +259,23 @@ class FirstForm extends Component {
                     type='file'
                     name='CV'
                     accept='application/pdf'
+                    onChange={({
+                      target: {
+                        validity,
+                        files: [file]
+                      }
+                    }) => {
+                      // valid file and size is smaller than 5 mb
+                      if (file && validity.valid && file.size <= 5242880) {
+                        var newState = { ...this.state };
+                        newState.required.cv = file;
+                        this.setState({ ...newState });
+                        console.log(this.state);
+                      }
+                    }}
                   />
                   <span className='form-input-hint'>
-                    Yüklenen dosya PDF formatında olmalı
+                    Yüklenen dosya PDF formatında ve 5MB dan küçük olmalı
                   </span>
                 </div>
                 <div className='form-group'>
@@ -268,9 +287,23 @@ class FirstForm extends Component {
                     type='file'
                     name='transcript'
                     accept='application/pdf'
+                    onChange={({
+                      target: {
+                        validity,
+                        files: [file]
+                      }
+                    }) => {
+                      // valid file and size is smaller than 5 mb
+                      if (file && validity.valid && file.size <= 5242880) {
+                        var newState = { ...this.state };
+                        newState.required.transcript = file;
+                        this.setState({ ...newState });
+                        console.log(this.state);
+                      }
+                    }}
                   />
                   <span className='form-input-hint'>
-                    Yüklenen dosya PDF formatında olmalı
+                    Yüklenen dosya PDF formatında ve 5MB dan küçük olmalı
                   </span>
                 </div>
                 <div className='form-group'>
@@ -429,7 +462,9 @@ class FirstForm extends Component {
                   </label>
                 </div>
                 <button
-                  className='btn btn-primary'
+                  className={`btn btn-primary ${
+                    loading === true ? 'loading' : ''
+                  }`}
                   style={{ marginTop: '15px' }}
                   type='submit'
                 >

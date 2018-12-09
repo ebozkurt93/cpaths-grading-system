@@ -1,7 +1,18 @@
 # import * from './generated/prisma.graphql'
 
+# this is needed for upload to work
+scalar Upload
+
 type SuccessMessage {
   message: String
+}
+
+type File {
+  id: ID!
+  path: String!
+  filename: String!
+  mimetype: String!
+  encoding: String!
 }
 
 type Mutation {
@@ -23,6 +34,8 @@ type Mutation {
     universityYear: String!
     universityDept: String!
     gpa: String!
+    cv: Upload!
+    transcript: Upload!
     longQuestion1: String!
     longQuestion2: String!
     longQuestion3: String!
