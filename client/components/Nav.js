@@ -1,8 +1,5 @@
 import Link from 'next/link';
 import React from 'react';
-import styled from 'styled-components';
-import User from './User';
-import Logout from './Logout';
 import Router from 'next/router';
 import NProgress from 'nprogress';
 
@@ -16,57 +13,17 @@ Router.onRouteChangeError = () => {
   NProgress.done();
 };
 
-const StyledDiv = styled.div`
-  border: 1px solid blue;
-  padding: 10px;
-  margin-bottom: 5px;
-`;
-
 const Nav = () => (
-  <User>
-    {({ data: { me } }) => (
-      <StyledDiv>
-        <h3>
-          <Link href="/">
-            <a>Home</a>
-          </Link>
-        </h3>
-        {me && (
-          <>
-            <p>
-              Logged In User → {me.name} - {me.email} - Permissions:{' '}
-              {me.permissions.join(' / ')}
-            </p>
-            <Link href="/">
-              <a>
-                <Logout />
-              </a>
-            </Link>
-          </>
-        )}
-        {!me && (
-          <h3>
-            <Link href="/login">
-              <a>Login</a>
-            </Link>
-          </h3>
-        )}
-        <h3>
-          <Link href="/register">
-            <a>Apply</a>
-          </Link>
-        </h3>
-        {me &&
-          me.permissions.includes('ADMIN') && (
-            <h3>
-              <Link href="/admin">
-                <a>Admin Panel</a>
-              </Link>
-            </h3>
-          )}
-      </StyledDiv>
-    )}
-  </User>
+  <header>
+    <section class='navbar-section'>
+      <Link href='/'>
+        <a className='btn btn-link'>Home</a>
+      </Link>
+      <Link href='/admin'>
+        <a className='btn btn-link'>All Forms</a>
+      </Link>
+    </section>
+  </header>
 );
 
 export default Nav;
