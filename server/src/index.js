@@ -4,6 +4,7 @@ require('dotenv').config();
 const createServer = require('./createServer');
 const db = require('./db');
 const server = createServer();
+const express = require('express');
 
 server.express.use(cookieParser());
 /*
@@ -31,6 +32,7 @@ server.express.use(async (req, res, next) => {
   next();
 });
 */
+server.express.use('/files', express.static('files'));
 server.start(
   {
     cors: {
