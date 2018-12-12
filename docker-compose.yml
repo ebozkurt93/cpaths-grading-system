@@ -7,20 +7,20 @@ services:
     ports:
       - "80:3000"
     environment:
-      SERVER_ENDPOINT: # http://192.168.99.100:4000
+      SERVER_ENDPOINT: ${SERVER_ENDPOINT}
     depends_on:
       - yoga-server
-    volumes:
-      - files:/app/files
   yoga-server:
     image: server:latest
     restart: always
     ports:
       - "4000:4000"
     environment:
-      PRISMA_ENDPOINT: # https://my-prisma-endpoint
+      PRISMA_ENDPOINT: ${PRISMA_ENDPOINT}
       # PRISMA_SECRET: myprismasecret
-      FRONTEND_URL: # http://192.168.99.100
+      FRONTEND_URL: ${FRONTEND_URL}
+    volumes:
+      - files:/app/files
     # depends_on:
     #   - prisma
     # also db, but since prisma depends on it db isn't added here
