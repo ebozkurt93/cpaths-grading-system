@@ -1,0 +1,61 @@
+version: '3'
+
+services:
+  client:
+    image: client:latest
+    restart: always
+    ports:
+      - "80:3000"
+    environment:
+      SERVER_ENDPOINT: # http://192.168.99.100:4000
+    depends_on:
+      - yoga-server
+    volumes:
+      - files:/app/files
+  yoga-server:
+    image: server:latest
+    restart: always
+    ports:
+      - "4000:4000"
+    environment:
+      PRISMA_ENDPOINT: # https://my-prisma-endpoint
+      # PRISMA_SECRET: myprismasecret
+      FRONTEND_URL: # http://192.168.99.100
+    # depends_on:
+    #   - prisma
+    # also db, but since prisma depends on it db isn't added here
+
+#   prisma:
+#     image: prismagraphql/prisma:1.22
+#     restart: always
+#     ports:
+#       - "4466:4466"
+#     environment:
+#       PRISMA_CONFIG: |
+#         # managementApiSecret: my-server-secret-123
+#         port: 4466
+#         databases:
+#           default:
+#             connector: mysql
+#             active: true
+#             host: db
+#             port: 3306
+#             user: root
+#             password: prisma
+#             migrations: true
+#     depends_on:
+#       - db
+#   db:
+#     image: mysql:5.7
+#     restart: always
+#     ports:
+#       - "3306:3306"
+#     environment:
+#       MYSQL_USER: root
+#       MYSQL_ROOT_PASSWORD: prisma
+#     volumes:
+#       - mysql:/var/lib/mysql
+volumes:
+  files:
+#   mysql:
+

@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 import { Query } from 'react-apollo';
 import Error from './ErrorMessage';
 import Nav from './Nav';
-import { endpoint, prodEndpoint } from '../config';
+import { endpoint } from '../config';
 
 const GET_ALL_FORMS = gql`
   query GET_ALL_FORMS {
@@ -39,7 +39,7 @@ class Forms extends Component {
         <p>
           Dosyalara{' '}
           <code>
-            {process.env.NODE_ENV === 'development' ? endpoint : prodEndpoint}
+            {endpoint}
             /files/file_name
           </code>{' '}
           den erişilebilir.

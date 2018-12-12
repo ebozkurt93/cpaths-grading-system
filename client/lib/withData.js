@@ -6,7 +6,7 @@ import { InMemoryCache } from 'apollo-cache-inmemory';
 import { onError } from 'apollo-link-error';
 import { ApolloLink } from 'apollo-link';
 import { createUploadLink } from 'apollo-upload-client';
-import { endpoint, prodEndpoint } from '../config';
+import { endpoint } from '../config';
 
 // function createClient({ headers }) {
 //   return new ApolloClient({
@@ -35,7 +35,7 @@ function createClient(headers) {
         if (networkError) console.log(`[Network error]: ${networkError}`);
       }),
       new createUploadLink({
-        uri: process.env.NODE_ENV === 'development' ? endpoint : prodEndpoint,
+        uri: endpoint,
         credentials: 'include'
       })
     ]),

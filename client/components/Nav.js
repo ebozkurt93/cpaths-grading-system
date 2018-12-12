@@ -15,12 +15,12 @@ Router.onRouteChangeError = () => {
 
 const Nav = () => (
   <header>
-    <section class='navbar-section'>
+    <section className='navbar-section'>
       <Link href='/'>
-        <a className='btn btn-link'>Home</a>
+        <a className='btn btn-link'>Anasayfa</a>
       </Link>
       <Link href='/admin'>
-        <a className='btn btn-link'>All Forms</a>
+        <a className='btn btn-link'>Bütün Formlar</a>
       </Link>
     </section>
   </header>
