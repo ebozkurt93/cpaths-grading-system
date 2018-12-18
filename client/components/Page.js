@@ -1,7 +1,12 @@
 import React, { Component } from 'react';
-//import styled, { ThemeProvider, injectGlobal } from 'styled-components';
+import { injectGlobal } from 'styled-components';
 import Meta from './Meta';
 
+injectGlobal`
+html, body {
+  height: 100%;
+}
+`;
 class Page extends Component {
   render() {
     return (
