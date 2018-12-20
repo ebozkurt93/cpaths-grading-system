@@ -5,6 +5,8 @@ import Error from './ErrorMessage';
 import Nav from './Nav';
 import { endpoint } from '../config';
 import { initialForm, isAFile } from '../data';
+import DisplayData from './DisplayData';
+import Modal from './Modal';
 
 const GET_ALL_FORMS = gql`
   query GET_ALL_FORMS {
@@ -87,6 +89,7 @@ class Forms extends Component {
                                 <a
                                   href={`${endpoint}/files/${item[key]}`}
                                   target='_blank'
+                                  onClick={() => console.log('clicked url')}
                                 >
                                   {initialForm[key]}
                                 </a>
@@ -120,53 +123,12 @@ class Forms extends Component {
                 {data.forms.length < 1 && <h4>Gösterecek veri yok.</h4>}
                 {data.forms && table}
                 {this.state.modalData && (
-                  <div className='modal active'>
-                    <a
-                      className='modal-overlay'
-                      aria-label='Close'
-                      onClick={() => {
-                        this.setState({ modalData: null });
-                      }}
-                    />
-                    <div className='modal-container'>
-                      <div className='modal-body'>
-                        <div className='content'>
-                          {/* // TODO: turn this part into a component */}
-                          <div>
-                            {Object.keys(this.state.modalData).map(key => {
-                              if (key in initialForm) {
-                                var content = '';
-                                if (isAFile.includes(key)) {
-                                  content = (
-                                    <p key={key}>
-                                      <a
-                                        href={`${endpoint}/files/${
-                                          this.state.modalData[key]
-                                        }`}
-                                        target='_blank'
-                                      >
-                                        <button className='btn btn-primary'>
-                                          {initialForm[key]}
-                                        </button>
-                                      </a>
-                                    </p>
-                                  );
-                                } else {
-                                  content = (
-                                    <React.Fragment key={key}>
-                                      <h6>{initialForm[key]}</h6>
-                                      <p>{this.state.modalData[key]}</p>
-                                    </React.Fragment>
-                                  );
-                                }
-                                return content;
-                              }
-                            })}
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
+                  <Modal
+                    title='Detaylar'
+                    closeModal={() => this.setState({ modalData: null })}
+                  >
+                    <DisplayData data={this.state.modalData} />
+                  </Modal>
                 )}
                 <button
                   className='btn btn-primary'
