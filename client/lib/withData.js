@@ -47,6 +47,17 @@ function createClient(headers) {
         },
         headers
       });
+    },
+    // Disabled caching for now, it breaks login process
+    defaultOptions: {
+      watchQuery: {
+        fetchPolicy: 'network-only',
+        errorPolicy: 'ignore'
+      },
+      query: {
+        fetchPolicy: 'network-only',
+        errorPolicy: 'all'
+      }
     }
   });
 }

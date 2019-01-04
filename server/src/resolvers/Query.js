@@ -1,7 +1,6 @@
 // const { hasPermission } = require('../utils');
 
 const Query = {
-  /*
   me(parent, args, ctx, info) {
     // check if there is a current user ID
     if (!ctx.request.userId) {
@@ -14,7 +13,6 @@ const Query = {
       info
     );
   },
-  */
   forms(parent, args, ctx, info) {
     // if (!ctx.request.userId) {
     //   return new Error('Please login');

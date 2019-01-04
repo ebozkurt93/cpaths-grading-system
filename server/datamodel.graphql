@@ -1,8 +1,7 @@
-# enum Permission {
-#   ADMIN
-#   USER
-#   DEMO
-# }
+enum Permission {
+  ADMIN
+  JURY
+}
 
 # type User {
 #   id: ID! @unique
@@ -14,6 +13,13 @@
 #   permissions: [Permission]
 #   application: Application
 # }
+
+type User {
+  id: ID! @unique
+  name: String!
+  email: String! @unique
+  permissions: [Permission]
+}
 
 # type Application {
 #   id: ID! @unique

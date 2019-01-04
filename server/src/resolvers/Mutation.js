@@ -129,6 +129,21 @@ const Mutation = {
     return updatedUser;
   },
   */
+
+  async editYourPermissions(parent, args, ctx, info) {
+    // hasPermission(ctx.request.user, ["ADMIN"]);
+    if (!ctx.request.user) {
+      throw new Error('--');
+    }
+    return ctx.db.mutation.updateUser({
+      data: { permissions: args.permissions },
+      where: { id: ctx.request.user.id }
+    });
+  },
+  logout(parent, args, ctx, info) {
+    ctx.response.clearCookie('token');
+    return { message: 'Goodbye!' };
+  },
   async registerApplication(parent, args, ctx, info) {
     // const { stream, filename, mimetype } = await args.cv;
     // if (mimetype.split('/')[1] !== 'pdf') {

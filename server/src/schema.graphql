@@ -42,11 +42,13 @@ type Mutation {
     longQuestion4: String!
     aboutUs: String!
   ): SuccessMessage
+  logout: SuccessMessage
+  editYourPermissions(permissions: [Permission]!): User
 }
 
 type Query {
   forms: [InitialForm]!
-  #   me: User
+  me: User
   #   applications: [Application]!
 }
 
