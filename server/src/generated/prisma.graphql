@@ -1,3 +1,7 @@
+type AggregateFormGrade {
+  count: Int!
+}
+
 type AggregateInitialForm {
   count: Int!
 }
@@ -11,6 +15,418 @@ type BatchPayload {
   The number of nodes that have been affected by the Batch operation.
   """
   count: Long!
+}
+
+type FormGrade implements Node {
+  id: ID!
+  jury: User!
+  form: InitialForm!
+  score1: Int!
+  score2: Int!
+  score3: Int!
+  boolean: Boolean!
+  notes: String
+}
+
+"""
+A connection to a list of items.
+"""
+type FormGradeConnection {
+  """
+  Information to aid in pagination.
+  """
+  pageInfo: PageInfo!
+
+  """
+  A list of edges.
+  """
+  edges: [FormGradeEdge]!
+  aggregate: AggregateFormGrade!
+}
+
+input FormGradeCreateInput {
+  score1: Int!
+  score2: Int!
+  score3: Int!
+  boolean: Boolean!
+  notes: String
+  jury: UserCreateOneInput!
+  form: InitialFormCreateOneInput!
+}
+
+"""
+An edge in a connection.
+"""
+type FormGradeEdge {
+  """
+  The item at the end of the edge.
+  """
+  node: FormGrade!
+
+  """
+  A cursor for use in pagination.
+  """
+  cursor: String!
+}
+
+enum FormGradeOrderByInput {
+  id_ASC
+  id_DESC
+  score1_ASC
+  score1_DESC
+  score2_ASC
+  score2_DESC
+  score3_ASC
+  score3_DESC
+  boolean_ASC
+  boolean_DESC
+  notes_ASC
+  notes_DESC
+  updatedAt_ASC
+  updatedAt_DESC
+  createdAt_ASC
+  createdAt_DESC
+}
+
+type FormGradePreviousValues {
+  id: ID!
+  score1: Int!
+  score2: Int!
+  score3: Int!
+  boolean: Boolean!
+  notes: String
+}
+
+type FormGradeSubscriptionPayload {
+  mutation: MutationType!
+  node: FormGrade
+  updatedFields: [String!]
+  previousValues: FormGradePreviousValues
+}
+
+input FormGradeSubscriptionWhereInput {
+  """
+  Logical AND on all given filters.
+  """
+  AND: [FormGradeSubscriptionWhereInput!]
+
+  """
+  Logical OR on all given filters.
+  """
+  OR: [FormGradeSubscriptionWhereInput!]
+
+  """
+  Logical NOT on all given filters combined by AND.
+  """
+  NOT: [FormGradeSubscriptionWhereInput!]
+
+  """
+  The subscription event gets dispatched when it's listed in mutation_in
+  """
+  mutation_in: [MutationType!]
+
+  """
+  The subscription event gets only dispatched when one of the updated fields names is included in this list
+  """
+  updatedFields_contains: String
+
+  """
+  The subscription event gets only dispatched when all of the field names included in this list have been updated
+  """
+  updatedFields_contains_every: [String!]
+
+  """
+  The subscription event gets only dispatched when some of the field names included in this list have been updated
+  """
+  updatedFields_contains_some: [String!]
+  node: FormGradeWhereInput
+}
+
+input FormGradeUpdateInput {
+  score1: Int
+  score2: Int
+  score3: Int
+  boolean: Boolean
+  notes: String
+  jury: UserUpdateOneRequiredInput
+  form: InitialFormUpdateOneRequiredInput
+}
+
+input FormGradeUpdateManyMutationInput {
+  score1: Int
+  score2: Int
+  score3: Int
+  boolean: Boolean
+  notes: String
+}
+
+input FormGradeWhereInput {
+  """
+  Logical AND on all given filters.
+  """
+  AND: [FormGradeWhereInput!]
+
+  """
+  Logical OR on all given filters.
+  """
+  OR: [FormGradeWhereInput!]
+
+  """
+  Logical NOT on all given filters combined by AND.
+  """
+  NOT: [FormGradeWhereInput!]
+  id: ID
+
+  """
+  All values that are not equal to given value.
+  """
+  id_not: ID
+
+  """
+  All values that are contained in given list.
+  """
+  id_in: [ID!]
+
+  """
+  All values that are not contained in given list.
+  """
+  id_not_in: [ID!]
+
+  """
+  All values less than the given value.
+  """
+  id_lt: ID
+
+  """
+  All values less than or equal the given value.
+  """
+  id_lte: ID
+
+  """
+  All values greater than the given value.
+  """
+  id_gt: ID
+
+  """
+  All values greater than or equal the given value.
+  """
+  id_gte: ID
+
+  """
+  All values containing the given string.
+  """
+  id_contains: ID
+
+  """
+  All values not containing the given string.
+  """
+  id_not_contains: ID
+
+  """
+  All values starting with the given string.
+  """
+  id_starts_with: ID
+
+  """
+  All values not starting with the given string.
+  """
+  id_not_starts_with: ID
+
+  """
+  All values ending with the given string.
+  """
+  id_ends_with: ID
+
+  """
+  All values not ending with the given string.
+  """
+  id_not_ends_with: ID
+  score1: Int
+
+  """
+  All values that are not equal to given value.
+  """
+  score1_not: Int
+
+  """
+  All values that are contained in given list.
+  """
+  score1_in: [Int!]
+
+  """
+  All values that are not contained in given list.
+  """
+  score1_not_in: [Int!]
+
+  """
+  All values less than the given value.
+  """
+  score1_lt: Int
+
+  """
+  All values less than or equal the given value.
+  """
+  score1_lte: Int
+
+  """
+  All values greater than the given value.
+  """
+  score1_gt: Int
+
+  """
+  All values greater than or equal the given value.
+  """
+  score1_gte: Int
+  score2: Int
+
+  """
+  All values that are not equal to given value.
+  """
+  score2_not: Int
+
+  """
+  All values that are contained in given list.
+  """
+  score2_in: [Int!]
+
+  """
+  All values that are not contained in given list.
+  """
+  score2_not_in: [Int!]
+
+  """
+  All values less than the given value.
+  """
+  score2_lt: Int
+
+  """
+  All values less than or equal the given value.
+  """
+  score2_lte: Int
+
+  """
+  All values greater than the given value.
+  """
+  score2_gt: Int
+
+  """
+  All values greater than or equal the given value.
+  """
+  score2_gte: Int
+  score3: Int
+
+  """
+  All values that are not equal to given value.
+  """
+  score3_not: Int
+
+  """
+  All values that are contained in given list.
+  """
+  score3_in: [Int!]
+
+  """
+  All values that are not contained in given list.
+  """
+  score3_not_in: [Int!]
+
+  """
+  All values less than the given value.
+  """
+  score3_lt: Int
+
+  """
+  All values less than or equal the given value.
+  """
+  score3_lte: Int
+
+  """
+  All values greater than the given value.
+  """
+  score3_gt: Int
+
+  """
+  All values greater than or equal the given value.
+  """
+  score3_gte: Int
+  boolean: Boolean
+
+  """
+  All values that are not equal to given value.
+  """
+  boolean_not: Boolean
+  notes: String
+
+  """
+  All values that are not equal to given value.
+  """
+  notes_not: String
+
+  """
+  All values that are contained in given list.
+  """
+  notes_in: [String!]
+
+  """
+  All values that are not contained in given list.
+  """
+  notes_not_in: [String!]
+
+  """
+  All values less than the given value.
+  """
+  notes_lt: String
+
+  """
+  All values less than or equal the given value.
+  """
+  notes_lte: String
+
+  """
+  All values greater than the given value.
+  """
+  notes_gt: String
+
+  """
+  All values greater than or equal the given value.
+  """
+  notes_gte: String
+
+  """
+  All values containing the given string.
+  """
+  notes_contains: String
+
+  """
+  All values not containing the given string.
+  """
+  notes_not_contains: String
+
+  """
+  All values starting with the given string.
+  """
+  notes_starts_with: String
+
+  """
+  All values not starting with the given string.
+  """
+  notes_not_starts_with: String
+
+  """
+  All values ending with the given string.
+  """
+  notes_ends_with: String
+
+  """
+  All values not ending with the given string.
+  """
+  notes_not_ends_with: String
+  jury: UserWhereInput
+  form: InitialFormWhereInput
+}
+
+input FormGradeWhereUniqueInput {
+  id: ID
 }
 
 type InitialForm implements Node {
@@ -62,6 +478,11 @@ input InitialFormCreateInput {
   longQuestion3: String!
   longQuestion4: String!
   aboutUs: String!
+}
+
+input InitialFormCreateOneInput {
+  create: InitialFormCreateInput
+  connect: InitialFormWhereUniqueInput
 }
 
 """
@@ -179,6 +600,23 @@ input InitialFormSubscriptionWhereInput {
   node: InitialFormWhereInput
 }
 
+input InitialFormUpdateDataInput {
+  email: String
+  name: String
+  lastname: String
+  university: String
+  universityYear: String
+  universityDept: String
+  gpa: String
+  cv: String
+  transcript: String
+  longQuestion1: String
+  longQuestion2: String
+  longQuestion3: String
+  longQuestion4: String
+  aboutUs: String
+}
+
 input InitialFormUpdateInput {
   email: String
   name: String
@@ -211,6 +649,18 @@ input InitialFormUpdateManyMutationInput {
   longQuestion3: String
   longQuestion4: String
   aboutUs: String
+}
+
+input InitialFormUpdateOneRequiredInput {
+  create: InitialFormCreateInput
+  connect: InitialFormWhereUniqueInput
+  update: InitialFormUpdateDataInput
+  upsert: InitialFormUpsertNestedInput
+}
+
+input InitialFormUpsertNestedInput {
+  update: InitialFormUpdateDataInput!
+  create: InitialFormCreateInput!
 }
 
 input InitialFormWhereInput {
@@ -1231,35 +1681,51 @@ Long can represent values between -(2^63) and 2^63 - 1.
 scalar Long
 
 type Mutation {
-  createUser(data: UserCreateInput!): User!
+  createFormGrade(data: FormGradeCreateInput!): FormGrade!
   createInitialForm(data: InitialFormCreateInput!): InitialForm!
-  updateUser(data: UserUpdateInput!, where: UserWhereUniqueInput!): User
+  createUser(data: UserCreateInput!): User!
+  updateFormGrade(
+    data: FormGradeUpdateInput!
+    where: FormGradeWhereUniqueInput!
+  ): FormGrade
   updateInitialForm(
     data: InitialFormUpdateInput!
     where: InitialFormWhereUniqueInput!
   ): InitialForm
-  deleteUser(where: UserWhereUniqueInput!): User
+  updateUser(data: UserUpdateInput!, where: UserWhereUniqueInput!): User
+  deleteFormGrade(where: FormGradeWhereUniqueInput!): FormGrade
   deleteInitialForm(where: InitialFormWhereUniqueInput!): InitialForm
-  upsertUser(
-    where: UserWhereUniqueInput!
-    create: UserCreateInput!
-    update: UserUpdateInput!
-  ): User!
+  deleteUser(where: UserWhereUniqueInput!): User
+  upsertFormGrade(
+    where: FormGradeWhereUniqueInput!
+    create: FormGradeCreateInput!
+    update: FormGradeUpdateInput!
+  ): FormGrade!
   upsertInitialForm(
     where: InitialFormWhereUniqueInput!
     create: InitialFormCreateInput!
     update: InitialFormUpdateInput!
   ): InitialForm!
-  updateManyUsers(
-    data: UserUpdateManyMutationInput!
-    where: UserWhereInput
+  upsertUser(
+    where: UserWhereUniqueInput!
+    create: UserCreateInput!
+    update: UserUpdateInput!
+  ): User!
+  updateManyFormGrades(
+    data: FormGradeUpdateManyMutationInput!
+    where: FormGradeWhereInput
   ): BatchPayload!
   updateManyInitialForms(
     data: InitialFormUpdateManyMutationInput!
     where: InitialFormWhereInput
   ): BatchPayload!
-  deleteManyUsers(where: UserWhereInput): BatchPayload!
+  updateManyUsers(
+    data: UserUpdateManyMutationInput!
+    where: UserWhereInput
+  ): BatchPayload!
+  deleteManyFormGrades(where: FormGradeWhereInput): BatchPayload!
   deleteManyInitialForms(where: InitialFormWhereInput): BatchPayload!
+  deleteManyUsers(where: UserWhereInput): BatchPayload!
 }
 
 enum MutationType {
@@ -1309,15 +1775,15 @@ enum Permission {
 }
 
 type Query {
-  users(
-    where: UserWhereInput
-    orderBy: UserOrderByInput
+  formGrades(
+    where: FormGradeWhereInput
+    orderBy: FormGradeOrderByInput
     skip: Int
     after: String
     before: String
     first: Int
     last: Int
-  ): [User]!
+  ): [FormGrade]!
   initialForms(
     where: InitialFormWhereInput
     orderBy: InitialFormOrderByInput
@@ -1327,9 +1793,7 @@ type Query {
     first: Int
     last: Int
   ): [InitialForm]!
-  user(where: UserWhereUniqueInput!): User
-  initialForm(where: InitialFormWhereUniqueInput!): InitialForm
-  usersConnection(
+  users(
     where: UserWhereInput
     orderBy: UserOrderByInput
     skip: Int
@@ -1337,7 +1801,19 @@ type Query {
     before: String
     first: Int
     last: Int
-  ): UserConnection!
+  ): [User]!
+  formGrade(where: FormGradeWhereUniqueInput!): FormGrade
+  initialForm(where: InitialFormWhereUniqueInput!): InitialForm
+  user(where: UserWhereUniqueInput!): User
+  formGradesConnection(
+    where: FormGradeWhereInput
+    orderBy: FormGradeOrderByInput
+    skip: Int
+    after: String
+    before: String
+    first: Int
+    last: Int
+  ): FormGradeConnection!
   initialFormsConnection(
     where: InitialFormWhereInput
     orderBy: InitialFormOrderByInput
@@ -1347,6 +1823,15 @@ type Query {
     first: Int
     last: Int
   ): InitialFormConnection!
+  usersConnection(
+    where: UserWhereInput
+    orderBy: UserOrderByInput
+    skip: Int
+    after: String
+    before: String
+    first: Int
+    last: Int
+  ): UserConnection!
 
   """
   Fetches an object given its ID
@@ -1360,10 +1845,13 @@ type Query {
 }
 
 type Subscription {
-  user(where: UserSubscriptionWhereInput): UserSubscriptionPayload
+  formGrade(
+    where: FormGradeSubscriptionWhereInput
+  ): FormGradeSubscriptionPayload
   initialForm(
     where: InitialFormSubscriptionWhereInput
   ): InitialFormSubscriptionPayload
+  user(where: UserSubscriptionWhereInput): UserSubscriptionPayload
 }
 
 type User implements Node {
@@ -1393,6 +1881,11 @@ input UserCreateInput {
   name: String!
   email: String!
   permissions: UserCreatepermissionsInput
+}
+
+input UserCreateOneInput {
+  create: UserCreateInput
+  connect: UserWhereUniqueInput
 }
 
 input UserCreatepermissionsInput {
@@ -1479,6 +1972,12 @@ input UserSubscriptionWhereInput {
   node: UserWhereInput
 }
 
+input UserUpdateDataInput {
+  name: String
+  email: String
+  permissions: UserUpdatepermissionsInput
+}
+
 input UserUpdateInput {
   name: String
   email: String
@@ -1491,8 +1990,20 @@ input UserUpdateManyMutationInput {
   permissions: UserUpdatepermissionsInput
 }
 
+input UserUpdateOneRequiredInput {
+  create: UserCreateInput
+  connect: UserWhereUniqueInput
+  update: UserUpdateDataInput
+  upsert: UserUpsertNestedInput
+}
+
 input UserUpdatepermissionsInput {
   set: [Permission!]
+}
+
+input UserUpsertNestedInput {
+  update: UserUpdateDataInput!
+  create: UserCreateInput!
 }
 
 input UserWhereInput {

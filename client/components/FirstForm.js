@@ -3,6 +3,7 @@ import gql from 'graphql-tag';
 import { Mutation } from 'react-apollo';
 import ErrorMessage from './ErrorMessage';
 import Nav from './Nav';
+import { valueIsEmpty } from '../helper';
 
 const FIRST_FORM_MUTATION = gql`
   mutation FIRST_FORM_MUTATION(
@@ -80,16 +81,14 @@ class FirstForm extends Component {
     }
   };
 
-  valueIsEmpty = val => !val || val.length === 0 || /^\s*$/.test(val); // empty defined as null or trimmed length is 0, or false for checkboxes etc
-
   checkFormValidity = e => {
     e.preventDefault();
     // TODO: maybe add a honeypot field
     // Check if all required inputs are valid
     const temp = this.state.required.aboutUs !== 'Diğer:';
     if (
-      Object.values(this.state.required).every(v => !this.valueIsEmpty(v)) &&
-      (temp || (!temp && !this.valueIsEmpty(this.state.aboutUsOther)))
+      Object.values(this.state.required).every(v => !valueIsEmpty(v)) &&
+      (temp || (!temp && !valueIsEmpty(this.state.aboutUsOther)))
     ) {
       //valid form
       return true;

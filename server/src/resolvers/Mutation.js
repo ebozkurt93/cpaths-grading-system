@@ -1,7 +1,7 @@
 // const bcrypt = require('bcryptjs');
 // const { randomBytes } = require('crypto');
 // const { promisify } = require('util');
-// const { hasPermission, generateJWTToken } = require('../utils');
+const { hasPermission } = require('../utils');
 // const { transport, createMail } = require('../mail');
 const fs = require('fs');
 const uuid = require('uuid');
@@ -131,10 +131,7 @@ const Mutation = {
   */
 
   async editYourPermissions(parent, args, ctx, info) {
-    // hasPermission(ctx.request.user, ["ADMIN"]);
-    if (!ctx.request.user) {
-      throw new Error('--');
-    }
+    hasPermission(ctx.request.user, []);
     return ctx.db.mutation.updateUser({
       data: { permissions: { set: args.permissions } },
       where: { id: ctx.request.user.id }
@@ -164,6 +161,33 @@ const Mutation = {
           }, {}),
         cv: cvFileName,
         transcript: transcriptFileName
+      }
+    });
+    return { message: 'Success' };
+  },
+  async submitFormGrade(parent, args, ctx, info) {
+    hasPermission(ctx.request.user, ['JURY']);
+    // check if this user has submitted grade for this form before
+    const potentialGrade = await ctx.db.query.formGrades({
+      where: {
+        jury: { id: ctx.request.userId },
+        form: { id: args.initialFormId }
+      }
+    });
+    // if he/she has submitted, throw an error
+    if (potentialGrade.length > 0) {
+      throw new Error('You cannot submit multiple grades to each applicant');
+    }
+    //save form to db
+    const formGrade = await ctx.db.mutation.createFormGrade({
+      data: {
+        score1: args.score1,
+        score2: args.score2,
+        score3: args.score3,
+        boolean: args.boolean,
+        notes: args.notes,
+        jury: { connect: { id: ctx.request.userId } },
+        form: { connect: { id: args.initialFormId } }
       }
     });
     return { message: 'Success' };

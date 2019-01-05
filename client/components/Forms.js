@@ -1,8 +1,8 @@
 import gql from 'graphql-tag';
 import React, { Component } from 'react';
+import Link from 'next/link';
 import { Query } from 'react-apollo';
 import Error from './ErrorMessage';
-import Nav from './Nav';
 import { endpoint } from '../config';
 import { initialForm, isAFile } from '../data';
 import DisplayData from './DisplayData';
@@ -50,6 +50,15 @@ class Forms extends Component {
               <table className='table table-striped table-hover table-scroll'>
                 <thead>
                   <tr>
+                    <th
+                      style={{
+                        maxWidth: '10rem',
+                        overflow: 'hidden',
+                        textOverflow: 'ellipsis'
+                      }}
+                    >
+                      Durum
+                    </th>
                     {data.forms.length > 0 &&
                       Object.keys(data.forms[0]).map(key => {
                         if (key in initialForm) {
@@ -77,6 +86,25 @@ class Forms extends Component {
                         this.setState({ modalData: item });
                       }}
                     >
+                      <td>
+                        {
+                          <Link
+                            href={{
+                              pathname: '/grade',
+                              query: {
+                                id: item.id,
+                                edit: this.props.filledFormIds.has(item.id)
+                              }
+                            }}
+                          >
+                            <button className='btn btn-secondary'>
+                              {this.props.filledFormIds.has(item.id)
+                                ? 'Güncelle'
+                                : 'Notlandır'}
+                            </button>
+                          </Link>
+                        }
+                      </td>
                       {Object.keys(item).map(key => {
                         if (key in initialForm) {
                           var content = '';
@@ -85,7 +113,6 @@ class Forms extends Component {
                               <a
                                 href={`${endpoint}/files/${item[key]}`}
                                 target='_blank'
-                                onClick={() => console.log('clicked url')}
                               >
                                 {initialForm[key]}
                               </a>

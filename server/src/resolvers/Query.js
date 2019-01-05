@@ -1,4 +1,4 @@
-// const { hasPermission } = require('../utils');
+const { hasPermission } = require('../utils');
 
 const Query = {
   me(parent, args, ctx, info) {
@@ -14,11 +14,34 @@ const Query = {
     );
   },
   forms(parent, args, ctx, info) {
-    // if (!ctx.request.userId) {
-    //   return new Error('Please login');
-    // }
-    // hasPermission(ctx.request.user, ['ADMIN']);
+    hasPermission(ctx.request.user, ['ADMIN', 'JURY']);
     return ctx.db.query.initialForms({}, info);
+  },
+  form(parent, args, ctx, info) {
+    hasPermission(ctx.request.user, ['ADMIN', 'JURY']);
+    return ctx.db.query.initialForm(
+      {
+        where: { id: args.id }
+      },
+      info
+    );
+  },
+  formGrades(parent, args, ctx, info) {
+    const user = ctx.request.user;
+    if (!user) {
+      throw new Error();
+    }
+    hasPermission(user, ['ADMIN', 'JURY']);
+    const permissions = user.permissions;
+    if (permissions.includes('ADMIN')) {
+      return ctx.db.query.formGrades({}, info);
+    } else
+      return ctx.db.query.formGrades(
+        {
+          where: { jury: { id: user.id } }
+        },
+        info
+      );
   }
 };
 

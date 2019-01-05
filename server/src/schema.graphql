@@ -44,11 +44,21 @@ type Mutation {
   ): SuccessMessage
   logout: SuccessMessage
   editYourPermissions(permissions: [Permission]): User
+  submitFormGrade(
+    initialFormId: ID!
+    score1: Int!
+    score2: Int!
+    score3: Int!
+    boolean: Boolean!
+    notes: String
+  ): SuccessMessage
 }
 
 type Query {
   forms: [InitialForm]!
+  form(id: ID): InitialForm
   me: User
+  formGrades: [FormGrade]!
   #   applications: [Application]!
 }
 

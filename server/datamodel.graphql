@@ -45,3 +45,14 @@ type InitialForm {
   longQuestion4: String!
   aboutUs: String!
 }
+
+type FormGrade {
+  id: ID! @unique
+  jury: User!
+  form: InitialForm!
+  score1: Int!
+  score2: Int!
+  score3: Int!
+  boolean: Boolean!
+  notes: String
+}
