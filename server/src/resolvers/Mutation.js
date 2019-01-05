@@ -136,7 +136,7 @@ const Mutation = {
       throw new Error('--');
     }
     return ctx.db.mutation.updateUser({
-      data: { permissions: args.permissions },
+      data: { permissions: { set: args.permissions } },
       where: { id: ctx.request.user.id }
     });
   },

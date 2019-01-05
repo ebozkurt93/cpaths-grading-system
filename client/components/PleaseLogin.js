@@ -1,7 +1,8 @@
 import { Query } from 'react-apollo';
+import Link from 'next/link';
 import { CURRENT_USER_QUERY } from './User';
 import Login from './Login';
-import Link from 'next/link';
+import { endpoint } from '../config';
 
 const PleaseLogin = props => (
   <Query query={CURRENT_USER_QUERY}>
@@ -10,11 +11,10 @@ const PleaseLogin = props => (
       if (!data.me) {
         return (
           <div>
-            <p>You must be logged in to continue</p>
-            <Login />
-            <Link href="/login">
-              <a>If you need to sign up click here</a>
-            </Link>
+            <p>Bu sayfaya giriş yapmadan erişilemiyor.</p>
+            <a className='btn btn-primary' href={`${endpoint}/auth/google`}>
+              Login
+            </a>
           </div>
         );
       } else if (data.me && props.requiredPermissions) {
@@ -23,7 +23,7 @@ const PleaseLogin = props => (
           props.requiredPermissions.includes(permission)
         );
         if (!matchedPermissions.length) {
-          return <p>You shall not pass!!!</p>;
+          return <p>Bu sayfa için yeterli yetkiniz yok!!</p>;
         }
       }
       return props.children;

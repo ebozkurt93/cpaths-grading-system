@@ -43,7 +43,7 @@ type Mutation {
     aboutUs: String!
   ): SuccessMessage
   logout: SuccessMessage
-  editYourPermissions(permissions: [Permission]!): User
+  editYourPermissions(permissions: [Permission]): User
 }
 
 type Query {

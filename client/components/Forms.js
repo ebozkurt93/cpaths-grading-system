@@ -41,113 +41,108 @@ class Forms extends Component {
 
   render() {
     return (
-      <>
-        <Nav />
-        <br />
-        <br />
-        <Query query={GET_ALL_FORMS}>
-          {({ data, loading, error }) => {
-            if (loading) return <p>Yükleniyor...</p>;
-            if (error) return <Error error={error} />;
-            var table = (
-              <div>
-                <table className='table table-striped table-hover table-scroll'>
-                  <thead>
-                    <tr>
-                      {data.forms.length > 0 &&
-                        Object.keys(data.forms[0]).map(key => {
-                          if (key in initialForm) {
-                            return (
-                              <th
-                                style={{
-                                  maxWidth: '10rem',
-                                  overflow: 'hidden',
-                                  textOverflow: 'ellipsis'
-                                }}
-                                key={key}
+      <Query query={GET_ALL_FORMS}>
+        {({ data, loading, error }) => {
+          if (loading) return <p>Yükleniyor...</p>;
+          if (error) return <Error error={error} />;
+          var table = (
+            <div>
+              <table className='table table-striped table-hover table-scroll'>
+                <thead>
+                  <tr>
+                    {data.forms.length > 0 &&
+                      Object.keys(data.forms[0]).map(key => {
+                        if (key in initialForm) {
+                          return (
+                            <th
+                              style={{
+                                maxWidth: '10rem',
+                                overflow: 'hidden',
+                                textOverflow: 'ellipsis'
+                              }}
+                              key={key}
+                            >
+                              {initialForm[key]}
+                            </th>
+                          );
+                        }
+                      })}
+                  </tr>
+                </thead>
+                <tbody>
+                  {data.forms.map((item, index) => (
+                    <tr
+                      key={index}
+                      onClick={index => {
+                        this.setState({ modalData: item });
+                      }}
+                    >
+                      {Object.keys(item).map(key => {
+                        if (key in initialForm) {
+                          var content = '';
+                          if (isAFile.includes(key)) {
+                            content = (
+                              <a
+                                href={`${endpoint}/files/${item[key]}`}
+                                target='_blank'
+                                onClick={() => console.log('clicked url')}
                               >
                                 {initialForm[key]}
-                              </th>
+                              </a>
                             );
+                          } else {
+                            content = item[key];
                           }
-                        })}
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {data.forms.map((item, index) => (
-                      <tr
-                        key={index}
-                        onClick={index => {
-                          this.setState({ modalData: item });
-                        }}
-                      >
-                        {Object.keys(item).map(key => {
-                          if (key in initialForm) {
-                            var content = '';
-                            if (isAFile.includes(key)) {
-                              content = (
-                                <a
-                                  href={`${endpoint}/files/${item[key]}`}
-                                  target='_blank'
-                                  onClick={() => console.log('clicked url')}
-                                >
-                                  {initialForm[key]}
-                                </a>
-                              );
-                            } else {
-                              content = item[key];
-                            }
 
-                            return (
-                              <td
-                                style={{
-                                  maxWidth: '10rem',
-                                  overflow: 'hidden',
-                                  textOverflow: 'ellipsis'
-                                }}
-                                key={key}
-                              >
-                                {content}
-                              </td>
-                            );
-                          }
-                        })}
-                      </tr>
-                    ))}
-                  </tbody>
-                </table>
-              </div>
-            );
-            return (
-              <>
-                {data.forms.length < 1 && <h4>Gösterecek veri yok.</h4>}
-                {data.forms && table}
-                {this.state.modalData && (
-                  <Modal
-                    title='Detaylar'
-                    closeModal={() => this.setState({ modalData: null })}
-                  >
-                    <DisplayData data={this.state.modalData} />
-                  </Modal>
-                )}
-                <button
-                  className='btn btn-primary'
-                  onClick={() =>
-                    this.setState(({ dataDumpVisible }) => ({
-                      dataDumpVisible: !dataDumpVisible
-                    }))
-                  }
+                          return (
+                            <td
+                              style={{
+                                maxWidth: '10rem',
+                                overflow: 'hidden',
+                                textOverflow: 'ellipsis'
+                              }}
+                              key={key}
+                            >
+                              {content}
+                            </td>
+                          );
+                        }
+                      })}
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          );
+          return (
+            <>
+              {data.forms.length < 1 && <h4>Gösterecek veri yok.</h4>}
+              {data.forms && table}
+              {this.state.modalData && (
+                <Modal
+                  title='Detaylar'
+                  closeModal={() => this.setState({ modalData: null })}
                 >
-                  Bütün datayı göster
-                </button>
-                {this.state.dataDumpVisible && (
-                  <pre>{JSON.stringify(data, null, 4)}</pre>
-                )}
-              </>
-            );
-          }}
-        </Query>
-      </>
+                  <DisplayData data={this.state.modalData} />
+                </Modal>
+              )}
+              <button
+                className='btn btn-primary'
+                onClick={() =>
+                  this.setState(({ dataDumpVisible }) => ({
+                    dataDumpVisible: !dataDumpVisible
+                  }))
+                }
+              >
+                Bütün datayı göster
+              </button>
+              {this.state.dataDumpVisible && (
+                <pre>{JSON.stringify(data, null, 4)}</pre>
+              )}
+            </>
+          );
+        }}
+      </Query>
     );
   }
 }
