@@ -28,6 +28,18 @@ const FORM_BY_ID_QUERY = gql`
   }
 `;
 
+const GRADE_BY_FORM_ID_QUERY = gql`
+  query GRADE_BY_FORM_ID_QUERY($initialFormId: ID!) {
+    formGradeForInitialForm(initialFormId: $initialFormId) {
+      score1
+      score2
+      score3
+      boolean
+      notes
+    }
+  }
+`;
+
 const LoginPage = ({ query }) => (
   <div>
     <Nav />
@@ -49,13 +61,35 @@ const LoginPage = ({ query }) => (
                   <div
                     style={{
                       position: 'fixed',
-                      width: '49%',
+                      width: '48%',
                       height: '100%',
                       padding: '0'
                     }}
                     className='m-2'
                   >
-                    <Grade formId={query.id} edit={query.edit} />
+                    {query.edit === 'true' ? (
+                      <Query
+                        query={GRADE_BY_FORM_ID_QUERY}
+                        variables={{ initialFormId: query.id }}
+                      >
+                        {({
+                          data: { formGradeForInitialForm },
+                          loading,
+                          error
+                        }) => {
+                          if (loading) return <p>Yükleniyor...</p>;
+                          if (error) return <Error error={error} />;
+                          return (
+                            <Grade
+                              formId={query.id}
+                              gradeData={formGradeForInitialForm}
+                            />
+                          );
+                        }}
+                      </Query>
+                    ) : (
+                      <Grade formId={query.id} />
+                    )}
                   </div>
                 </div>
               </div>

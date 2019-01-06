@@ -168,28 +168,37 @@ const Mutation = {
   async submitFormGrade(parent, args, ctx, info) {
     hasPermission(ctx.request.user, ['JURY']);
     // check if this user has submitted grade for this form before
-    const potentialGrade = await ctx.db.query.formGrades({
+    const potentialGrades = await ctx.db.query.formGrades({
       where: {
         jury: { id: ctx.request.userId },
         form: { id: args.initialFormId }
       }
     });
-    // if he/she has submitted, throw an error
-    if (potentialGrade.length > 0) {
-      throw new Error('You cannot submit multiple grades to each applicant');
+    // if he/she has, edit the form
+    if (potentialGrades.length > 0) {
+      // throw new Error('You cannot submit multiple grades to each applicant');
+      var potentialGrade = potentialGrades[0];
+      const updates = { ...args };
+      delete updates.initialFormId;
+      const formGrade = await ctx.db.mutation.updateFormGrade({
+        data: updates,
+        where: { id: potentialGrade.id }
+      });
     }
-    //save form to db
-    const formGrade = await ctx.db.mutation.createFormGrade({
-      data: {
-        score1: args.score1,
-        score2: args.score2,
-        score3: args.score3,
-        boolean: args.boolean,
-        notes: args.notes,
-        jury: { connect: { id: ctx.request.userId } },
-        form: { connect: { id: args.initialFormId } }
-      }
-    });
+    // else create a new form and save to db
+    else {
+      const formGrade = await ctx.db.mutation.createFormGrade({
+        data: {
+          score1: args.score1,
+          score2: args.score2,
+          score3: args.score3,
+          boolean: args.boolean,
+          notes: args.notes,
+          jury: { connect: { id: ctx.request.userId } },
+          form: { connect: { id: args.initialFormId } }
+        }
+      });
+    }
     return { message: 'Success' };
   }
 };

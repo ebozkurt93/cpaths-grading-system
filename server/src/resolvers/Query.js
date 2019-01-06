@@ -27,21 +27,30 @@ const Query = {
     );
   },
   formGrades(parent, args, ctx, info) {
-    const user = ctx.request.user;
-    if (!user) {
-      throw new Error();
-    }
-    hasPermission(user, ['ADMIN', 'JURY']);
-    const permissions = user.permissions;
+    hasPermission(ctx.request.user, ['ADMIN', 'JURY']);
+    const permissions = ctx.request.user.permissions;
     if (permissions.includes('ADMIN')) {
       return ctx.db.query.formGrades({}, info);
     } else
       return ctx.db.query.formGrades(
         {
-          where: { jury: { id: user.id } }
+          where: { jury: { id: ctx.request.user.id } }
         },
         info
       );
+  },
+  async formGradeForInitialForm(parent, args, ctx, info) {
+    hasPermission(ctx.request.user, ['JURY']);
+    const temp = await ctx.db.query.formGrades(
+      {
+        where: {
+          jury: { id: ctx.request.user.id },
+          form: { id: args.initialFormId }
+        }
+      },
+      info
+    );
+    return temp[0] || [];
   }
 };
 

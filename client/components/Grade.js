@@ -28,22 +28,44 @@ const SUBMIT_FORMGRADE_MUTATION = gql`
 `;
 
 class Grade extends Component {
-  state = {
-    // submitted: false,
-    warningMsg: '',
-    required: {
-      score1: '',
-      score2: '',
-      score3: ''
-      // score1: '1',
-      // score2: '3',
-      // score3: '5',
-    },
-    boolean: '',
-    // boolean: true,
-    notes: ''
-    // notes: 'asdasdd'
-  };
+  constructor(props) {
+    super(props);
+    console.log(props);
+    if (props.gradeData) {
+      this.state = {
+        // submitted: false,
+        warningMsg: '',
+        required: {
+          score1: this.props.gradeData.score1 || '',
+          score2: this.props.gradeData.score2 || '',
+          score3: this.props.gradeData.score3 || ''
+          // score1: '1',
+          // score2: '3',
+          // score3: '5',
+        },
+        boolean: this.props.gradeData.boolean || '',
+        // boolean: true,
+        notes: this.props.gradeData.notes || ''
+        // notes: 'asdasdd'
+      };
+    } else {
+      this.state = {
+        warningMsg: '',
+        required: {
+          score1: '',
+          score2: '',
+          score3: ''
+          // score1: '1',
+          // score2: '3',
+          // score3: '5',
+        },
+        boolean: '',
+        // boolean: true,
+        notes: ''
+        // notes: 'asdasdd'
+      };
+    }
+  }
 
   saveToState = e => {
     const value =
@@ -171,7 +193,6 @@ class Grade extends Component {
                       Optional input field
                     </label>
                     <textarea
-                      required
                       placeholder=' '
                       type='text'
                       className='form-input'
