@@ -45,20 +45,22 @@ class Forms extends Component {
         {({ data, loading, error }) => {
           if (loading) return <p>Yükleniyor...</p>;
           if (error) return <Error error={error} />;
-          var table = (
+          var firstFormTable = (
             <div>
               <table className='table table-striped table-hover table-scroll'>
                 <thead>
                   <tr>
-                    <th
-                      style={{
-                        maxWidth: '10rem',
-                        overflow: 'hidden',
-                        textOverflow: 'ellipsis'
-                      }}
-                    >
-                      Durum
-                    </th>
+                    {this.props.filledFormIds && (
+                      <th
+                        style={{
+                          maxWidth: '10rem',
+                          overflow: 'hidden',
+                          textOverflow: 'ellipsis'
+                        }}
+                      >
+                        Durum
+                      </th>
+                    )}
                     {data.forms.length > 0 &&
                       Object.keys(data.forms[0]).map(key => {
                         if (key in initialForm) {
@@ -86,8 +88,8 @@ class Forms extends Component {
                         this.setState({ modalData: item });
                       }}
                     >
-                      <td>
-                        {
+                      {this.props.filledFormIds && (
+                        <td>
                           <Link
                             href={{
                               pathname: '/grade',
@@ -103,8 +105,8 @@ class Forms extends Component {
                                 : 'Notlandır'}
                             </button>
                           </Link>
-                        }
-                      </td>
+                        </td>
+                      )}
                       {Object.keys(item).map(key => {
                         if (key in initialForm) {
                           var content = '';
@@ -144,7 +146,7 @@ class Forms extends Component {
           return (
             <>
               {data.forms.length < 1 && <h4>Gösterecek veri yok.</h4>}
-              {data.forms && table}
+              {data.forms && firstFormTable}
               {this.state.modalData && (
                 <Modal
                   title='Detaylar'
@@ -161,7 +163,7 @@ class Forms extends Component {
                   }))
                 }
               >
-                Bütün datayı göster
+                Bütün kayıt formu datasını göster
               </button>
               {this.state.dataDumpVisible && (
                 <pre>{JSON.stringify(data, null, 4)}</pre>

@@ -6,6 +6,29 @@ const GET_ALL_FORMGRADES = gql`
   query GET_ALL_FORMGRADES {
     formGrades {
       id
+      jury {
+        id
+        name
+        email
+      }
+      form {
+        id
+        email
+        name
+        lastname
+      }
+      score1
+      score2
+      score3
+      boolean
+      notes
+    }
+  }
+`;
+const GET_ALL_FORMGRADES_SHORT = gql`
+  query GET_ALL_FORMGRADES_SHORT {
+    formGrades {
+      id
       form {
         id
         email
@@ -14,11 +37,21 @@ const GET_ALL_FORMGRADES = gql`
   }
 `;
 
-const FormGrades = props => (
-  <Query {...props} query={GET_ALL_FORMGRADES}>
-    {payload => props.children(payload)}
-  </Query>
-);
+const FormGrades = props => {
+  if (props.type === 'full') {
+    return (
+      <Query {...props} query={GET_ALL_FORMGRADES}>
+        {payload => props.children(payload)}
+      </Query>
+    );
+  } else {
+    return (
+      <Query {...props} query={GET_ALL_FORMGRADES_SHORT}>
+        {payload => props.children(payload)}
+      </Query>
+    );
+  }
+};
 
 FormGrades.propTypes = {
   children: PropTypes.func.isRequired

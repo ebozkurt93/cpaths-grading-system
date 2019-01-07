@@ -52,21 +52,13 @@ const LoginPage = ({ query }) => (
           if (form) {
             return (
               <div className='columns'>
-                <div className='column col-6'>
+                <div className='column col-md-12 col-6'>
                   <div className='m-2'>
-                    <DisplayData data={form} />;
+                    <DisplayData data={form} />
                   </div>
                 </div>
-                <div className='column col-6'>
-                  <div
-                    style={{
-                      position: 'fixed',
-                      width: '48%',
-                      height: '100%',
-                      padding: '0'
-                    }}
-                    className='m-2'
-                  >
+                <div className='column col-md-12 col-6'>
+                  <div className='m-2'>
                     {query.edit === 'true' ? (
                       <Query
                         query={GRADE_BY_FORM_ID_QUERY}
