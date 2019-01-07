@@ -7,15 +7,15 @@ const Meta = () => (
     <link rel='stylesheet' type='text/css' href='static/nprogress.css' />
     <link
       rel='stylesheet'
-      href='https://unpkg.com/spectre.css/dist/spectre.min.css'
+      href='../static/spectre.min.css'
     />
     <link
       rel='stylesheet'
-      href='https://unpkg.com/spectre.css/dist/spectre-exp.min.css'
+      href='../static/spectre-exp.min.css'
     />
     <link
       rel='stylesheet'
-      href='https://unpkg.com/spectre.css/dist/spectre-icons.min.css'
+      href='../static/spectre-icons.min.css'
     />
     <title>Client</title>
   </Head>

@@ -19,6 +19,10 @@ services:
       PRISMA_ENDPOINT: ${PRISMA_ENDPOINT}
       # PRISMA_SECRET: myprismasecret
       FRONTEND_URL: ${FRONTEND_URL}
+      PRISMA_SECRET: ${PRISMA_SECRET}
+      APP_SECRET: ${APP_SECRET}
+      GOOGLE_OAUTH_CLIENTID: ${GOOGLE_OAUTH_CLIENTID}
+      GOOGLE_OAUTH_CLIENTSECRET: ${GOOGLE_OAUTH_CLIENTSECRET}
     volumes:
       - files:/app/files
     # depends_on:
