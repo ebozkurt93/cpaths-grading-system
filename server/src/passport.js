@@ -13,7 +13,7 @@ passport.use(
     {
       clientID: process.env.GOOGLE_OAUTH_CLIENTID,
       clientSecret: process.env.GOOGLE_OAUTH_CLIENTSECRET,
-      callbackURL: 'http://localhost:4000/auth/google/callback' // ! edit callback url
+      callbackURL: `${process.env.SERVER_ENDPOINT}/auth/google/callback` // ! edit callback url
     },
     function(accessToken, refreshToken, profile, done) {
       var userData = {
