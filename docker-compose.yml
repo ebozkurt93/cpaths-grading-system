@@ -18,6 +18,7 @@ services:
     environment:
       PRISMA_ENDPOINT: ${PRISMA_ENDPOINT}
       # PRISMA_SECRET: myprismasecret
+      SERVER_ENDPOINT: ${SERVER_ENDPOINT}
       FRONTEND_URL: ${FRONTEND_URL}
       PRISMA_SECRET: ${PRISMA_SECRET}
       APP_SECRET: ${APP_SECRET}
