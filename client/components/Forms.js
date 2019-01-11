@@ -50,7 +50,7 @@ class Forms extends Component {
               <table className='table table-striped table-hover table-scroll'>
                 <thead>
                   <tr>
-                    {this.props.filledFormIds && (
+                    {data.forms.length > 0 && this.props.filledFormIds && (
                       <th
                         style={{
                           maxWidth: '10rem',
