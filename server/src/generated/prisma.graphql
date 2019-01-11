@@ -437,7 +437,7 @@ type InitialForm implements Node {
   university: String!
   universityYear: String!
   universityDept: String!
-  gpa: String!
+  gpa: Float!
   cv: String!
   transcript: String!
   longQuestion1: String!
@@ -445,6 +445,7 @@ type InitialForm implements Node {
   longQuestion3: String!
   longQuestion4: String!
   aboutUs: String!
+  invalid: Boolean!
 }
 
 """
@@ -470,7 +471,7 @@ input InitialFormCreateInput {
   university: String!
   universityYear: String!
   universityDept: String!
-  gpa: String!
+  gpa: Float!
   cv: String!
   transcript: String!
   longQuestion1: String!
@@ -478,6 +479,7 @@ input InitialFormCreateInput {
   longQuestion3: String!
   longQuestion4: String!
   aboutUs: String!
+  invalid: Boolean!
 }
 
 input InitialFormCreateOneInput {
@@ -531,6 +533,8 @@ enum InitialFormOrderByInput {
   longQuestion4_DESC
   aboutUs_ASC
   aboutUs_DESC
+  invalid_ASC
+  invalid_DESC
   updatedAt_ASC
   updatedAt_DESC
   createdAt_ASC
@@ -545,7 +549,7 @@ type InitialFormPreviousValues {
   university: String!
   universityYear: String!
   universityDept: String!
-  gpa: String!
+  gpa: Float!
   cv: String!
   transcript: String!
   longQuestion1: String!
@@ -553,6 +557,7 @@ type InitialFormPreviousValues {
   longQuestion3: String!
   longQuestion4: String!
   aboutUs: String!
+  invalid: Boolean!
 }
 
 type InitialFormSubscriptionPayload {
@@ -607,7 +612,7 @@ input InitialFormUpdateDataInput {
   university: String
   universityYear: String
   universityDept: String
-  gpa: String
+  gpa: Float
   cv: String
   transcript: String
   longQuestion1: String
@@ -615,6 +620,7 @@ input InitialFormUpdateDataInput {
   longQuestion3: String
   longQuestion4: String
   aboutUs: String
+  invalid: Boolean
 }
 
 input InitialFormUpdateInput {
@@ -624,7 +630,7 @@ input InitialFormUpdateInput {
   university: String
   universityYear: String
   universityDept: String
-  gpa: String
+  gpa: Float
   cv: String
   transcript: String
   longQuestion1: String
@@ -632,6 +638,7 @@ input InitialFormUpdateInput {
   longQuestion3: String
   longQuestion4: String
   aboutUs: String
+  invalid: Boolean
 }
 
 input InitialFormUpdateManyMutationInput {
@@ -641,7 +648,7 @@ input InitialFormUpdateManyMutationInput {
   university: String
   universityYear: String
   universityDept: String
-  gpa: String
+  gpa: Float
   cv: String
   transcript: String
   longQuestion1: String
@@ -649,6 +656,7 @@ input InitialFormUpdateManyMutationInput {
   longQuestion3: String
   longQuestion4: String
   aboutUs: String
+  invalid: Boolean
 }
 
 input InitialFormUpdateOneRequiredInput {
@@ -1140,72 +1148,42 @@ input InitialFormWhereInput {
   All values not ending with the given string.
   """
   universityDept_not_ends_with: String
-  gpa: String
+  gpa: Float
 
   """
   All values that are not equal to given value.
   """
-  gpa_not: String
+  gpa_not: Float
 
   """
   All values that are contained in given list.
   """
-  gpa_in: [String!]
+  gpa_in: [Float!]
 
   """
   All values that are not contained in given list.
   """
-  gpa_not_in: [String!]
+  gpa_not_in: [Float!]
 
   """
   All values less than the given value.
   """
-  gpa_lt: String
+  gpa_lt: Float
 
   """
   All values less than or equal the given value.
   """
-  gpa_lte: String
+  gpa_lte: Float
 
   """
   All values greater than the given value.
   """
-  gpa_gt: String
+  gpa_gt: Float
 
   """
   All values greater than or equal the given value.
   """
-  gpa_gte: String
-
-  """
-  All values containing the given string.
-  """
-  gpa_contains: String
-
-  """
-  All values not containing the given string.
-  """
-  gpa_not_contains: String
-
-  """
-  All values starting with the given string.
-  """
-  gpa_starts_with: String
-
-  """
-  All values not starting with the given string.
-  """
-  gpa_not_starts_with: String
-
-  """
-  All values ending with the given string.
-  """
-  gpa_ends_with: String
-
-  """
-  All values not ending with the given string.
-  """
-  gpa_not_ends_with: String
+  gpa_gte: Float
   cv: String
 
   """
@@ -1668,10 +1646,17 @@ input InitialFormWhereInput {
   All values not ending with the given string.
   """
   aboutUs_not_ends_with: String
+  invalid: Boolean
+
+  """
+  All values that are not equal to given value.
+  """
+  invalid_not: Boolean
 }
 
 input InitialFormWhereUniqueInput {
   id: ID
+  email: String
 }
 
 """

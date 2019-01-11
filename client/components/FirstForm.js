@@ -13,7 +13,7 @@ const FIRST_FORM_MUTATION = gql`
     $university: String!
     $universityYear: String!
     $universityDept: String!
-    $gpa: String!
+    $gpa: Float!
     $cv: Upload!
     $transcript: Upload!
     $longQuestion1: String!
@@ -211,8 +211,10 @@ class FirstForm extends Component {
                       <option hidden value='' />
                       <option>2</option>
                       <option>3</option>
-                      <option>4</option>
-                      <option>5</option>
+                      <option value='Son Sınıf'>
+                        Son Sınıf (Başvuru koşulları gereği başvurunuz geçersiz
+                        sayılacak!)
+                      </option>
                       <option>Diğer</option>
                     </select>
                   </div>

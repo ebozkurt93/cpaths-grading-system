@@ -33,7 +33,7 @@ type Mutation {
     university: String!
     universityYear: String!
     universityDept: String!
-    gpa: String!
+    gpa: Float!
     cv: Upload!
     transcript: Upload!
     longQuestion1: String!

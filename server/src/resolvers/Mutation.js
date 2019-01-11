@@ -150,7 +150,7 @@ const Mutation = {
 
     cvFileName = await fileCheck(args.cv, 'pdf');
     transcriptFileName = await fileCheck(args.transcript, 'pdf');
-
+    const isInvalid = args.gpa < 3 || args.universityYear === 'Son Sınıf';
     const application = await ctx.db.mutation.createInitialForm({
       data: {
         ...Object.keys(args)
@@ -160,7 +160,8 @@ const Mutation = {
             return obj;
           }, {}),
         cv: cvFileName,
-        transcript: transcriptFileName
+        transcript: transcriptFileName,
+        invalid: isInvalid
       }
     });
     return { message: 'Success' };

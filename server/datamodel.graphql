@@ -30,13 +30,13 @@ type User {
 
 type InitialForm {
   id: ID! @unique
-  email: String!
+  email: String! @unique
   name: String!
   lastname: String!
   university: String!
   universityYear: String!
   universityDept: String!
-  gpa: String!
+  gpa: Float!
   cv: String!
   transcript: String!
   longQuestion1: String!
@@ -44,6 +44,7 @@ type InitialForm {
   longQuestion3: String!
   longQuestion4: String!
   aboutUs: String!
+  invalid: Boolean!
 }
 
 type FormGrade {
