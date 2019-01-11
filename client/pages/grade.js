@@ -44,7 +44,7 @@ const LoginPage = ({ query }) => (
   <div>
     <Nav />
     <PleaseLogin requiredPermissions={['JURY']}>
-      <Query query={FORM_BY_ID_QUERY} variables={{ id: query.id }}>
+      <Query query={FORM_BY_ID_QUERY} variables={{ id: query.id }} ssr={false}>
         {({ data: { form }, loading, error }) => {
           if (loading) return <p>Yükleniyor...</p>;
           if (error) return <Error error={error} />;

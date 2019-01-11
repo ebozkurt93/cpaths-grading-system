@@ -24,7 +24,6 @@ import { endpoint } from '../config';
 
 function createClient(headers) {
   return new ApolloClient({
-    ssrMode: false,
     link: ApolloLink.from([
       onError(({ graphQLErrors, networkError }) => {
         if (graphQLErrors)
