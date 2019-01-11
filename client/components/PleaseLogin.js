@@ -1,7 +1,5 @@
 import { Query } from 'react-apollo';
-import Link from 'next/link';
 import { CURRENT_USER_QUERY } from './User';
-import Login from './Login';
 import { endpoint } from '../config';
 
 const PleaseLogin = props => (
