@@ -174,7 +174,7 @@ class Forms extends Component {
           return (
             <>
               {data.forms.length < 1 && <h4>Gösterecek veri yok.</h4>}
-              {data.forms && (
+              {data.forms.length > 0 && (
                 <Mutation
                   mutation={UPDATE_INITIALFORM_INVALID_MUTATION}
                   variables={{
@@ -196,7 +196,7 @@ class Forms extends Component {
                         }
                       }}
                     >
-                      Formların todo ...
+                      {loading ? 'Güncelleniyor' : 'Geçersizleri Güncelle'}
                     </button>
                   )}
                 </Mutation>
