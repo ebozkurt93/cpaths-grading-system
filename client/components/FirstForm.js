@@ -55,7 +55,7 @@ class FirstForm extends Component {
       university: '',
       universityYear: '',
       universityDept: '',
-      gpa: '',
+      gpa: null,
       longQuestion1: '',
       longQuestion2: '',
       longQuestion3: '',
