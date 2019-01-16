@@ -33,7 +33,6 @@ const AdminPage = props => (
           me.permissions.includes('ADMIN') && (
             <FormGrades type='full'>
               {({ data: { formGrades } }) => {
-                console.log(formGrades);
                 return (
                   <div>
                     <h6>Grade data</h6>

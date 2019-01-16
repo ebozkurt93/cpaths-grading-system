@@ -1,7 +1,7 @@
 import gql from 'graphql-tag';
 import React, { Component } from 'react';
 import Link from 'next/link';
-import { Query } from 'react-apollo';
+import { Query, Mutation } from 'react-apollo';
 import Error from './ErrorMessage';
 import { endpoint } from '../config';
 import { initialForm, isAFile } from '../data';
@@ -26,17 +26,44 @@ const GET_ALL_FORMS = gql`
       longQuestion3
       longQuestion4
       aboutUs
+      invalid
     }
   }
 `;
 
+const UPDATE_INITIALFORM_INVALID_MUTATION = gql`
+  mutation UPDATE_INITIALFORM_INVALID_MUTATION($value: String!) {
+    updateInvalidState(value: $value) {
+      message
+    }
+  }
+`;
+
+const formContentStyle = {
+  maxWidth: '10rem',
+  overflow: 'hidden',
+  textOverflow: 'ellipsis'
+};
+
 class Forms extends Component {
   state = {
     modalData: null,
-    dataDumpVisible: false
+    dataDumpVisible: false,
+    changedFormIds: {}
   };
-  saveToState = e => {
-    this.setState({ [e.target.name]: e.target.value });
+
+  invalidToggle = (id, e) => {
+    var updated = this.state.changedFormIds;
+    // check if value is updated before
+    if (Object.keys(updated).includes(id)) {
+      //if yes remove the update
+      delete updated[id];
+    } else {
+      //if no add
+      updated[id] = e.target.checked;
+    }
+    //update state to reflect changes
+    this.setState({ modalData: null, changedFormIds: updated });
   };
 
   render() {
@@ -50,29 +77,19 @@ class Forms extends Component {
               <table className='table table-striped table-hover table-scroll'>
                 <thead>
                   <tr>
+                    {/* Visible only for Admins */}
+                    {data.forms.length > 0 && !this.props.filledFormIds && (
+                      <th style={formContentStyle}>Geçersiz</th>
+                    )}
+                    {/* Visible only for JURY */}
                     {data.forms.length > 0 && this.props.filledFormIds && (
-                      <th
-                        style={{
-                          maxWidth: '10rem',
-                          overflow: 'hidden',
-                          textOverflow: 'ellipsis'
-                        }}
-                      >
-                        Durum
-                      </th>
+                      <th style={formContentStyle}>Durum</th>
                     )}
                     {data.forms.length > 0 &&
                       Object.keys(data.forms[0]).map(key => {
                         if (key in initialForm) {
                           return (
-                            <th
-                              style={{
-                                maxWidth: '10rem',
-                                overflow: 'hidden',
-                                textOverflow: 'ellipsis'
-                              }}
-                              key={key}
-                            >
+                            <th style={formContentStyle} key={key}>
                               {initialForm[key]}
                             </th>
                           );
@@ -88,6 +105,24 @@ class Forms extends Component {
                         this.setState({ modalData: item });
                       }}
                     >
+                      {this.props.filledFormIds === undefined && (
+                        <td>
+                          <label className='form-checkbox'>
+                            <input
+                              type='checkbox'
+                              checked={
+                                Object.keys(this.state.changedFormIds).includes(
+                                  item.id
+                                )
+                                  ? this.state.changedFormIds[item.id] // or just use !item.invalid
+                                  : item.invalid
+                              }
+                              onChange={e => this.invalidToggle(item.id, e)}
+                            />
+                            <i className='form-icon' />
+                          </label>
+                        </td>
+                      )}
                       {this.props.filledFormIds && (
                         <td>
                           <Link
@@ -124,14 +159,7 @@ class Forms extends Component {
                           }
 
                           return (
-                            <td
-                              style={{
-                                maxWidth: '10rem',
-                                overflow: 'hidden',
-                                textOverflow: 'ellipsis'
-                              }}
-                              key={key}
-                            >
+                            <td style={formContentStyle} key={key}>
                               {content}
                             </td>
                           );
@@ -146,6 +174,33 @@ class Forms extends Component {
           return (
             <>
               {data.forms.length < 1 && <h4>Gösterecek veri yok.</h4>}
+              {data.forms && (
+                <Mutation
+                  mutation={UPDATE_INITIALFORM_INVALID_MUTATION}
+                  variables={{
+                    value: JSON.stringify(this.state.changedFormIds)
+                  }}
+                  refetchQueries={[{ query: GET_ALL_FORMS }]}
+                >
+                  {(updateInvalidValues, { error, loading }) => (
+                    <button
+                      className='btn btn-secondary'
+                      onClick={async () => {
+                        if (Object.keys(this.state.changedFormIds).length > 0) {
+                          var resp = await updateInvalidValues();
+                          if (
+                            resp.data.updateInvalidState.message === 'Success'
+                          ) {
+                            this.setState({ changedFormIds: {} });
+                          }
+                        }
+                      }}
+                    >
+                      Formların todo ...
+                    </button>
+                  )}
+                </Mutation>
+              )}
               {data.forms && firstFormTable}
               {this.state.modalData && (
                 <Modal

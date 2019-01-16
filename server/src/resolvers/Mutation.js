@@ -87,6 +87,42 @@ const Mutation = {
       });
     }
     return { message: 'Success' };
+  },
+  async updateInvalidState(parent, args, ctx, info) {
+    hasPermission(ctx.request.user, ['ADMIN']);
+    // todo: turn string to json object
+    const value = JSON.parse(args.value);
+    var idTrue = [];
+    var idFalse = [];
+    for (var key in value) {
+      if (value[key] == true) {
+        idTrue.push(key);
+      }
+      // checking value[key] again to prevent potential errors
+      else if (value[key] == false) {
+        idFalse.push(key);
+      }
+    }
+    // do it in 2 steps:
+    // select the id's which have data as true, update them
+    const updateBatchTrue = await ctx.db.mutation.updateManyInitialForms({
+      where: {
+        id_in: idTrue
+      },
+      data: {
+        invalid: true
+      }
+    });
+    // select the id's which have data as false, update them
+    const updateBatchFalse = await ctx.db.mutation.updateManyInitialForms({
+      where: {
+        id_in: idFalse
+      },
+      data: {
+        invalid: false
+      }
+    });
+    return { message: 'Success' };
   }
 };
 

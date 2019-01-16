@@ -52,6 +52,7 @@ type Mutation {
     boolean: Boolean!
     notes: String
   ): SuccessMessage
+  updateInvalidState(value: String!): SuccessMessage
 }
 
 type Query {
