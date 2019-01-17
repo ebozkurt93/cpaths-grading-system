@@ -14,7 +14,7 @@ const CURRENT_USER_QUERY = gql`
 `;
 
 const User = props => (
-  <Query {...props} query={CURRENT_USER_QUERY} ssr={false}>
+  <Query {...props} query={CURRENT_USER_QUERY} ssr={true}>
     {payload => props.children(payload)}
   </Query>
 );

@@ -61,6 +61,7 @@ type Query {
   me: User
   formGrades: [FormGrade]!
   formGradeForInitialForm(initialFormId: ID): FormGrade
+  users: [User]!
   #   applications: [Application]!
 }
 

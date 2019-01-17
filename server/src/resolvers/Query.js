@@ -51,6 +51,10 @@ const Query = {
       info
     );
     return temp[0] || [];
+  },
+  users(parent, args, ctx, info) {
+    hasPermission(ctx.request.user, ['ADMIN']);
+    return ctx.db.query.users({}, info);
   }
 };
 

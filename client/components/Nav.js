@@ -42,16 +42,23 @@ const Nav = () => (
             </a>
           )}
           {me && (
-            <Mutation
-              mutation={LOGOUT_MUTATION}
-              refetchQueries={[{ query: CURRENT_USER_QUERY }]}
-            >
-              {logout => (
-                <a className='btn btn-link' onClick={logout}>
-                  Logout
-                </a>
+            <>
+              {me.permissions.includes('ADMIN') && (
+                <Link href='/permissions'>
+                  <a className='btn btn-link'>Kullanıcı Yetkileri</a>
+                </Link>
               )}
-            </Mutation>
+              <Mutation
+                mutation={LOGOUT_MUTATION}
+                refetchQueries={[{ query: CURRENT_USER_QUERY }]}
+              >
+                {logout => (
+                  <a className='btn btn-link' onClick={logout}>
+                    Logout
+                  </a>
+                )}
+              </Mutation>
+            </>
           )}
         </section>
         {me && (

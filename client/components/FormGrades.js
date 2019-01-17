@@ -40,13 +40,13 @@ const GET_ALL_FORMGRADES_SHORT = gql`
 const FormGrades = props => {
   if (props.type === 'full') {
     return (
-      <Query {...props} query={GET_ALL_FORMGRADES} ssr={false}>
+      <Query {...props} query={GET_ALL_FORMGRADES} ssr={true}>
         {payload => props.children(payload)}
       </Query>
     );
   } else {
     return (
-      <Query {...props} query={GET_ALL_FORMGRADES_SHORT} ssr={false}>
+      <Query {...props} query={GET_ALL_FORMGRADES_SHORT} ssr={true}>
         {payload => props.children(payload)}
       </Query>
     );

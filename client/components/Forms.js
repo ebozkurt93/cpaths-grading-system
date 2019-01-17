@@ -68,7 +68,7 @@ class Forms extends Component {
 
   render() {
     return (
-      <Query query={GET_ALL_FORMS} ssr={false}>
+      <Query query={GET_ALL_FORMS} ssr={true}>
         {({ data, loading, error }) => {
           if (loading) return <p>Yükleniyor...</p>;
           if (error) return <Error error={error} />;
