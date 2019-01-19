@@ -55,7 +55,7 @@ class FirstForm extends Component {
       university: '',
       universityYear: '',
       universityDept: '',
-      gpa: null,
+      gpa: '',
       longQuestion1: '',
       longQuestion2: '',
       longQuestion3: '',
@@ -119,6 +119,7 @@ class FirstForm extends Component {
           mutation={FIRST_FORM_MUTATION}
           variables={{
             ...this.state.required,
+            gpa: parseFloat(this.state.required.gpa),
             aboutUs:
               this.state.required.aboutUs === 'Diğer:'
                 ? this.state.aboutUsOther

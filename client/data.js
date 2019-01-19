@@ -25,6 +25,8 @@ export const isAFile = ['cv', 'transcript'];
 
 export const user = {
   email: 'Email',
-  name: 'İsim',
-  permissions: 'Yetkiler'
+  name: 'İsim'
+  // permissions: 'Yetkiler'
 };
+
+export const possiblePermissions = ['ADMIN', 'JURY'];

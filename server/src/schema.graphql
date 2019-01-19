@@ -53,6 +53,7 @@ type Mutation {
     notes: String
   ): SuccessMessage
   updateInvalidState(value: String!): SuccessMessage
+  updateUserPermissions(permissions: [Permission], userId: ID!): User
 }
 
 type Query {
