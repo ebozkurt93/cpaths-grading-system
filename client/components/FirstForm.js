@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import gql from 'graphql-tag';
 import { Mutation } from 'react-apollo';
 import ErrorMessage from './ErrorMessage';
-import Nav from './Nav';
 import { valueIsEmpty } from '../helper';
 
 const FIRST_FORM_MUTATION = gql`
@@ -472,7 +471,6 @@ class FirstForm extends Component {
     );
     return (
       <>
-        <Nav />
         <div
           className='col-8 col-mx-auto bg-gray'
           style={{

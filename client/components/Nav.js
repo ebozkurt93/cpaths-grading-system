@@ -44,9 +44,14 @@ const Nav = () => (
           {me && (
             <>
               {me.permissions.includes('ADMIN') && (
-                <Link href='/permissions'>
-                  <a className='btn btn-link'>Kullanıcı Yetkileri</a>
-                </Link>
+                <>
+                  <Link href='/permissions'>
+                    <a className='btn btn-link'>Kullanıcı Yetkileri</a>
+                  </Link>
+                  <Link href='/results'>
+                    <a className='btn btn-link'>Sonuçlar</a>
+                  </Link>
+                </>
               )}
               <Mutation
                 mutation={LOGOUT_MUTATION}

@@ -48,7 +48,6 @@ const formContentStyle = {
 class Forms extends Component {
   state = {
     modalData: null,
-    dataDumpVisible: false,
     changedFormIds: {}
   };
 
@@ -77,7 +76,7 @@ class Forms extends Component {
               <table className='table table-striped table-hover table-scroll'>
                 <thead>
                   <tr>
-                    {/* Visible only for Admins */}
+                    {/* Visible only for ADMIN */}
                     {data.forms.length > 0 && !this.props.filledFormIds && (
                       <th style={formContentStyle}>Geçersiz</th>
                     )}
@@ -174,7 +173,8 @@ class Forms extends Component {
           return (
             <>
               {data.forms.length < 1 && <h4>Gösterecek veri yok.</h4>}
-              {data.forms.length > 0 && (
+              {/* Visible only for ADMIN */}
+              {data.forms.length > 0 && !this.props.filledFormIds && (
                 <Mutation
                   mutation={UPDATE_INITIALFORM_INVALID_MUTATION}
                   variables={{
@@ -209,19 +209,6 @@ class Forms extends Component {
                 >
                   <DisplayData data={this.state.modalData} />
                 </Modal>
-              )}
-              <button
-                className='btn btn-primary'
-                onClick={() =>
-                  this.setState(({ dataDumpVisible }) => ({
-                    dataDumpVisible: !dataDumpVisible
-                  }))
-                }
-              >
-                Bütün kayıt formu datasını göster
-              </button>
-              {this.state.dataDumpVisible && (
-                <pre>{JSON.stringify(data, null, 4)}</pre>
               )}
             </>
           );

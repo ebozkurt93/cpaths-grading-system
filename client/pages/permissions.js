@@ -2,7 +2,6 @@ import { Query } from 'react-apollo';
 import gql from 'graphql-tag';
 import Nav from '../components/Nav';
 import PleaseLogin from '../components/PleaseLogin';
-import User from '../components/User';
 import EditUserPermissions from '../components/EditUserPermissions';
 
 const GET_ALL_USERS_QUERY = gql`

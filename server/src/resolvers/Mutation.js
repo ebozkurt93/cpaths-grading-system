@@ -90,7 +90,7 @@ const Mutation = {
   },
   async updateInvalidState(parent, args, ctx, info) {
     hasPermission(ctx.request.user, ['ADMIN']);
-    // todo: turn string to json object
+    // turning string to json object
     const value = JSON.parse(args.value);
     var idTrue = [];
     var idFalse = [];

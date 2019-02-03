@@ -28,22 +28,6 @@ const AdminPage = props => (
           }
         }}
       </User>
-      <User>
-        {({ data: { me } }) =>
-          me.permissions.includes('ADMIN') && (
-            <FormGrades type='full'>
-              {({ data: { formGrades } }) => {
-                return (
-                  <div>
-                    <h6>Grade data</h6>
-                    <pre>{JSON.stringify(formGrades, null, 4)}</pre>
-                  </div>
-                );
-              }}
-            </FormGrades>
-          )
-        }
-      </User>
     </PleaseLogin>
   </div>
 );

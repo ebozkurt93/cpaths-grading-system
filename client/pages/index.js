@@ -3,7 +3,7 @@ import FirstForm from '../components/FirstForm';
 
 const HomePage = props => (
   <div>
-    {/* <Nav /> */}
+    <Nav />
     <FirstForm />
   </div>
 );

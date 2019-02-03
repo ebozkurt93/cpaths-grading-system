@@ -63,12 +63,6 @@ type Query {
   formGrades: [FormGrade]!
   formGradeForInitialForm(initialFormId: ID): FormGrade
   users: [User]!
+  results: String
   #   applications: [Application]!
 }
-
-# type User {
-#   id: ID!
-#   name: String!
-#   email: String!
-#   permissions: [Permission!]!
-# }

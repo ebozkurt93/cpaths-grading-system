@@ -30,3 +30,24 @@ export const user = {
 };
 
 export const possiblePermissions = ['ADMIN', 'JURY'];
+
+export const result = {
+  email: 'Email',
+  name: 'Ad',
+  lastname: 'Soyad',
+  total_score: 'Toplam Puan',
+};
+
+export const resultPartial = {
+  score: 'Puan',
+  yn: 'E/H',
+  notes: 'Notlar'
+}
+
+export const resultJuryPattern = [
+  'id',
+  'email',
+  'name',
+  'lastname',
+  'total_score'
+];
