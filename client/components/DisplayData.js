@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { endpoint } from '../config';
-import { initialForm, isAFile } from '../data';
+import { initialForm, isAFile, resultConst, resultJuryPattern } from '../data';
 
 class DisplayData extends Component {
   render() {
@@ -31,6 +31,26 @@ class DisplayData extends Component {
                 );
               }
               return content;
+            } else if (key in resultConst) {
+              return (
+                <React.Fragment key={key}>
+                  <h6>{resultConst[key]}</h6>
+                  <p>{data[key]}</p>
+                </React.Fragment>
+              );
+            }
+            {
+              /* todo: continue here */
+            }
+            {
+              /* else if(item in resultJuryPattern) {
+              if (item.endsWith[key]) {
+                <React.Fragment key={key}>
+                  <h6>{resultConst[key]}</h6>
+                  <p>{data[key]}</p>
+                </React.Fragment>
+              }
+            }  */
             }
           })}
       </div>

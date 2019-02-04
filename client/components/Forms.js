@@ -4,6 +4,7 @@ import Link from 'next/link';
 import { Query, Mutation } from 'react-apollo';
 import Error from './ErrorMessage';
 import { endpoint } from '../config';
+import { formContentStyle } from '../helper';
 import { initialForm, isAFile } from '../data';
 import DisplayData from './DisplayData';
 import Modal from './Modal';
@@ -38,12 +39,6 @@ const UPDATE_INITIALFORM_INVALID_MUTATION = gql`
     }
   }
 `;
-
-const formContentStyle = {
-  maxWidth: '10rem',
-  overflow: 'hidden',
-  textOverflow: 'ellipsis'
-};
 
 class Forms extends Component {
   state = {

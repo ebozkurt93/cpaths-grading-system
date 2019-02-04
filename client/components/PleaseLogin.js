@@ -5,7 +5,7 @@ import { endpoint } from '../config';
 const PleaseLogin = props => (
   <Query query={CURRENT_USER_QUERY} ssr={true}>
     {({ data, loading }) => {
-      if (loading) return <p>Loading...</p>;
+      if (loading) return <p>Yükleniyor...</p>;
       if (!data.me) {
         return (
           <div>
