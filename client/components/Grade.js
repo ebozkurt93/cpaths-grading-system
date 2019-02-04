@@ -97,7 +97,9 @@ class Grade extends Component {
         <Mutation
           mutation={SUBMIT_FORMGRADE_MUTATION}
           variables={{
-            ...this.state.required,
+            score1: parseInt(this.state.required.score1),
+            score2: parseInt(this.state.required.score2),
+            score3: parseInt(this.state.required.score3),
             boolean: this.state.boolean,
             notes: this.state.notes,
             initialFormId: this.props.formId
