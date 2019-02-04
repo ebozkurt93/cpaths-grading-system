@@ -25,12 +25,12 @@ const ResultsPage = props => (
   <div>
     <Nav />
     <PleaseLogin requiredPermissions={['ADMIN']}>
-      <Query query={GET_ALL_USERS_QUERY} ssr={true}>
+      <Query query={GET_ALL_USERS_QUERY} ssr={false}>
         {({ data: { users }, loading, error }) => {
           if (loading) return <p>Yükleniyor...</p>;
           if (error) return <ErrorMessage error={error} />;
           return (
-            <Query query={GET_RESULTS_QUERY} ssr={true}>
+            <Query query={GET_RESULTS_QUERY} ssr={false}>
               {({ data: { results }, loading, error }) => {
                 if (loading) return <p>Yükleniyor...</p>;
                 if (error) return <ErrorMessage error={error} />;

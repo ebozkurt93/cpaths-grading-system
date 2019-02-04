@@ -3,7 +3,7 @@ import { CURRENT_USER_QUERY } from './User';
 import { endpoint } from '../config';
 
 const PleaseLogin = props => (
-  <Query query={CURRENT_USER_QUERY} ssr={true}>
+  <Query query={CURRENT_USER_QUERY} ssr={false}>
     {({ data, loading }) => {
       if (loading) return <p>Yükleniyor...</p>;
       if (!data.me) {

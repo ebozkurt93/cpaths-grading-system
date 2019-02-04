@@ -20,7 +20,7 @@ const AdminPage = props => (
     <Nav />
     <PleaseLogin requiredPermissions={['ADMIN']}>
       {/* TODO: PASS USERS PROP */}
-      <Query query={GET_ALL_USERS_QUERY} ssr={true}>
+      <Query query={GET_ALL_USERS_QUERY} ssr={false}>
         {({ data, loading, error }) => {
           if (loading) return <p>Yükleniyor...</p>;
           if (error) return <Error error={error} />;
