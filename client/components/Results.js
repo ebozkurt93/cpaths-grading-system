@@ -6,8 +6,7 @@ import { formContentStyle } from '../helper';
 
 export default class Results extends Component {
   state = {
-    modalData: null,
-    changedFormIds: {}
+    modalData: null
   };
 
   render() {
@@ -29,11 +28,12 @@ export default class Results extends Component {
                 })}
               {results.length > 0 &&
                 juryIds.length > 0 &&
-                Object.values(juryIds).map(id => {
-                  return Object.values(resultPartial).map(r => {
+                Object.values(resultPartial).map(r => {
+                  return Object.values(juryIds).map(id => {
                     return (
                       <th style={formContentStyle} key={`${id}_${r}`}>
-                        {users.find(user => user.id === id).name} {r}
+                        {users.find(user => user.id === id).name.split(' ')[0]}{' '}
+                        {r}
                       </th>
                     );
                   });
@@ -59,8 +59,8 @@ export default class Results extends Component {
                     }
                     return;
                   })}
-                  {juryIds.map((juryId, index) => {
-                    return Object.keys(resultPartial).map(partial => {
+                  {Object.keys(resultPartial).map((partial, index) => {
+                    return juryIds.map(juryId => {
                       const s = `${juryId}_${partial}`;
                       if (s in result) {
                         var r =
@@ -71,7 +71,9 @@ export default class Results extends Component {
                             : result[s];
                         return (
                           <td
-                            style={formContentStyle}
+                            style={{
+                              ...formContentStyle
+                            }}
                             key={`${index}_${juryId}_${partial}`}
                           >
                             {r}

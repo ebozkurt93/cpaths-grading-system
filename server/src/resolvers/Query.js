@@ -89,7 +89,7 @@ const Query = {
       if (index != null || index < results.length) {
         var temp = results[index];
         const scores = grade['score1'] + grade['score2'] + grade['score3'];
-        temp['total_score'] += temp['total_score'] + scores;
+        temp['total_score'] += scores;
         temp[`${grade['jury']['id']}_score`] = scores;
         temp[`${grade['jury']['id']}_yn`] = grade['boolean'];
         temp[`${grade['jury']['id']}_notes`] = grade['notes'];
@@ -97,7 +97,6 @@ const Query = {
       }
     });
 
-    console.log(results);
     //todo: uncomment for caching
     // cachedResults = JSON.stringify(results);
     return JSON.stringify(results);

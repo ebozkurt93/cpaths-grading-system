@@ -2,6 +2,9 @@ const { hasPermission } = require('../utils');
 const fs = require('fs');
 const uuid = require('uuid');
 
+// todo: update file upload, seems like stream is deprecated and createReadStream() should be used instead of it
+// (node:21) DeprecationWarning: File upload property ‘stream’ is deprecated. Use ‘createReadStream()’ instead.,
+
 async function fileCheck(filePromise, fileType) {
   const { stream, filename, mimetype } = await filePromise;
   if (mimetype.split('/')[1] !== fileType) {

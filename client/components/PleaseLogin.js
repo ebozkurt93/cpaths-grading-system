@@ -11,7 +11,7 @@ const PleaseLogin = props => (
           <div>
             <p>Bu sayfaya giriş yapmadan erişilemiyor.</p>
             <a className='btn btn-primary' href={`${endpoint}/auth/google`}>
-              Login
+              Giriş
             </a>
           </div>
         );

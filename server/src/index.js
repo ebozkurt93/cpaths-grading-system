@@ -75,7 +75,7 @@ server.express.get(
     //create token and add it to response cookie
     generateJWTToken(dbUser.id, res);
     // send response w/ cookie to client
-    res.redirect(process.env.FRONTEND_URL);
+    res.redirect(`${process.env.FRONTEND_URL}/applications`);
   }
 );
 

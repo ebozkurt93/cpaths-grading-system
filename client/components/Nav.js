@@ -33,12 +33,12 @@ const Nav = () => (
           <Link href='/'>
             <a className='btn btn-link'>Anasayfa</a>
           </Link>
-          <Link href='/admin'>
-            <a className='btn btn-link'>Bütün Formlar</a>
+          <Link href='/applications'>
+            <a className='btn btn-link'>Başvurular</a>
           </Link>
           {!me && (
             <a className='btn btn-link' href={`${endpoint}/auth/google`}>
-              Login
+              Giriş
             </a>
           )}
           {me && (
@@ -59,10 +59,18 @@ const Nav = () => (
               >
                 {logout => (
                   <a className='btn btn-link' onClick={logout}>
-                    Logout
+                    Çıkış
                   </a>
                 )}
               </Mutation>
+              <Link href='/test'>
+                <a
+                  className='btn btn-link'
+                  style={{ color: 'red', fontWeight: 'bold' }}
+                >
+                  Test
+                </a>
+              </Link>
             </>
           )}
         </section>

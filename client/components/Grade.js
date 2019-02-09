@@ -30,7 +30,6 @@ const SUBMIT_FORMGRADE_MUTATION = gql`
 class Grade extends Component {
   constructor(props) {
     super(props);
-    console.log(props);
     if (props.gradeData) {
       this.state = {
         // submitted: false,
@@ -43,7 +42,7 @@ class Grade extends Component {
           // score2: '3',
           // score3: '5',
         },
-        boolean: this.props.gradeData.boolean || '',
+        boolean: (this.props.gradeData.boolean ? 'E' : 'H') || '',
         // boolean: true,
         notes: this.props.gradeData.notes || ''
         // notes: 'asdasdd'
@@ -100,7 +99,7 @@ class Grade extends Component {
             score1: parseInt(this.state.required.score1),
             score2: parseInt(this.state.required.score2),
             score3: parseInt(this.state.required.score3),
-            boolean: this.state.boolean,
+            boolean: this.state.boolean === 'E' ? true : false,
             notes: this.state.notes,
             initialFormId: this.props.formId
           }}
@@ -179,7 +178,33 @@ class Grade extends Component {
                     />
                   </div>
                   <div className='form-group'>
-                    <label className='form-label' />
+                    <label className='form-label'>Evet / Hayır</label>
+                    <label className='form-radio'>
+                      <input
+                        required
+                        type='radio'
+                        name='boolean'
+                        value='E'
+                        checked={this.state.boolean === 'E'}
+                        onChange={this.saveToState}
+                      />
+                      <i className='form-icon' />
+                      Evet
+                    </label>
+                    <label className='form-radio'>
+                      <input
+                        required
+                        type='radio'
+                        name='boolean'
+                        value='H'
+                        checked={this.state.boolean === 'H'}
+                        onChange={this.saveToState}
+                      />
+                      <i className='form-icon' />
+                      Hayır
+                    </label>
+                  </div>
+                  {/* <div className='form-group'>
                     <label className='form-checkbox'>
                       <input
                         type='checkbox'
@@ -189,7 +214,7 @@ class Grade extends Component {
                       />
                       <i className='form-icon' /> Boolean score
                     </label>
-                  </div>
+                  </div> */}
                   <div className='form-group'>
                     <label htmlFor='notes' className='form-label'>
                       Optional input field
