@@ -5,6 +5,7 @@ import PleaseLogin from '../components/PleaseLogin';
 import ErrorMessage from '../components/ErrorMessage';
 import Results from '../components/Results';
 import { resultJuryPattern } from '../data';
+import { tablePageStyle } from '../helper';
 
 const GET_ALL_USERS_QUERY = gql`
   query GET_ALL_USERS_QUERY {
@@ -24,7 +25,7 @@ const GET_RESULTS_QUERY = gql`
 const ResultsPage = props => (
   <div>
     <Nav />
-    <PleaseLogin requiredPermissions={['ADMIN']}>
+    <PleaseLogin requiredPermissions={['ADMIN', 'RESULTS']}>
       <Query query={GET_ALL_USERS_QUERY} ssr={false}>
         {({ data: { users }, loading, error }) => {
           if (loading) return <p>Yükleniyor...</p>;
@@ -44,13 +45,15 @@ const ResultsPage = props => (
                   }
                 });
                 return (
-                  <Results
-                    users={users}
-                    results={JSON.parse(results).sort(
-                      (a, b) => b.total_score - a.total_score
-                    )}
-                    juryIds={Array.from(idList)}
-                  />
+                  <div style={tablePageStyle}>
+                    <Results
+                      users={users}
+                      results={JSON.parse(results).sort(
+                        (a, b) => b.total_score - a.total_score
+                      )}
+                      juryIds={Array.from(idList)}
+                    />
+                  </div>
                 );
               }}
             </Query>

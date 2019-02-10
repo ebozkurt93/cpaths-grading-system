@@ -217,7 +217,7 @@ class Grade extends Component {
                   </div> */}
                   <div className='form-group'>
                     <label htmlFor='notes' className='form-label'>
-                      Optional input field
+                      Notlar
                     </label>
                     <textarea
                       placeholder=' '

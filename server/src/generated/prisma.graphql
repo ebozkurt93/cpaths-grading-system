@@ -1757,6 +1757,7 @@ type PageInfo {
 enum Permission {
   ADMIN
   JURY
+  RESULTS
 }
 
 type Query {

@@ -6,3 +6,7 @@ export const valueIsEmpty = val =>
     overflow: 'hidden',
     textOverflow: 'ellipsis'
   };
+
+  export const tablePageStyle = {
+    margin: '1rem'
+  }

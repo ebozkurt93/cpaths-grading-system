@@ -2,8 +2,8 @@ import Nav from '../components/Nav';
 import PleaseLogin from '../components/PleaseLogin';
 import Forms from '../components/Forms';
 import User from '../components/User';
-import Settings from '../components/Settings';
 import FormGrades from '../components/FormGrades';
+import { tablePageStyle } from '../helper';
 const ApplicationsPage = props => (
   <div>
     <Nav />
@@ -18,12 +18,20 @@ const ApplicationsPage = props => (
                   if (formGrades) {
                     formGrades.map(fg => filledFormIds.add(fg['form']['id']));
                   }
-                  return <Forms filledFormIds={filledFormIds} />;
+                  return (
+                    <div style={tablePageStyle}>
+                      <Forms filledFormIds={filledFormIds} />
+                    </div>
+                  );
                 }}
               </FormGrades>
             );
           } else {
-            return <Forms />;
+            return (
+              <div style={tablePageStyle}>
+                <Forms style={tablePageStyle} />
+              </div>
+            );
           }
         }}
       </User>

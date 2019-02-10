@@ -4,11 +4,23 @@ import { initialForm, isAFile, resultConst, resultJuryPattern } from '../data';
 
 class DisplayData extends Component {
   render() {
-    const { data } = this.props;
+    // useKeyValue uses key value pairs in the given data object as title & content
+    const { data, useKeyValue } = this.props;
 
     const all = (
       <div>
         {data &&
+          useKeyValue &&
+          Object.keys(data).map((key, index) => {
+            return (
+              <React.Fragment key={`${key}_${index}`}>
+                <h6>{key.trim()}</h6>
+                <p>{data[key]}</p>
+              </React.Fragment>
+            );
+          })}
+        {data &&
+          !useKeyValue &&
           Object.keys(data).map(key => {
             if (key in initialForm) {
               var content = '';
@@ -31,26 +43,6 @@ class DisplayData extends Component {
                 );
               }
               return content;
-            } else if (key in resultConst) {
-              return (
-                <React.Fragment key={key}>
-                  <h6>{resultConst[key]}</h6>
-                  <p>{data[key]}</p>
-                </React.Fragment>
-              );
-            }
-            {
-              /* todo: continue here */
-            }
-            {
-              /* else if(item in resultJuryPattern) {
-              if (item.endsWith[key]) {
-                <React.Fragment key={key}>
-                  <h6>{resultConst[key]}</h6>
-                  <p>{data[key]}</p>
-                </React.Fragment>
-              }
-            }  */
             }
           })}
       </div>

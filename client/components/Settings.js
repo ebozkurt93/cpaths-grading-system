@@ -3,8 +3,7 @@ import gql from 'graphql-tag';
 import { Mutation } from 'react-apollo';
 import ErrorMessage from './ErrorMessage';
 import { CURRENT_USER_QUERY } from './User';
-
-const possiblePermissions = ['ADMIN', 'JURY'];
+import { possiblePermissions } from '../data';
 
 const EDIT_PERMISSIONS_MUTATION = gql`
   mutation EDIT_PERMISSIONS_MUTATION($permissions: [Permission]) {

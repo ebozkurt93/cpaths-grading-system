@@ -33,9 +33,11 @@ const Nav = () => (
           <Link href='/'>
             <a className='btn btn-link'>Anasayfa</a>
           </Link>
-          <Link href='/applications'>
-            <a className='btn btn-link'>Başvurular</a>
-          </Link>
+          {me && ['ADMIN', 'JURY'].some(p => me.permissions.includes(p)) && (
+            <Link href='/applications'>
+              <a className='btn btn-link'>Başvurular</a>
+            </Link>
+          )}
           {!me && (
             <a className='btn btn-link' href={`${endpoint}/auth/google`}>
               Giriş
@@ -44,14 +46,14 @@ const Nav = () => (
           {me && (
             <>
               {me.permissions.includes('ADMIN') && (
-                <>
-                  <Link href='/permissions'>
-                    <a className='btn btn-link'>Kullanıcı Yetkileri</a>
-                  </Link>
-                  <Link href='/results'>
-                    <a className='btn btn-link'>Sonuçlar</a>
-                  </Link>
-                </>
+                <Link href='/permissions'>
+                  <a className='btn btn-link'>Kullanıcı Yetkileri</a>
+                </Link>
+              )}
+              {['ADMIN', 'RESULTS'].some(p => me.permissions.includes(p)) && (
+                <Link href='/results'>
+                  <a className='btn btn-link'>Sonuçlar</a>
+                </Link>
               )}
               <Mutation
                 mutation={LOGOUT_MUTATION}

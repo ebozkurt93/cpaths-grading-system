@@ -1,6 +1,7 @@
 enum Permission {
   ADMIN
   JURY
+  RESULTS
 }
 
 # type User {

@@ -58,11 +58,11 @@ const Query = {
     return temp[0] || [];
   },
   users(parent, args, ctx, info) {
-    hasPermission(ctx.request.user, ['ADMIN']);
+    hasPermission(ctx.request.user, ['ADMIN', 'RESULTS']);
     return ctx.db.query.users({}, info);
   },
   async results(parent, args, ctx, info) {
-    hasPermission(ctx.request.user, ['ADMIN', 'JURY']);
+    hasPermission(ctx.request.user, ['ADMIN', 'RESULTS']);
     if (cachedResults != null) {
       return cachedResults;
     }

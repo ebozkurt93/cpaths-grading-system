@@ -29,7 +29,7 @@ export const user = {
   // permissions: 'Yetkiler'
 };
 
-export const possiblePermissions = ['ADMIN', 'JURY'];
+export const possiblePermissions = ['ADMIN', 'JURY', 'RESULTS'];
 
 export const resultConst = {
   email: 'Email',
