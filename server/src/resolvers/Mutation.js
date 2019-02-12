@@ -1,18 +1,17 @@
+const { transport, acceptedApplicationContent } = require('../mail');
 const { hasPermission } = require('../utils');
 const fs = require('fs');
 const uuid = require('uuid');
 
-// todo: update file upload, seems like stream is deprecated and createReadStream() should be used instead of it
-// (node:21) DeprecationWarning: File upload property ‘stream’ is deprecated. Use ‘createReadStream()’ instead.,
-
-async function fileCheck(filePromise, fileType) {
-  const { stream, filename, mimetype } = await filePromise;
+const fileCheck = async (filePromise, fileType) => {
+  const { createReadStream, filename, mimetype } = await filePromise;
+  const stream = createReadStream();
   if (mimetype.split('/')[1] !== fileType) {
     throw new Error(`${filename} isn't a valid ${fileType} document.`);
   }
   const finalFileName = await storeUploadedFile({ stream, filename }, 'pdf');
-  return finalFileName;
-}
+  return [finalFileName, filename];
+};
 
 const storeUploadedFile = ({ stream, filename }, filetype) => {
   const f = `${uuid.v4()}.${filetype}`;
@@ -38,22 +37,37 @@ const Mutation = {
     return { message: 'Goodbye!' };
   },
   async registerApplication(parent, args, ctx, info) {
-    cvFileName = await fileCheck(args.cv, 'pdf');
-    transcriptFileName = await fileCheck(args.transcript, 'pdf');
+    [cvFileName, cvOldFileName] = await fileCheck(args.cv, 'pdf');
+    [transcriptFileName, transcriptOldFileName] = await fileCheck(
+      args.transcript,
+      'pdf'
+    );
     const isInvalid = args.gpa < 3 || args.universityYear === 'Son Sınıf';
+    const data = {
+      ...Object.keys(args)
+        .filter(key => !['cv', 'transcript'].includes(key))
+        .reduce((obj, key) => {
+          obj[key] = args[key];
+          return obj;
+        }, {}),
+      cv: cvFileName,
+      transcript: transcriptFileName,
+      invalid: isInvalid
+    };
     const application = await ctx.db.mutation.createInitialForm({
-      data: {
-        ...Object.keys(args)
-          .filter(key => !['cv', 'transcript'].includes(key))
-          .reduce((obj, key) => {
-            obj[key] = args[key];
-            return obj;
-          }, {}),
-        cv: cvFileName,
-        transcript: transcriptFileName,
-        invalid: isInvalid
-      }
+      data
     });
+
+    const mailOptions = {
+      to: data.email,
+      subject: 'Kariyer Koçum Başvurunuz',
+      html: acceptedApplicationContent({
+        ...data,
+        cv: await cvOldFileName,
+        transcript: await transcriptOldFileName
+      })
+    };
+    transport.sendMail(mailOptions);
     return { message: 'Success' };
   },
   async submitFormGrade(parent, args, ctx, info) {
