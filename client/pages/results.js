@@ -4,6 +4,7 @@ import Nav from '../components/Nav';
 import PleaseLogin from '../components/PleaseLogin';
 import ErrorMessage from '../components/ErrorMessage';
 import Results from '../components/Results';
+import Meta from '../components/Meta';
 import { resultJuryPattern } from '../data';
 import { tablePageStyle } from '../helper';
 
@@ -24,6 +25,7 @@ const GET_RESULTS_QUERY = gql`
 
 const ResultsPage = props => (
   <div>
+    <Meta title='Sonuçlar' />
     <Nav />
     <PleaseLogin requiredPermissions={['ADMIN', 'RESULTS']}>
       <Query query={GET_ALL_USERS_QUERY} ssr={false}>

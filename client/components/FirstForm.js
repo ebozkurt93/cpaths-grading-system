@@ -2,7 +2,8 @@ import React, { Component } from 'react';
 import gql from 'graphql-tag';
 import { Mutation } from 'react-apollo';
 import ErrorMessage from './ErrorMessage';
-import { valueIsEmpty } from '../helper';
+import { valueIsEmpty, textToInnerHtml } from '../helper';
+import { initialForm } from '../data';
 
 const FIRST_FORM_MUTATION = gql`
   mutation FIRST_FORM_MUTATION(
@@ -144,7 +145,7 @@ class FirstForm extends Component {
                 <fieldset disabled={loading}>
                   <div className='form-group'>
                     <label htmlFor='email' className='form-label'>
-                      Email
+                      {textToInnerHtml(initialForm['email'])}
                     </label>
                     <input
                       required
@@ -158,7 +159,7 @@ class FirstForm extends Component {
                   </div>
                   <div className='form-group'>
                     <label htmlFor='name' className='form-label'>
-                      Ad
+                      {textToInnerHtml(initialForm['name'])}
                     </label>
                     <input
                       placeholder=' '
@@ -171,7 +172,7 @@ class FirstForm extends Component {
                   </div>
                   <div className='form-group'>
                     <label htmlFor='lastname' className='form-label'>
-                      Soyad
+                      {textToInnerHtml(initialForm['lastname'])}
                     </label>
                     <input
                       required
@@ -185,7 +186,7 @@ class FirstForm extends Component {
                   </div>
                   <div className='form-group'>
                     <label htmlFor='university' className='form-label'>
-                      Üniversite
+                      {textToInnerHtml(initialForm['university'])}
                     </label>
                     <input
                       required
@@ -199,7 +200,7 @@ class FirstForm extends Component {
                   </div>
                   <div className='form-group'>
                     <label htmlFor='universityYear' className='form-label'>
-                      Üniversite Yılı
+                      {textToInnerHtml(initialForm['universityYear'])}
                     </label>
                     <select
                       required
@@ -220,7 +221,7 @@ class FirstForm extends Component {
                   </div>
                   <div className='form-group'>
                     <label htmlFor='universityDept' className='form-label'>
-                      Bölüm (ve varsa çift ana dal veya yan dal)
+                      {textToInnerHtml(initialForm['universityDept'])}
                     </label>
                     <input
                       required
@@ -234,7 +235,7 @@ class FirstForm extends Component {
                   </div>
                   <div className='form-group'>
                     <label htmlFor='gpa' className='form-label'>
-                      GPA
+                      {textToInnerHtml(initialForm['gpa'])}
                     </label>
                     <input
                       required
@@ -251,7 +252,7 @@ class FirstForm extends Component {
                   </div>
                   <div className='form-group'>
                     <label htmlFor='CV' className='form-label'>
-                      CV
+                      {textToInnerHtml(initialForm['cv'])}
                     </label>
                     <input
                       className='form-input'
@@ -266,7 +267,7 @@ class FirstForm extends Component {
                   </div>
                   <div className='form-group'>
                     <label htmlFor='Transcript' className='form-label'>
-                      Transcript
+                      {textToInnerHtml(initialForm['transcript'])}
                     </label>
                     <input
                       className='form-input'
@@ -281,13 +282,7 @@ class FirstForm extends Component {
                   </div>
                   <div className='form-group'>
                     <label htmlFor='longQuestion1' className='form-label'>
-                      2018 Haziran ayında kendini nerede görmek istiyorsun,
-                      detaylı bir şekilde açıklayabilir misin? Yurt dışında staj
-                      yapmak istiyorum veya X şirketinde çalışmak istiyorum gibi
-                      yüzeysel cevaplar maalesef başvurunu güçsüz gösterecek.
-                      Hangi spesifik alanda staj yapmak istediğinden veya X
-                      şirketinde hangi pozisyonda çalışmak istediğinden açık ve
-                      net bir şekilde bahsetmelisin :)
+                      {textToInnerHtml(initialForm['longQuestion1'])}
                     </label>
                     <textarea
                       required
@@ -302,11 +297,7 @@ class FirstForm extends Component {
                   </div>
                   <div className='form-group'>
                     <label htmlFor='longQuestion2' className='form-label'>
-                      Bu spesifik hedefe yönelik yaptığın çalışmaları veya
-                      edindiğin tecrübeleri bizimle paylaşabilir misin? Daha
-                      önce hedefine yönelik bir çalışma yapmadıysan da hiç sorun
-                      değil, diğer soruya geçebilirsin; bu başvurunu güçsüz
-                      göstermeyecek ;)
+                      {textToInnerHtml(initialForm['longQuestion2'])}
                     </label>
                     <textarea
                       required
@@ -321,13 +312,7 @@ class FirstForm extends Component {
                   </div>
                   <div className='form-group'>
                     <label htmlFor='longQuestion3' className='form-label'>
-                      Seni bu hedefe götüren yolu bize kısaca anlatabilir misin?
-                      Biraz ilham için:{' '}
-                      <a href='https://goo.gl/Ug74nM'>https://goo.gl/Ug74nM</a>{' '}
-                      (Geçmiş çalışmaların veya tecrübelerin, neden bu alanlarda
-                      devam etmek istediğin/istemediğin, tanıştığın bir kişi
-                      veya ilham aldığın bir başarı hikayesinden
-                      bahsedebilirsin!)
+                      {textToInnerHtml(initialForm['longQuestion3'])}
                     </label>
                     <textarea
                       required
@@ -342,13 +327,7 @@ class FirstForm extends Component {
                   </div>
                   <div className='form-group'>
                     <label htmlFor='longQuestion4' className='form-label'>
-                      Kesişen Yollar Danışmanlık Programı veya Kariyer
-                      Sohbetlerinden haberdar mısın? Danışmanlık Programına
-                      dahilsen veya Kariyer Sohbetlerini takip ediyorsan, ne
-                      sıklıkla takip ediyorsun? Programları faydalı buluyor
-                      musun? Bu soru başvuru değerlendirmeni etkilemeyecek, ama
-                      son bir gayret max. bir kaç dk. ayırıp bu soruyu da samimi
-                      şekilde cevaplamanı rica ediyoruz :)
+                      {textToInnerHtml(initialForm['longQuestion4'])}
                     </label>
                     <textarea
                       required
@@ -363,7 +342,7 @@ class FirstForm extends Component {
                   </div>
                   <div className='form-group'>
                     <label htmlFor='aboutUs' className='form-label'>
-                      Kariyer Koçum'dan nasıl haberdar oldun?
+                      {textToInnerHtml(initialForm['aboutUs'])}
                     </label>
                     <select
                       className='form-select'
@@ -398,33 +377,7 @@ class FirstForm extends Component {
                   </div>
                   <div className='form-group'>
                     <label className='form-label'>
-                      Yukarıda vermiş olduğum bilgilerin doğruluğunu ve herhangi
-                      bir tutarsızlığın veya yanlışlığın doğurabileceği
-                      sonuçların yükümlülüğünü kabul ediyorum. Bu belgeyi
-                      tamamlayarak; Kariyer Koçum programına başvuru yaptığımın
-                      ve kabul edilmem durumunda danışan olmanın kurallarını
-                      onayladığımın farkındayım. Danışan olarak, Kesişen
-                      Yollardan herhangi bir maddi gelir beklemediğimi, oluşumla
-                      bağım devam ettiği sürece yukarıdaki bilgilerimden
-                      herhangi birinin değişiminde gerekli kişileri
-                      bilgilendireceğimi, danışmanım veya koçum ile aramdaki
-                      ilişkinin mahremiyetine saygı gösteriyor olmak ile
-                      birlikte gerekli durumlarda Kesişen Yollar platformu ile
-                      iletişime geçeceğimi onaylıyorum. Kariyer Koçum ile
-                      etkileşimim sürecinde bireysel özgürlük sınırlarını
-                      aşmayacağımı, karşı tarafın isteği olmadan herhangi bir
-                      konu üzerinde durmayacağımı, özel hayatla ilgili ve siyasi
-                      ve dini hassasiyetlere dikkat edeceğimi kabul ediyorum.
-                      Kesişen Yollar’a başvurmanın hukuki akıbetlerinin
-                      bilincindeyim: (a) Kesişen Yollar derneğini herhangi bir
-                      hukuksal açıdan dolayı sorumlu tutmayacağım. (b) Kesişen
-                      Yollar derneğine, danışan veya danışmanlarına ve koçum’a
-                      dava açmayacağım. (c) Bu programa katılmanın tüm
-                      risklerinin bilincindeyim. (d) Bu programa dahil olarak
-                      paylaştığım bilgilerin danışmanlık programı iç sosyal
-                      ağında paylaşılmasını ve diğer üyeler ve Kesişen Yollar
-                      çalışanları tarafından görülmesini onaylıyorum. (e-mail
-                      adresi gizli tutulacaktır.)
+                      {textToInnerHtml(initialForm['accept'])}
                     </label>
                     <label className='form-checkbox'>
                       <input

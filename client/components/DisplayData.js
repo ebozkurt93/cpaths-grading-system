@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { endpoint } from '../config';
-import { initialForm, isAFile, resultConst, resultJuryPattern } from '../data';
+import { initialForm, isAFile } from '../data';
+import { textToInnerHtml } from '../helper';
 
 class DisplayData extends Component {
   render() {
@@ -29,7 +30,7 @@ class DisplayData extends Component {
                   <p key={key}>
                     <a href={`${endpoint}/files/${data[key]}`} target='_blank'>
                       <button className='btn btn-primary'>
-                        {initialForm[key]}
+                        {textToInnerHtml(initialForm[key])}
                       </button>
                     </a>
                   </p>
@@ -37,7 +38,7 @@ class DisplayData extends Component {
               } else {
                 content = (
                   <React.Fragment key={key}>
-                    <h6>{initialForm[key]}</h6>
+                    <h6>{textToInnerHtml(initialForm[key])}</h6>
                     <p>{data[key]}</p>
                   </React.Fragment>
                 );

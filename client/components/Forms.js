@@ -4,7 +4,7 @@ import Link from 'next/link';
 import { Query, Mutation } from 'react-apollo';
 import Error from './ErrorMessage';
 import { endpoint } from '../config';
-import { formContentStyle } from '../helper';
+import { formContentStyle, textToInnerHtml } from '../helper';
 import { initialForm, isAFile } from '../data';
 import DisplayData from './DisplayData';
 import Modal from './Modal';
@@ -84,7 +84,7 @@ class Forms extends Component {
                         if (key in initialForm) {
                           return (
                             <th style={formContentStyle} key={key}>
-                              {initialForm[key]}
+                              {textToInnerHtml(initialForm[key])}
                             </th>
                           );
                         }

@@ -3,6 +3,7 @@ import gql from 'graphql-tag';
 import Nav from '../components/Nav';
 import PleaseLogin from '../components/PleaseLogin';
 import EditUserPermissions from '../components/EditUserPermissions';
+import Meta from '../components/Meta';
 import { tablePageStyle } from '../helper';
 
 const GET_ALL_USERS_QUERY = gql`
@@ -18,6 +19,7 @@ const GET_ALL_USERS_QUERY = gql`
 
 const AdminPage = props => (
   <div>
+    <Meta title='Kullanıcı Yetkileri' />
     <Nav />
     <PleaseLogin requiredPermissions={['ADMIN']}>
       {/* TODO: PASS USERS PROP */}

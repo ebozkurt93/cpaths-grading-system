@@ -5,6 +5,7 @@ import PleaseLogin from '../components/PleaseLogin';
 import Grade from '../components/Grade';
 import DisplayData from '../components/DisplayData';
 import Error from '../components/ErrorMessage';
+import Meta from '../components/Meta';
 
 const FORM_BY_ID_QUERY = gql`
   query FORM_BY_ID_QUERY($id: ID!) {
@@ -42,6 +43,7 @@ const GRADE_BY_FORM_ID_QUERY = gql`
 
 const LoginPage = ({ query }) => (
   <div>
+    <Meta title='Değerlendir' />
     <Nav />
     <PleaseLogin requiredPermissions={['JURY']}>
       <Query query={FORM_BY_ID_QUERY} variables={{ id: query.id }} ssr={false}>

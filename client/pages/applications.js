@@ -3,9 +3,11 @@ import PleaseLogin from '../components/PleaseLogin';
 import Forms from '../components/Forms';
 import User from '../components/User';
 import FormGrades from '../components/FormGrades';
+import Meta from '../components/Meta';
 import { tablePageStyle } from '../helper';
 const ApplicationsPage = props => (
   <div>
+    <Meta title='Başvurular' />
     <Nav />
     <PleaseLogin requiredPermissions={['ADMIN', 'JURY']}>
       <User>
