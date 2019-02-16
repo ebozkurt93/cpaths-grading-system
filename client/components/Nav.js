@@ -25,11 +25,16 @@ const LOGOUT_MUTATION = gql`
   }
 `;
 
+const sectionStyle = {
+  display: 'flex',
+  flex: 'inherit',
+  flexWrap: 'wrap'
+};
 const Nav = () => (
   <User>
     {({ data: { me } }) => (
       <header className='navbar'>
-        <section className='navbar-section'>
+        <section className='navbar-section' style={sectionStyle}>
           <Link href='/'>
             <a className='btn btn-link'>Anasayfa</a>
           </Link>
@@ -77,7 +82,10 @@ const Nav = () => (
           )}
         </section>
         {me && (
-          <section className='navbar-section' style={{ marginRight: '.5rem' }}>
+          <section
+            className='navbar-section'
+            style={{ ...sectionStyle, margin: '0 .45rem' }}
+          >
             <span style={{ verticalAlign: 'middle' }} className=''>
               {me.name} ― {me.email}
             </span>
