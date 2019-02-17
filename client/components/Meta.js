@@ -8,7 +8,7 @@ const Meta = props => (
     <link rel='stylesheet' href='../static/spectre.min.css' />
     <link rel='stylesheet' href='../static/spectre-exp.min.css' />
     <link rel='stylesheet' href='../static/spectre-icons.min.css' />
-    <title>{props.title ? `${props.title} | ` : ''}Kariyer Koçum</title>
+    <title>{props.title ? `${props.title} | ` : ''}Staj 2019</title>
   </Head>
 );
 
