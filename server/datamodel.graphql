@@ -46,6 +46,8 @@ type InitialForm {
   longQuestion4: String!
   aboutUs: String!
   invalid: Boolean!
+  formEditToken: String
+  formEditTokenExpiry: Float
 }
 
 type FormGrade {

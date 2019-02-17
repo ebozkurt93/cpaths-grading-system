@@ -15,6 +15,25 @@ type File {
   encoding: String!
 }
 
+type InitialForm {
+  id: ID!
+  email: String!
+  name: String!
+  lastname: String!
+  university: String!
+  universityYear: String!
+  universityDept: String!
+  gpa: Float!
+  cv: String!
+  transcript: String!
+  longQuestion1: String!
+  longQuestion2: String!
+  longQuestion3: String!
+  longQuestion4: String!
+  aboutUs: String!
+  invalid: Boolean!
+}
+
 type Mutation {
   # signup(email: String!, password: String!, name: String!): User!
   # login(email: String!, password: String!): User!
@@ -54,6 +73,7 @@ type Mutation {
   ): SuccessMessage
   updateInvalidState(value: String!): SuccessMessage
   updateUserPermissions(permissions: [Permission], userId: ID!): User
+  requestInitialFormEdit(email: String!): SuccessMessage
 }
 
 type Query {

@@ -2,6 +2,7 @@ const { transport, acceptedApplicationContent } = require('../mail');
 const { hasPermission } = require('../utils');
 const fs = require('fs');
 const uuid = require('uuid');
+const { randomBytes } = require('crypto');
 
 const fileCheck = async (filePromise, fileType) => {
   const { createReadStream, filename, mimetype } = await filePromise;
@@ -152,6 +153,23 @@ const Mutation = {
       },
       info
     );
+  },
+  async requestInitialFormEdit(parent, { email }, ctx, info) {
+    // get application with that email address
+    const application = await ctx.db.query.initialForm({ where: { email } });
+    // if email is correct, therefore application exists, create the token and save it to db
+    if (application) {
+      const formEditToken = randomBytes(20).toString('hex'); // TODO: maybe make this async with promisify
+      const formEditTokenExpiry = Date.now() + 3600000; // 1 hour from now
+      const res = await ctx.db.mutation.updateInitialForm({
+        where: { email },
+        data: { formEditToken, formEditTokenExpiry }
+      });
+      // TODO: send email to user
+      console.log(formEditToken, formEditTokenExpiry); // TODO: remove this line
+    }
+    return { message: 'Success' };
+    // in any case send success message
   }
   // async updatePermissions(parent, args, ctx, info) {
   //   // 1. Check if they are logged in
