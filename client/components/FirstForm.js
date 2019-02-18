@@ -4,6 +4,7 @@ import { Mutation } from 'react-apollo';
 import ErrorMessage from './ErrorMessage';
 import { valueIsEmpty, textToInnerHtml } from '../helper';
 import { initialForm } from '../data';
+import { endpoint } from '../config';
 
 const FIRST_FORM_MUTATION = gql`
   mutation FIRST_FORM_MUTATION(
@@ -42,30 +43,69 @@ const FIRST_FORM_MUTATION = gql`
     }
   }
 `;
+
+const aboutUsOptions = [
+  'Kesişen Yollar Facebook Sayfası aracılığıyla',
+  'Üniversite Facebook Grupları',
+  'Üniversite Kariyer Merkezleri',
+  'Üniversite Öğrenci Kulüpleri',
+  'Arkadaş'
+];
 class FirstForm extends Component {
-  state = {
-    submitted: false,
-    warningMsg: '',
-    // form elements
-    // required fields
-    required: {
-      email: '',
-      name: '',
-      lastname: '',
-      university: '',
-      universityYear: '',
-      universityDept: '',
-      gpa: '',
-      longQuestion1: '',
-      longQuestion2: '',
-      longQuestion3: '',
-      longQuestion4: '',
-      aboutUs: '',
-      accept: ''
-    },
-    // Optional fields
-    aboutUsOther: ''
-  };
+  constructor(props) {
+    super(props);
+    if (props.oldForm) {
+      const o = this.props.oldForm;
+      const aboutUsPredefined = aboutUsOptions.includes(o);
+      this.state = {
+        submitted: false,
+        warningMsg: '',
+        // form elements
+        // required fields
+        required: {
+          email: o.email || '',
+          name: o.name || '',
+          lastname: o.lastname || '',
+          university: o.university || '',
+          universityYear: o.universityYear || '',
+          universityDept: o.universityDept || '',
+          gpa: o.gpa || '',
+          longQuestion1: o.longQuestion1 || '',
+          longQuestion2: o.longQuestion2 || '',
+          longQuestion3: o.longQuestion3 || '',
+          longQuestion4: o.longQuestion4 || '',
+          aboutUs: aboutUsPredefined ? '' : o.aboutUs || '',
+          accept: ''
+        },
+        // Optional fields
+        aboutUsOther: !aboutUsPredefined ? '' : o.aboutUs || ''
+      };
+    } else {
+      this.state = {
+        submitted: false,
+        warningMsg: '',
+        // form elements
+        // required fields
+        required: {
+          email: '',
+          name: '',
+          lastname: '',
+          university: '',
+          universityYear: '',
+          universityDept: '',
+          gpa: '',
+          longQuestion1: '',
+          longQuestion2: '',
+          longQuestion3: '',
+          longQuestion4: '',
+          aboutUs: '',
+          accept: ''
+        },
+        // Optional fields
+        aboutUsOther: ''
+      };
+    }
+  }
 
   saveToState = e => {
     const value =
@@ -149,6 +189,7 @@ class FirstForm extends Component {
                     </label>
                     <input
                       required
+                      disabled={this.props.oldForm}
                       placeholder=' '
                       type='email'
                       className='form-input'
@@ -280,6 +321,26 @@ class FirstForm extends Component {
                       Yüklenen dosya PDF formatında ve 5MB dan küçük olmalı
                     </span>
                   </div>
+                  {this.props.oldForm ? (
+                    <>
+                      <br />
+                      <a href={`${endpoint}/files/${this.props.oldForm.cv}`}>
+                        Eski CV
+                      </a>
+                      {' – '}
+                      <a
+                        href={`${endpoint}/files/${
+                          this.props.oldForm.transcript
+                        }`}
+                      >
+                        Eski Transcript
+                      </a>
+                      <br />
+                      <br />
+                    </>
+                  ) : (
+                    ''
+                  )}
                   <div className='form-group'>
                     <label htmlFor='longQuestion1' className='form-label'>
                       {textToInnerHtml(initialForm['longQuestion1'])}
@@ -351,13 +412,9 @@ class FirstForm extends Component {
                       onChange={this.saveToState}
                     >
                       <option hidden value='' />
-                      <option>
-                        Kesişen Yollar Facebook Sayfası aracılığıyla
-                      </option>
-                      <option>Üniversite Facebook Grupları</option>
-                      <option>Üniversite Kariyer Merkezleri</option>
-                      <option>Üniversite Öğrenci Kulüpleri</option>
-                      <option>Arkadaş</option>
+                      {aboutUsOptions.map((o, i) => (
+                        <option key={i}>{o}</option>
+                      ))}
                       <option>Diğer:</option>
                     </select>
                     {renderOptionalField && (

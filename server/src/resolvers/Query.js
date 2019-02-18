@@ -31,6 +31,24 @@ const Query = {
       info
     );
   },
+  async formByToken(parent, args, ctx, info) {
+    const [form] = await ctx.db.query.initialForms(
+      {
+        where: {
+          formEditToken: args.token,
+          formEditTokenExpiry_gte: Date.now() - 3600000
+        }
+      },
+      info
+    );
+    if (!form) {
+      throw new Error('This token is either invalid or expired!');
+    }
+    /*  prevent invalid field being asked, could have done this differently like
+        creating another type at schema, but not worth for 1 method */
+    delete form.invalid;
+    return form;
+  },
   formGrades(parent, args, ctx, info) {
     hasPermission(ctx.request.user, ['ADMIN', 'JURY']);
     const permissions = ctx.request.user.permissions;

@@ -34,7 +34,6 @@ class RequestEditInitialForm extends Component {
               onSubmit={async e => {
                 e.preventDefault();
                 let resp = await requestFormEdit();
-                console.log(resp.data);
                 if (resp.data.requestInitialFormEdit.message === 'Success') {
                   this.setState({ email: '', submitted: true });
                 } else {

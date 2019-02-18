@@ -79,6 +79,7 @@ type Mutation {
 type Query {
   forms: [InitialForm]!
   form(id: ID): InitialForm
+  formByToken(token: String): InitialForm
   me: User
   formGrades: [FormGrade]!
   formGradeForInitialForm(initialFormId: ID): FormGrade
