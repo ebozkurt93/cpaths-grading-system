@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import RequestEditInitialForm from '../components/RequestEditInitialForm';
 
 const HomePage = props => (
   <div
@@ -13,6 +14,9 @@ const HomePage = props => (
     <Link href='/apply'>
       <a className='btn btn-primary'>Başvur</a>
     </Link>
+    <br />
+    <br />
+    <RequestEditInitialForm />
   </div>
 );
 

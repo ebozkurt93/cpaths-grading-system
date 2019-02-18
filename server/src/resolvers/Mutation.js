@@ -166,7 +166,10 @@ const Mutation = {
         data: { formEditToken, formEditTokenExpiry }
       });
       // TODO: send email to user
-      console.log(formEditToken, formEditTokenExpiry); // TODO: remove this line
+      console.log(
+        `${process.env.FRONTEND_URL}/apply?token=${formEditToken}`,
+        formEditTokenExpiry
+      ); // TODO: remove this line
     }
     return { message: 'Success' };
     // in any case send success message
