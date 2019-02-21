@@ -1,4 +1,8 @@
-const { transport, acceptedApplicationContent } = require('../mail');
+const {
+  transport,
+  acceptedApplicationContent,
+  updateApplicationContent
+} = require('../mail');
 const { hasPermission } = require('../utils');
 const fs = require('fs');
 const uuid = require('uuid');
@@ -38,35 +42,82 @@ const Mutation = {
     return { message: 'Goodbye!' };
   },
   async registerApplication(parent, args, ctx, info) {
-    [cvFileName, cvOldFileName] = await fileCheck(args.cv, 'pdf');
-    [transcriptFileName, transcriptOldFileName] = await fileCheck(
-      args.transcript,
-      'pdf'
-    );
-    const isInvalid = args.gpa < 3 || args.universityYear === 'Son Sınıf';
     const data = {
       ...Object.keys(args)
         .filter(key => !['cv', 'transcript'].includes(key))
         .reduce((obj, key) => {
           obj[key] = args[key];
           return obj;
-        }, {}),
-      cv: cvFileName,
-      transcript: transcriptFileName,
-      invalid: isInvalid
+        }, {})
     };
-    const application = await ctx.db.mutation.createInitialForm({
-      data
-    });
+    // previously applied, just updating application
+    if (args.token) {
+      // check token validity
+      const [form] = await ctx.db.query.initialForms(
+        {
+          where: {
+            formEditToken: args.token,
+            formEditTokenExpiry_gte: Date.now() - 3600000
+          }
+        },
+        '{id, email, cv, transcript}'
+      );
+      if (!form) {
+        throw new Error('This token is either invalid or expired!');
+      }
+      data['cv'] = form['cv'];
+      data['transcript'] = form['transcript'];
 
+      if (args.cv) {
+        //write new cv file
+        [cvFileName, cvOldFileName] = await fileCheck(args.cv, 'pdf');
+        data['cv'] = cvFileName;
+        fs.unlinkSync(`files/${form.cv}`);
+      }
+      if (args.transcript) {
+        //write new transcript file
+        [transcriptFileName, transcriptOldFileName] = await fileCheck(
+          args.transcript,
+          'pdf'
+        );
+        data['transcript'] = transcriptFileName;
+        fs.unlinkSync(`files/${form.transcript}`);
+      }
+      data['email'] = form['email'];
+    }
+    // new application
+    else {
+      // check for cv and transcript
+      if (args.cv == null || args.transcript == null) {
+        throw new Error('CV or Transcript missing!');
+      }
+      [cvFileName, cvOldFileName] = await fileCheck(args.cv, 'pdf');
+      data['cv'] = cvFileName;
+      [transcriptFileName, transcriptOldFileName] = await fileCheck(
+        args.transcript,
+        'pdf'
+      );
+      data['transcript'] = transcriptFileName;
+    }
+
+    const isInvalid = args.gpa < 3 || args.universityYear === 'Son Sınıf';
+    data['invalid'] = isInvalid;
+    delete data['token']; // if token exists just remove
+    const isNew = args.token == null;
+    if (isNew) {
+      const application = await ctx.db.mutation.createInitialForm({
+        data
+      });
+    } else {
+      const application = await ctx.db.mutation.updateInitialForm({
+        where: { email: data['email'] },
+        data: { ...data, formEditToken: null, formEditTokenExpiry: null }
+      });
+    }
     const mailOptions = {
       to: data.email,
-      subject: 'Kariyer Koçum Başvurunuz',
-      html: acceptedApplicationContent({
-        ...data,
-        cv: await cvOldFileName,
-        transcript: await transcriptOldFileName
-      })
+      subject: `Staj 2019 Başvuru${isNew ? 'nuzu Aldık' : 'nuz Güncellendi'}`,
+      html: acceptedApplicationContent(data, isNew)
     };
     transport.sendMail(mailOptions);
     return { message: 'Success' };
@@ -156,7 +207,10 @@ const Mutation = {
   },
   async requestInitialFormEdit(parent, { email }, ctx, info) {
     // get application with that email address
-    const application = await ctx.db.query.initialForm({ where: { email } });
+    const application = await ctx.db.query.initialForm(
+      { where: { email } },
+      '{name}'
+    );
     // if email is correct, therefore application exists, create the token and save it to db
     if (application) {
       const formEditToken = randomBytes(20).toString('hex'); // TODO: maybe make this async with promisify
@@ -165,38 +219,20 @@ const Mutation = {
         where: { email },
         data: { formEditToken, formEditTokenExpiry }
       });
-      // TODO: send email to user
-      console.log(
-        `${process.env.FRONTEND_URL}/apply?token=${formEditToken}`,
-        formEditTokenExpiry
-      ); // TODO: remove this line
+      // console.log(`${process.env.FRONTEND_URL}/apply?token=${formEditToken}`);
+      const mailOptions = {
+        to: email,
+        subject: `Staj 2019 Başvuru Güncelleme`,
+        html: updateApplicationContent({
+          name: application.name,
+          url: `${process.env.FRONTEND_URL}/apply?token=${formEditToken}`
+        })
+      };
+      transport.sendMail(mailOptions);
     }
     return { message: 'Success' };
     // in any case send success message
   }
-  // async updatePermissions(parent, args, ctx, info) {
-  //   // 1. Check if they are logged in
-  //   if (!ctx.request.userId) {
-  //     throw new Error('You must be logged in!');
-  //   }
-  //   // 2. Query the current user
-  //   const currentUser = await ctx.db.query.user(
-  //     { where: { id: ctx.request.userId } },
-  //     info
-  //   );
-  //   // 3. Check if they have the permissions to do this
-  //   hasPermission(currentUser, ['ADMIN', 'PERMISSIONUPDATE']);
-  //   // 4. Update the permissions
-  //   return ctx.db.mutation.updateUser(
-  //     {
-  //       data: {
-  //         permissions: { set: args.permissions }
-  //       },
-  //       where: { id: args.userId }
-  //     },
-  //     info
-  //   );
-  // },
 };
 
 module.exports = Mutation;

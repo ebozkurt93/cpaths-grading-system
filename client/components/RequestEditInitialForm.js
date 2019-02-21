@@ -22,7 +22,7 @@ class RequestEditInitialForm extends Component {
   render() {
     const form = (
       <>
-        <h4>Başvuru değiştirme</h4>
+        <h4>Başvuru güncelleme</h4>
         <Mutation
           mutation={REQUEST_EDIT_INITIALFORM_MUTATION}
           variables={{ email: this.state.email }}

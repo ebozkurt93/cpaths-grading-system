@@ -15,13 +15,14 @@ const FIRST_FORM_MUTATION = gql`
     $universityYear: String!
     $universityDept: String!
     $gpa: Float!
-    $cv: Upload!
-    $transcript: Upload!
+    $cv: Upload
+    $transcript: Upload
     $longQuestion1: String!
     $longQuestion2: String!
     $longQuestion3: String!
     $longQuestion4: String!
     $aboutUs: String!
+    $token: String
   ) {
     registerApplication(
       email: $email
@@ -38,6 +39,7 @@ const FIRST_FORM_MUTATION = gql`
       longQuestion3: $longQuestion3
       longQuestion4: $longQuestion4
       aboutUs: $aboutUs
+      token: $token
     ) {
       message
     }
@@ -75,7 +77,8 @@ class FirstForm extends Component {
           longQuestion3: o.longQuestion3 || '',
           longQuestion4: o.longQuestion4 || '',
           aboutUs: aboutUsPredefined ? '' : o.aboutUs || '',
-          accept: ''
+          accept: '',
+          token: this.props.token || ''
         },
         // Optional fields
         aboutUsOther: !aboutUsPredefined ? '' : o.aboutUs || ''
@@ -172,6 +175,12 @@ class FirstForm extends Component {
                 method='post'
                 onSubmit={async e => {
                   if (this.checkFormValidity(e)) {
+                    if (this.props.token) {
+                      formSubmission.variables = {
+                        ...formSubmission.variables,
+                        token: this.props.token
+                      };
+                    }
                     let resp = await formSubmission();
                     if (resp.data.registerApplication.message === 'Success') {
                       //TODO: clear form data (maybe)

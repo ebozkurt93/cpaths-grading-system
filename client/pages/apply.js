@@ -40,7 +40,7 @@ const ApplyPage = ({ query }) => {
           if (loading) return <p>Yükleniyor...</p>;
           if (error) return <ErrorMessage error={error} />;
           if (formByToken) {
-            return <FirstForm oldForm={formByToken} />;
+            return <FirstForm oldForm={formByToken} token={query.token} />;
           }
           return <Error statusCode='400' />;
         }}

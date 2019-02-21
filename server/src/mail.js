@@ -23,7 +23,7 @@ const mailContent = text => `
   </div>
 `;
 
-const acceptedApplicationContent = data => {
+const acceptedApplicationContent = (data, isNew) => {
   var formattedData = '';
   Object.keys(initialForm).map(k => {
     if (k in data) {
@@ -32,13 +32,25 @@ const acceptedApplicationContent = data => {
   });
   return `
   Merhaba ${data.name},<br />
-  Başvurunu aldık....<br /><br />
+  Başvurun${isNew ? 'u aldık' : ' güncellendi'}....<br /><br />
   <div class="details">
-  <h3 style="text-align: center;">Başvuru Detayları</h3>
+  <h3 style="text-align: center;">${
+    isNew ? '' : 'Güncel '
+  }Başvuru Detayları</h3>
   ${formattedData}
   </div>`;
+};
+
+const updateApplicationContent = data => {
+  return `
+  Merhaba ${data.name},<br />
+  Başvurunu <a href=${
+    data.url
+  } target="_blank">şu linke</a> tıklayarak güncelleyebilirsin....;
+  `;
 };
 
 exports.transport = transport;
 exports.mailContent = mailContent;
 exports.acceptedApplicationContent = acceptedApplicationContent;
+exports.updateApplicationContent = updateApplicationContent;
