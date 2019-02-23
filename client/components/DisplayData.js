@@ -15,7 +15,9 @@ class DisplayData extends Component {
           Object.keys(data).map((key, index) => {
             return (
               <React.Fragment key={`${key}_${index}`}>
-                <h6>{key.trim()}</h6>
+                <h6>
+                  <b>{key.trim()}</b>
+                </h6>
                 <p>{data[key]}</p>
               </React.Fragment>
             );
@@ -38,7 +40,9 @@ class DisplayData extends Component {
               } else {
                 content = (
                   <React.Fragment key={key}>
-                    <h6>{textToInnerHtml(initialForm[key])}</h6>
+                    <h6>
+                      <b>{textToInnerHtml(initialForm[key])}</b>
+                    </h6>
                     <p>{data[key]}</p>
                   </React.Fragment>
                 );

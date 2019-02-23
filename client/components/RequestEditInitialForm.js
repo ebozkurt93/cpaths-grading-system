@@ -23,6 +23,9 @@ class RequestEditInitialForm extends Component {
     const form = (
       <>
         <h4>Başvuru güncelleme</h4>
+        <p>
+          Girdiğiniz mail adresi ile başvurunuzu yaptığınız adres aynı olmalı.
+        </p>
         <Mutation
           mutation={REQUEST_EDIT_INITIALFORM_MUTATION}
           variables={{ email: this.state.email }}
@@ -44,12 +47,10 @@ class RequestEditInitialForm extends Component {
               <fieldset disabled={loading} aria-busy={loading}>
                 <Error error={error} />
                 <div className='form-group'>
-                  <label htmlFor='email' className='form-label'>
-                    Email
-                  </label>
                   <input
+                    style={{ minWidth: '15rem' }}
                     required
-                    placeholder=' '
+                    placeholder='example@email.com'
                     type='email'
                     className='form-input'
                     name='email'
@@ -57,7 +58,7 @@ class RequestEditInitialForm extends Component {
                     onChange={this.saveToState}
                   />
                 </div>
-                <button className='btn btn-primary' type='submit'>
+                <button className='btn btn-primary p-centered' type='submit'>
                   Gönder
                 </button>
               </fieldset>
@@ -70,7 +71,8 @@ class RequestEditInitialForm extends Component {
     else
       return (
         <p>
-          Başvurunuzu güncellemek için gereken linke mail adresinize gönderildi.
+          Başvurunuzu güncellemeniz için gereken link mail adresinize
+          gönderildi.
         </p>
       );
   }

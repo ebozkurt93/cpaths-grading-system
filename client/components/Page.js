@@ -5,7 +5,12 @@ import Meta from './Meta';
 injectGlobal`
 html, body {
   height: 100%;
+  font-family: Muli,apple-system,system-ui,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",sans-serif !important;
 }
+.btn {
+  border-radius: 5px !important;
+}
+.div {border-radius: 5px !important;}
 `;
 class Page extends Component {
   render() {

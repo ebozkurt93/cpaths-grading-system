@@ -12,5 +12,5 @@ export const tablePageStyle = {
 };
 
 export const textToInnerHtml = text => {
-  return <div dangerouslySetInnerHTML={{ __html: text }} />;
+  return <span dangerouslySetInnerHTML={{ __html: text }} />;
 };

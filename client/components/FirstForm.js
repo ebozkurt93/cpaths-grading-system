@@ -157,7 +157,8 @@ class FirstForm extends Component {
     var renderOptionalField = this.state.required.aboutUs === 'Diğer:';
     var form = (
       <>
-        <h3>Başvuru Formu</h3>
+        <br />
+        <h3 style={{ textAlign: 'center' }}>Başvuru Formu</h3>
         <Mutation
           mutation={FIRST_FORM_MUTATION}
           variables={{
@@ -485,7 +486,8 @@ class FirstForm extends Component {
     );
     var success = (
       <div>
-        <h4>Başvurunuz kaydedildi</h4>
+        <br />
+        <h4 style={{ textAlign: 'center' }}>Başvurunuz kaydedildi</h4>
       </div>
     );
     return (

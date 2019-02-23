@@ -10,17 +10,30 @@ const transport = nodemailer.createTransport({
 });
 
 const mailContent = text => `
-  <div className="email" style="
-  padding: 20px;
-  font-family: sans-serif;
-  line-height: 2;
-  font-size: 18px;
-  border: 1px solid black;
-  margin: auto;
-  max-width: 50rem;
-  "> 
-    ${text}
-  </div>
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+</head>
+
+<body>
+    <div className="email" style="
+padding: 20px;
+line-height: 2;
+margin: 0 auto;
+font-size: 16px;
+max-width: 50rem;">
+        ${text}
+        <br />
+        Sevgiler,<br />
+        Kesişen Yollar Staj Ekibi
+    </div>
+</body>
+
+</html>
 `;
 
 const acceptedApplicationContent = (data, isNew) => {
@@ -30,24 +43,25 @@ const acceptedApplicationContent = (data, isNew) => {
       formattedData += `<p><b>${initialForm[k]}:</b> ${data[k]}</p>`;
     }
   });
-  return `
+  const content = `
   Merhaba ${data.name},<br />
-  Başvurun${isNew ? 'u aldık' : ' güncellendi'}....<br /><br />
+  Başvurun${isNew ? 'u aldık' : ' güncellendi'}.<br /><br />
   <div class="details">
   <h3 style="text-align: center;">${
     isNew ? '' : 'Güncel '
   }Başvuru Detayları</h3>
   ${formattedData}
   </div>`;
+  return mailContent(content);
 };
 
 const updateApplicationContent = data => {
-  return `
+  const content = `
   Merhaba ${data.name},<br />
   Başvurunu <a href=${
     data.url
-  } target="_blank">şu linke</a> tıklayarak güncelleyebilirsin....;
-  `;
+  } target="_blank">şu linke</a> tıklayarak güncelleyebilirsin.`;
+  return mailContent(content);
 };
 
 exports.transport = transport;
