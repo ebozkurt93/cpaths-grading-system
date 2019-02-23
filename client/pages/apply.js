@@ -49,7 +49,7 @@ const ApplyPage = ({ query }) => {
   }
   return (
     <div>
-      <Meta title={query.token ? 'Başvur' : 'Başvurunu Güncelle'} />
+      <Meta title={query.token ? 'Başvurunu Güncelle' : 'Başvur'} />
       {content}
     </div>
   );
