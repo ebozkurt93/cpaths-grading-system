@@ -19,4 +19,7 @@ const initialForm = {
   aboutUs: "Kariyer Koçum'dan nasıl haberdar oldun?"
 };
 
+const isAFile = ['cv', 'transcript'];
+
 exports.initialForm = initialForm;
+exports.isAFile = isAFile;

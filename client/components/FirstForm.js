@@ -334,11 +334,15 @@ class FirstForm extends Component {
                   {this.props.oldForm ? (
                     <>
                       <br />
-                      <a href={`${endpoint}/files/${this.props.oldForm.cv}`}>
+                      <a
+                        target='_blank'
+                        href={`${endpoint}/files/${this.props.oldForm.cv}`}
+                      >
                         Eski CV
                       </a>
                       {' – '}
                       <a
+                        target='_blank'
                         href={`${endpoint}/files/${
                           this.props.oldForm.transcript
                         }`}

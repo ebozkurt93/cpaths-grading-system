@@ -1,4 +1,4 @@
-const { initialForm } = require('./data');
+const { initialForm, isAFile } = require('./data');
 const nodemailer = require('nodemailer');
 
 const transport = nodemailer.createTransport({
@@ -40,7 +40,14 @@ const acceptedApplicationContent = (data, isNew) => {
   var formattedData = '';
   Object.keys(initialForm).map(k => {
     if (k in data) {
-      formattedData += `<p><b>${initialForm[k]}:</b> ${data[k]}</p>`;
+      if (isAFile.includes(k)) {
+        formattedData += `<p><a target="_blank" href="${
+          process.env.SERVER_ENDPOINT
+        }/files/${data[k]}">${initialForm[k]}</a>`;
+        console.log(formattedData);
+      } else {
+        formattedData += `<p><b>${initialForm[k]}:</b> ${data[k]}</p>`;
+      }
     }
   });
   const content = `

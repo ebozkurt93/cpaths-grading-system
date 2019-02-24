@@ -7,6 +7,7 @@ const { hasPermission } = require('../utils');
 const fs = require('fs');
 const uuid = require('uuid');
 const { randomBytes } = require('crypto');
+const promisesAll = require('promises-all');
 
 const fileCheck = async (filePromise, fileType) => {
   const { createReadStream, filename, mimetype } = await filePromise;
@@ -15,14 +16,21 @@ const fileCheck = async (filePromise, fileType) => {
     throw new Error(`${filename} isn't a valid ${fileType} document.`);
   }
   const finalFileName = await storeUploadedFile({ stream, filename }, 'pdf');
-  return [finalFileName, filename];
+  return finalFileName;
 };
 
-const storeUploadedFile = ({ stream, filename }, filetype) => {
+const storeUploadedFile = ({ stream }, filetype) => {
   const f = `${uuid.v4()}.${filetype}`;
+  const path = `files/${f}`;
   new Promise((resolve, reject) =>
     stream
-      .pipe(fs.createWriteStream(`files/${f}`))
+      .on('error', error => {
+        if (stream.truncated)
+          // Delete the truncated file.
+          fs.unlinkSync(path);
+        reject(error);
+      })
+      .pipe(fs.createWriteStream(path))
       .on('finish', () => resolve())
       .on('error', reject)
   );
@@ -68,21 +76,27 @@ const Mutation = {
       data['cv'] = form['cv'];
       data['transcript'] = form['transcript'];
 
+      var toUpload = [];
+      var toUploadNames = [];
+
       if (args.cv) {
-        //write new cv file
-        [cvFileName, cvOldFileName] = await fileCheck(args.cv, 'pdf');
-        data['cv'] = cvFileName;
-        fs.unlinkSync(`files/${form.cv}`);
+        toUpload.push(args.cv);
+        toUploadNames.push('cv');
       }
       if (args.transcript) {
-        //write new transcript file
-        [transcriptFileName, transcriptOldFileName] = await fileCheck(
-          args.transcript,
-          'pdf'
-        );
-        data['transcript'] = transcriptFileName;
-        fs.unlinkSync(`files/${form.transcript}`);
+        toUpload.push(args.transcript);
+        toUploadNames.push('transcript');
       }
+      if (toUpload.length > 0) {
+        await promisesAll.all(
+          toUpload.map(async (p, i) => {
+            const name = await fileCheck(p, 'pdf');
+            data[toUploadNames[i]] = name;
+            fs.unlinkSync(`files/${form[toUploadNames[i]]}`);
+          })
+        );
+      }
+
       data['email'] = form['email'];
     }
     // new application
@@ -91,13 +105,14 @@ const Mutation = {
       if (args.cv == null || args.transcript == null) {
         throw new Error('CV or Transcript missing!');
       }
-      [cvFileName, cvOldFileName] = await fileCheck(args.cv, 'pdf');
-      data['cv'] = cvFileName;
-      [transcriptFileName, transcriptOldFileName] = await fileCheck(
-        args.transcript,
-        'pdf'
+      const toUpload = [args.cv, args.transcript];
+      const toUploadNames = ['cv', 'transcript'];
+      await promisesAll.all(
+        toUpload.map(async (p, i) => {
+          const name = await fileCheck(p, 'pdf');
+          data[toUploadNames[i]] = name;
+        })
       );
-      data['transcript'] = transcriptFileName;
     }
 
     const isInvalid = args.gpa < 3 || args.universityYear === 'Son Sınıf';
