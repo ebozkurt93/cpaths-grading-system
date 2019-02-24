@@ -19,7 +19,7 @@ const fileCheck = async (filePromise, fileType) => {
   return finalFileName;
 };
 
-const storeUploadedFile = ({ stream }, filetype) => {
+const storeUploadedFile = async ({ stream }, filetype) => {
   const f = `${uuid.v4()}.${filetype}`;
   const path = `files/${f}`;
   new Promise((resolve, reject) =>

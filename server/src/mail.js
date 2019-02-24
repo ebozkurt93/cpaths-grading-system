@@ -44,7 +44,6 @@ const acceptedApplicationContent = (data, isNew) => {
         formattedData += `<p><a target="_blank" href="${
           process.env.SERVER_ENDPOINT
         }/files/${data[k]}">${initialForm[k]}</a>`;
-        console.log(formattedData);
       } else {
         formattedData += `<p><b>${initialForm[k]}:</b> ${data[k]}</p>`;
       }
