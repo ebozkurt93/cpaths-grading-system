@@ -19,8 +19,8 @@ const HomePage = props => {
       <br />
       <h2 style={center}>Kesişen Yollar Yurt Dışında Staj Programı</h2>
       <p>
-        Yurt dışında staj programı, hali hazırda yurt dışında stajı bulmuş
-        öğrencilere maddi destek sağlayan bir burs programı.
+        Yurt dışında staj programı, hali hazırda yurt dışında staj bulmuş
+        öğrencilere maddi destek sağlayan bir burs programıdır.
       </p>
       <h3 style={center}>Kimler başvurabilir?</h3>
       <ul>
@@ -35,16 +35,16 @@ const HomePage = props => {
           programa başvurabilir.
         </li>
         <li>
-          Yurt Dışı Staj Bursu Programı jürisinde ve yönetim kurulunda yer
-          almayan veya onların birinci dereceden yakını olmayan Kesişen Yollar
-          gönüllüleri ve kampüs temsilcileri de bu programa başvurabilir.
+          Ayrıca, Yurt Dışı Staj Bursu Programı jürisinde ve yönetim kurulunda
+          yer almayan, veya onların birinci dereceden yakını olmayan Kesişen
+          Yollar gönüllüleri ve kampüs temsilcileri de bu programa başvurabilir.
         </li>
       </ul>
       <h3 style={center}>Hangi kapsamdaki staj programlarını destekliyoruz?</h3>
       <ul>
         <li>Kurumsal şirketler</li>
-        <li>Start-uplar</li>
-        <li>Üniversitelerde araştırma projeleri</li>
+        <li>Startup'lar</li>
+        <li>Üniversiteler veya araştırma kuruluşları</li>
       </ul>
       <h3 style={center}>Nasıl bir maddi destek sağlıyoruz?</h3>
       <ul>
@@ -54,12 +54,13 @@ const HomePage = props => {
         </li>
       </ul>
       <p style={italic}>
-        Sıkça sorulan sorular için,{' '}
+        Aklına bir soru mu takıldı? Sıkça sorulan sorular için{' '}
         <a target='_blank' href='https://kesisenyollar.org/sss/#staj-sss'>
           buraya tıkla
         </a>
-        . Soruna cevap bulamadıysan,{' '}
-        <a href='mailto:staj@cpaths.org'>staj@cpaths.org</a>'a mail atabilirsin!
+        . Eğer soruna cevap bulamadıysan,{' '}
+        <a href='mailto:staj@cpaths.org'>staj@cpaths.org</a>'a mail atarak bize
+        ulaşabilirsin.
       </p>
       <div
         style={{
@@ -69,19 +70,20 @@ const HomePage = props => {
         }}
       >
         <Link href='/apply'>
-          <a className='btn btn-primary btn-lg'>Staj Programına Başvur</a>
+          <a className='btn btn-primary btn-lg'>HEMEN BAŞVUR</a>
         </Link>
       </div>
     </>
   );
   const wantToEdit = (
     <>
-      <p style={italic}>
-        Başvurunu daha önceden yaptın fakat başvurun üzerinde değişiklik mi
-        yapmak istiyorsun? Başvurunu güncellemek için{' '}
+      <p style={{ ...italic, marginBottom: '0' }}>
+        Başvurunu yaptın fakat üzerinde değişiklik mi yapmak istiyorsun?
+        Başvurunu güncellemek için{' '}
         <a
-          href='#'
-          onClick={() => {
+          href=''
+          onClick={e => {
+            e.preventDefault();
             setEdit(true);
           }}
         >

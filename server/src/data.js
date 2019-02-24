@@ -9,7 +9,7 @@ const initialForm = {
   cv: 'CV',
   transcript: 'Transcript',
   longQuestion1:
-    '2018 Haziran ayında kendini nerede görmek istiyorsun, detaylı bir şekilde açıklayabilir misin? Yurt dışında staj yapmak istiyorum veya X şirketinde çalışmak istiyorum gibi yüzeysel cevaplar maalesef başvurunu güçsüz gösterecek. Hangi spesifik alanda staj yapmak istediğinden veya X şirketinde hangi pozisyonda çalışmak istediğinden açık ve net bir şekilde bahsetmelisin :)',
+    '2019 Haziran ayında kendini nerede görmek istiyorsun, detaylı bir şekilde açıklayabilir misin? Yurt dışında staj yapmak istiyorum veya X şirketinde çalışmak istiyorum gibi yüzeysel cevaplar maalesef başvurunu güçsüz gösterecek. Hangi spesifik alanda staj yapmak istediğinden veya X şirketinde hangi pozisyonda çalışmak istediğinden açık ve net bir şekilde bahsetmelisin :)',
   longQuestion2:
     'Bu spesifik hedefe yönelik yaptığın çalışmaları veya edindiğin tecrübeleri bizimle paylaşabilir misin? Daha önce hedefine yönelik bir çalışma yapmadıysan da hiç sorun değil, diğer soruya geçebilirsin; bu başvurunu güçsüz göstermeyecek ;)',
   longQuestion3:

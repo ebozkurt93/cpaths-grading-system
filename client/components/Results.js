@@ -141,7 +141,7 @@ export default class Results extends Component {
         </table>
         {this.state.modalData && (
           <Modal
-            title='Detaylar'
+            title='Sonuç Detayları'
             closeModal={() => this.setState({ modalData: null })}
           >
             <DisplayData data={this.state.modalData} useKeyValue />

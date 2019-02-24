@@ -58,7 +58,7 @@ const acceptedApplicationContent = (data, isNew) => {
 const updateApplicationContent = data => {
   const content = `
   Merhaba ${data.name},<br />
-  Başvurunu <a href=${
+  Başvurunu önümüzdeki 1 saat içerisinde <a href=${
     data.url
   } target="_blank">şu linke</a> tıklayarak güncelleyebilirsin.`;
   return mailContent(content);

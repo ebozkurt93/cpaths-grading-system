@@ -199,7 +199,7 @@ class Forms extends Component {
               {data.forms && firstFormTable}
               {this.state.modalData && (
                 <Modal
-                  title='Detaylar'
+                  title='Başvuru Detayları'
                   closeModal={() => this.setState({ modalData: null })}
                 >
                   <DisplayData data={this.state.modalData} />
