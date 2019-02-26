@@ -10,7 +10,7 @@ const Meta = props => (
     <link rel='stylesheet' href='../static/spectre-icons.min.css' />
     <link rel='icon' type='image/png' href='../static/favicon.png' />
     <link
-      href='https://fonts.googleapis.com/css?family=Muli:400,700'
+      href='https://fonts.googleapis.com/css?family=Muli:400,400i,600,600i,700,700i&amp;subset=latin-ext'
       rel='stylesheet'
     />
     <title>

@@ -19,10 +19,10 @@ const fileCheck = async (filePromise, fileType) => {
   return finalFileName;
 };
 
-const storeUploadedFile = async ({ stream }, filetype) => {
+const storeUploadedFile = ({ stream }, filetype) => {
   const f = `${uuid.v4()}.${filetype}`;
   const path = `files/${f}`;
-  new Promise((resolve, reject) =>
+  return new Promise((resolve, reject) =>
     stream
       .on('error', error => {
         if (stream.truncated)
@@ -31,10 +31,9 @@ const storeUploadedFile = async ({ stream }, filetype) => {
         reject(error);
       })
       .pipe(fs.createWriteStream(path))
-      .on('finish', () => resolve())
+      .on('finish', () => resolve(f))
       .on('error', reject)
   );
-  return f;
 };
 
 const Mutation = {

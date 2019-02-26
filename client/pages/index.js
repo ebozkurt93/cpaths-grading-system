@@ -12,8 +12,8 @@ const HomePage = props => {
     <>
       <a target='_blank' href='http://kesisenyollar.org/'>
         <img
-          src='../static/logo.png'
-          style={{ display: 'block', margin: 'auto', maxWidth: '15rem' }}
+          src='../static/kyollar_logo.svg'
+          style={{ display: 'block', margin: 'auto', maxWidth: '10rem' }}
         />
       </a>
       <br />
