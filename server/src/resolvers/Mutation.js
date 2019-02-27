@@ -20,8 +20,13 @@ const fileCheck = async (filePromise, fileType) => {
 };
 
 const storeUploadedFile = ({ stream }, filetype) => {
-  const f = `${uuid.v4()}.${filetype}`;
-  const path = `files/${f}`;
+  var f = `${uuid.v4()}.${filetype}`;
+  var path = `files/${f}`;
+  while (fs.existsSync(path)) {
+    // file path exists, just generate new filename and try again
+    f = `${uuid.v4()}.${filetype}`;
+    path = `files/${f}`;
+  }
   return new Promise((resolve, reject) =>
     stream
       .on('error', error => {
