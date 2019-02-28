@@ -25,11 +25,21 @@ type InitialForm {
   universityDept: String!
   gpa: Float!
   cv: String!
+  cvAnon: String!
   transcript: String!
+  transcriptAnon: String!
+  internshipCountry: String!
+  internshipType: String!
+  companyName: String!
+  internshipPeriod: String!
+  internshipPosition: String!
+  acceptanceLetter: String!
+  acceptanceEmail: String!
+  economicSupport: String!
   longQuestion1: String!
   longQuestion2: String!
   longQuestion3: String!
-  longQuestion4: String!
+  ourPrograms: String!
   aboutUs: String!
   invalid: Boolean!
 }
@@ -44,11 +54,21 @@ type Mutation {
     universityDept: String!
     gpa: Float!
     cv: Upload
+    cvAnon: Upload
     transcript: Upload
+    transcriptAnon: Upload
+    internshipCountry: String!
+    internshipType: String!
+    companyName: String!
+    internshipPeriod: String!
+    internshipPosition: String!
+    acceptanceLetter: Upload
+    acceptanceEmail: String!
+    economicSupport: String!
     longQuestion1: String!
     longQuestion2: String!
     longQuestion3: String!
-    longQuestion4: String!
+    ourPrograms: String!
     aboutUs: String!
     token: String
   ): SuccessMessage

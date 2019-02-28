@@ -11,19 +11,22 @@ const FORM_BY_ID_QUERY = gql`
   query FORM_BY_ID_QUERY($id: ID!) {
     form(id: $id) {
       id
-      email
-      name
-      lastname
       university
       universityYear
       universityDept
       gpa
-      cv
-      transcript
+      cvAnon
+      transcriptAnon
+      internshipCountry
+      internshipType
+      companyName
+      internshipPeriod
+      internshipPosition
+      economicSupport
       longQuestion1
       longQuestion2
       longQuestion3
-      longQuestion4
+      ourPrograms
       aboutUs
     }
   }

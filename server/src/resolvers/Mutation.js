@@ -8,6 +8,7 @@ const fs = require('fs');
 const uuid = require('uuid');
 const { randomBytes } = require('crypto');
 const promisesAll = require('promises-all');
+const { isAFile } = require('../data');
 
 const fileCheck = async (filePromise, fileType) => {
   const { createReadStream, filename, mimetype } = await filePromise;
@@ -56,12 +57,14 @@ const Mutation = {
   async registerApplication(parent, args, ctx, info) {
     const data = {
       ...Object.keys(args)
-        .filter(key => !['cv', 'transcript'].includes(key))
+        .filter(key => !isAFile.includes(key))
         .reduce((obj, key) => {
           obj[key] = args[key];
           return obj;
         }, {})
     };
+    var toUpload = [];
+    var toUploadNames = [];
     // previously applied, just updating application
     if (args.token) {
       // check token validity
@@ -72,25 +75,20 @@ const Mutation = {
             formEditTokenExpiry_gte: Date.now() - 3600000
           }
         },
-        '{id, email, cv, transcript}'
+        '{id, email, cv, cvAnon, transcript, transcriptAnon, acceptanceLetter}'
       );
       if (!form) {
         throw new Error('This token is either invalid or expired!');
       }
-      data['cv'] = form['cv'];
-      data['transcript'] = form['transcript'];
 
-      var toUpload = [];
-      var toUploadNames = [];
+      isAFile.map(f => {
+        data[f] = form[f];
+        if (args[f]) {
+          toUpload.push(args[f]);
+          toUploadNames.push(f);
+        }
+      });
 
-      if (args.cv) {
-        toUpload.push(args.cv);
-        toUploadNames.push('cv');
-      }
-      if (args.transcript) {
-        toUpload.push(args.transcript);
-        toUploadNames.push('transcript');
-      }
       if (toUpload.length > 0) {
         await promisesAll.all(
           toUpload.map(async (p, i) => {
@@ -106,11 +104,14 @@ const Mutation = {
     // new application
     else {
       // check for cv and transcript
-      if (args.cv == null || args.transcript == null) {
-        throw new Error('CV or Transcript missing!');
+      if (isAFile.some(f => args[f] == null)) {
+        throw new Error('One or more file is missing!');
       }
-      const toUpload = [args.cv, args.transcript];
-      const toUploadNames = ['cv', 'transcript'];
+
+      isAFile.map(f => {
+        toUpload.push(args[f]);
+        toUploadNames.push(f);
+      });
       await promisesAll.all(
         toUpload.map(async (p, i) => {
           const name = await fileCheck(p, 'pdf');

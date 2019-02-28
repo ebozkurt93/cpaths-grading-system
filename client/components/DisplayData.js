@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
 import { endpoint } from '../config';
 import { initialForm, isAFile } from '../data';
-import { textToInnerHtml } from '../helper';
-
+import { textToInnerHtml, formContentStyle } from '../helper';
 class DisplayData extends Component {
   render() {
     // useKeyValue uses key value pairs in the given data object as title & content
@@ -31,7 +30,10 @@ class DisplayData extends Component {
                 content = (
                   <p key={key}>
                     <a href={`${endpoint}/files/${data[key]}`} target='_blank'>
-                      <button className='btn btn-primary'>
+                      <button
+                        className='btn btn-primary'
+                        style={formContentStyle}
+                      >
                         {textToInnerHtml(initialForm[key])}
                       </button>
                     </a>

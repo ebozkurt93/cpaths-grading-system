@@ -17,11 +17,21 @@ const FORM_BY_TOKEN_QUERY = gql`
       universityDept
       gpa
       cv
+      cvAnon
       transcript
+      transcriptAnon
+      internshipCountry
+      internshipType
+      companyName
+      internshipPeriod
+      internshipPosition
+      acceptanceLetter
+      acceptanceEmail
+      economicSupport
       longQuestion1
       longQuestion2
       longQuestion3
-      longQuestion4
+      ourPrograms
       aboutUs
     }
   }

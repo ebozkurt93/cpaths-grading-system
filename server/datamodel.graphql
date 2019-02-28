@@ -4,30 +4,12 @@ enum Permission {
   RESULTS
 }
 
-# type User {
-#   id: ID! @unique
-#   name: String!
-#   email: String! @unique
-#   password: String!
-#   resetToken: String
-#   resetTokenExpiry: Float
-#   permissions: [Permission]
-#   application: Application
-# }
-
 type User {
   id: ID! @unique
   name: String!
   email: String! @unique
   permissions: [Permission]
 }
-
-# type Application {
-#   id: ID! @unique
-#   user: User! @unique
-#   otherinfo1: String!
-#   gpa: Float!
-# }
 
 type InitialForm {
   id: ID! @unique
@@ -39,11 +21,21 @@ type InitialForm {
   universityDept: String!
   gpa: Float!
   cv: String!
+  cvAnon: String!
   transcript: String!
+  transcriptAnon: String!
+  internshipCountry: String!
+  internshipType: String!
+  companyName: String!
+  internshipPeriod: String!
+  internshipPosition: String!
+  acceptanceLetter: String!
+  acceptanceEmail: String!
+  economicSupport: String!
   longQuestion1: String!
   longQuestion2: String!
   longQuestion3: String!
-  longQuestion4: String!
+  ourPrograms: String!
   aboutUs: String!
   invalid: Boolean!
   formEditToken: String

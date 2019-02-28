@@ -13,9 +13,6 @@ const GET_ALL_FORMGRADES = gql`
       }
       form {
         id
-        email
-        name
-        lastname
       }
       score1
       score2
@@ -31,7 +28,6 @@ const GET_ALL_FORMGRADES_SHORT = gql`
       id
       form {
         id
-        email
       }
     }
   }

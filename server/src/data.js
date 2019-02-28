@@ -7,19 +7,37 @@ const initialForm = {
   universityDept: 'Bölüm (ve varsa çift ana dal veya yan dal)',
   gpa: 'GPA',
   cv: 'CV',
+  cvAnon: 'CV (anonim)',
   transcript: 'Transcript',
+  transcriptAnon: 'Transcript (anonim)',
+  internshipCountry: 'Staj yapılacak ülke',
+  internshipType: 'Staj programı türü',
+  companyName: 'Staj yapılacak kuruluşun adı',
+  internshipPeriod: 'Staj süresi',
+  internshipPosition: 'Staj yapılacak pozisyon / görev tanımı',
+  acceptanceLetter:
+    'Staj yapılacak kuruluştan veya çalışılacak kişiden, staja kabul aldığını ve ödeme almayacağını onaylayan imzalı yazı',
+  acceptanceEmail: 'Belgeyi imzalayan kuruluşun / kişinin e-maili',
+  economicSupport:
+    'Staj yapacağın kuruluş dışında bir kuruluştan hibe/burs alıyor musun? Cevabın evet ise hangi kuruluştan, ne kadar maddi destek alıyorsun?',
   longQuestion1:
-    '2019 Haziran ayında kendini nerede görmek istiyorsun, detaylı bir şekilde açıklayabilir misin? Yurt dışında staj yapmak istiyorum veya X şirketinde çalışmak istiyorum gibi yüzeysel cevaplar maalesef başvurunu güçsüz gösterecek. Hangi spesifik alanda staj yapmak istediğinden veya X şirketinde hangi pozisyonda çalışmak istediğinden açık ve net bir şekilde bahsetmelisin :)',
+    'Staj yapacağın kurumu seçmende hangi faktörler etkili oldu? Sence bu kurumu benzerlerinden ayıran özellikleri neler? (max. 150 kelime)',
   longQuestion2:
-    'Bu spesifik hedefe yönelik yaptığın çalışmaları veya edindiğin tecrübeleri bizimle paylaşabilir misin? Daha önce hedefine yönelik bir çalışma yapmadıysan da hiç sorun değil, diğer soruya geçebilirsin; bu başvurunu güçsüz göstermeyecek ;)',
+    'Bu stajdan neler öğrenmeyi, hangi yeterlilikleri kazanmayı bekliyorsun? (max. 200 kelime) Not: Son iki sorunun yanıtı başvurunun puanlamasında ciddi ağırlığa sahip olacak, özenle doldurmanı tavsiye ediyoruz :)',
   longQuestion3:
-    'Seni bu hedefe götüren yolu bize kısaca anlatabilir misin? Biraz ilham için: https://goo.gl/Ug74nM (Geçmiş çalışmaların veya tecrübelerin, neden bu alanlarda devam etmek istediğin/istemediğin, tanıştığın bir kişi veya ilham aldığın bir başarı hikayesinden bahsedebilirsin!)',
-  longQuestion4:
+    'Bu stajın sana kariyer hedeflerin doğrultusunda ve hayat tecrübesi anlamında neler katacağını düşünüyorsun? Stajını başarıyla tamamlaman halinde kariyerine ilişkin bir sonraki hedefine ne olacak? (max. 200 kelime)',
+  ourPrograms:
     'Kesişen Yollar Danışmanlık Programı veya Kariyer Sohbetlerinden haberdar mısın? Danışmanlık Programına dahilsen veya Kariyer Sohbetlerini takip ediyorsan, ne sıklıkla takip ediyorsun? Programları faydalı buluyor musun? Bu soru başvuru değerlendirmeni etkilemeyecek, ama son bir gayret max. bir kaç dk. ayırıp bu soruyu da samimi şekilde cevaplamanı rica ediyoruz :)',
-  aboutUs: "Kariyer Koçum'dan nasıl haberdar oldun?"
+  aboutUs: 'Yurt Dışında Staj Programından nasıl haberdar oldun?'
 };
 
-const isAFile = ['cv', 'transcript'];
+const isAFile = [
+  'cv',
+  'cvAnon',
+  'transcript',
+  'transcriptAnon',
+  'acceptanceLetter'
+];
 
 exports.initialForm = initialForm;
 exports.isAFile = isAFile;

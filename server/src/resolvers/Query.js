@@ -15,21 +15,34 @@ const Query = {
       info
     );
   },
-  forms(parent, args, ctx, info) {
+  async forms(parent, args, ctx, info) {
     hasPermission(ctx.request.user, ['ADMIN', 'JURY']);
     const params = ctx.request.user.permissions.includes('ADMIN')
       ? {}
       : { where: { invalid: false } };
-    return ctx.db.query.initialForms(params, info);
+    const i = ctx.request.user.permissions.includes('ADMIN')
+      ? info
+      : '{id, university, universityYear, universityDept, gpa, cvAnon, transcriptAnon, internshipCountry, internshipType, companyName, internshipPeriod, internshipPosition, economicSupport, longQuestion1, longQuestion2, longQuestion3, ourPrograms, aboutUs}';
+    return ctx.db.query.initialForms(params, i);
   },
-  form(parent, args, ctx, info) {
+  async form(parent, args, ctx, info) {
     hasPermission(ctx.request.user, ['ADMIN', 'JURY']);
-    return ctx.db.query.initialForm(
+    const form = await ctx.db.query.initialForm(
       {
         where: { id: args.id }
       },
       info
     );
+    if (!ctx.request.user.permissions.includes('ADMIN')) {
+      delete form.invalid;
+      delete form.name;
+      delete form.lastname;
+      delete form.cv;
+      delete form.transcript;
+      delete form.acceptanceLetter;
+      delete form.acceptanceEmail;
+    }
+    return form;
   },
   async formByToken(parent, args, ctx, info) {
     const [form] = await ctx.db.query.initialForms(
@@ -46,7 +59,6 @@ const Query = {
     }
     /*  prevent invalid field being asked, could have done this differently like
         creating another type at schema, but not worth for 1 method */
-    delete form.invalid;
     return form;
   },
   formGrades(parent, args, ctx, info) {

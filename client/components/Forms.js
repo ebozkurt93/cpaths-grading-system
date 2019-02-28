@@ -9,8 +9,8 @@ import { initialForm, isAFile } from '../data';
 import DisplayData from './DisplayData';
 import Modal from './Modal';
 
-const GET_ALL_FORMS = gql`
-  query GET_ALL_FORMS {
+const GET_ALL_FORMS_ALL = gql`
+  query GET_ALL_FORMS_ALL {
     forms {
       id
       email
@@ -21,13 +21,48 @@ const GET_ALL_FORMS = gql`
       universityDept
       gpa
       cv
+      cvAnon
       transcript
+      transcriptAnon
+      internshipCountry
+      internshipType
+      companyName
+      internshipPeriod
+      internshipPosition
+      acceptanceLetter
+      acceptanceEmail
+      economicSupport
       longQuestion1
       longQuestion2
       longQuestion3
-      longQuestion4
+      ourPrograms
       aboutUs
       invalid
+    }
+  }
+`;
+
+const GET_ALL_FORMS_JURY = gql`
+  query GET_ALL_FORMS_JURY {
+    forms {
+      id
+      university
+      universityYear
+      universityDept
+      gpa
+      cvAnon
+      transcriptAnon
+      internshipCountry
+      internshipType
+      companyName
+      internshipPeriod
+      internshipPosition
+      economicSupport
+      longQuestion1
+      longQuestion2
+      longQuestion3
+      ourPrograms
+      aboutUs
     }
   }
 `;
@@ -61,8 +96,11 @@ class Forms extends Component {
   };
 
   render() {
+    const QUERY_TYPE = !this.props.filledFormIds
+      ? GET_ALL_FORMS_ALL
+      : GET_ALL_FORMS_JURY;
     return (
-      <Query query={GET_ALL_FORMS} ssr={false}>
+      <Query query={QUERY_TYPE} ssr={false}>
         {({ data, loading, error }) => {
           if (loading) return <p>Yükleniyor...</p>;
           if (error) return <Error error={error} />;
@@ -175,7 +213,7 @@ class Forms extends Component {
                   variables={{
                     value: JSON.stringify(this.state.changedFormIds)
                   }}
-                  refetchQueries={[{ query: GET_ALL_FORMS }]}
+                  refetchQueries={[{ query: QUERY_TYPE }]}
                 >
                   {(updateInvalidValues, { error, loading }) => (
                     <button
