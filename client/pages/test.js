@@ -5,11 +5,11 @@ import Settings from '../components/Settings';
 
 const TestPage = props => (
   <div>
-    <PleaseLogin>
+    {/* <PleaseLogin>
       <Nav />
       <p style={{ fontWeight: 'bold' }}>Bu sayfa test amaçlı, kaldırılacak</p>
       <User>{({ data: { me } }) => me && <Settings user={me} />}</User>
-    </PleaseLogin>
+    </PleaseLogin> */}
   </div>
 );
 

@@ -43,13 +43,13 @@ const storeUploadedFile = ({ stream }, filetype) => {
 };
 
 const Mutation = {
-  async editYourPermissions(parent, args, ctx, info) {
-    hasPermission(ctx.request.user, []);
-    return ctx.db.mutation.updateUser({
-      data: { permissions: { set: args.permissions } },
-      where: { id: ctx.request.user.id }
-    });
-  },
+  // async editYourPermissions(parent, args, ctx, info) {
+  //   hasPermission(ctx.request.user, []);
+  //   return ctx.db.mutation.updateUser({
+  //     data: { permissions: { set: args.permissions } },
+  //     where: { id: ctx.request.user.id }
+  //   });
+  // },
   logout(parent, args, ctx, info) {
     ctx.response.clearCookie('token');
     return { message: 'Goodbye!' };

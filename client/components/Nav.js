@@ -70,14 +70,14 @@ const Nav = () => (
                   </a>
                 )}
               </Mutation>
-              <Link href='/test'>
+              {/* <Link href='/test'>
                 <a
                   className='btn btn-link'
                   style={{ color: 'red', fontWeight: 'bold' }}
                 >
                   Test
                 </a>
-              </Link>
+              </Link> */}
             </>
           )}
         </section>
