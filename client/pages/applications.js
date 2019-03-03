@@ -12,7 +12,8 @@ const ApplicationsPage = props => (
     <PleaseLogin requiredPermissions={['ADMIN', 'JURY']}>
       <User>
         {({ data: { me } }) => {
-          if (me.permissions.includes('JURY')) {
+          {/* return <pre>{JSON.stringify(me, null, 4)}</pre> */}
+          if (me && me.permissions.includes('JURY')) {
             return (
               <FormGrades>
                 {({ data: { formGrades } }) => {
