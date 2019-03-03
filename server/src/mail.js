@@ -51,7 +51,11 @@ const acceptedApplicationContent = (data, isNew) => {
   });
   const content = `
   Merhaba ${data.name},<br />
-  Başvurun${isNew ? 'u aldık' : ' güncellendi'}.<br /><br />
+  Kesişen Yollar Yurt Dışında Staj Programı için başvurunu ${
+    isNew ? 'aldık' : ' güncelledik'
+  }! Son başvuru tarihi olan 3 Mayıs'a kadar başvurunu güncellemek istersen <a target="_blank" href="${
+    process.env.FRONTEND_URL
+  }?update=true">buraya</a> tıklayabilirsin! Başvuru sonuçları web sitemizden ve sosyal medya hesaplarımızdan duyurulacak. Ayrıca sana başvuruda kullandığın mail adresi üzerinden ulaşacağız. Aklına takılan herhangi bir soru için <a href="mailto:staj@cpaths.org">staj@cpaths.org</a> adresinden bizlere ulaşabilirsin.<br /><br />
   <div class="details">
   <h3 style="text-align: center;">${
     isNew ? '' : 'Güncel '
@@ -64,9 +68,9 @@ const acceptedApplicationContent = (data, isNew) => {
 const updateApplicationContent = data => {
   const content = `
   Merhaba ${data.name},<br />
-  Başvurunu önümüzdeki 1 saat içerisinde <a href=${
+  Kesişen Yollar Yurt Dışında Staj Programı başvurunu önümüzdeki bir saat içinde <a href=${
     data.url
-  } target="_blank">şu linke</a> tıklayarak güncelleyebilirsin.`;
+  } target="_blank">buraya</a> tıklayarak güncelleyebilirsin.`;
   return mailContent(content);
 };
 

@@ -3,7 +3,7 @@ import Link from 'next/link';
 import RequestEditInitialForm from '../components/RequestEditInitialForm';
 import Modal from '../components/Modal';
 const HomePage = props => {
-  const [edit, setEdit] = useState(false);
+  const [edit, setEdit] = useState(props.query.update ? true : false);
 
   const center = { textAlign: 'center' };
   const italic = { fontStyle: 'italic' };
