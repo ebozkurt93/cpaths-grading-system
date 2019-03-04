@@ -138,6 +138,7 @@ const Mutation = {
       to: data.email,
       from: `Kesişen Yollar Staj 2019<${process.env.MAIL_USER}>`,
       bcc: process.env.MAIL_USER,
+      replyTo: process.env.MAIL_REPLY_TO,
       subject: `Staj 2019 Başvuru${isNew ? 'nuzu Aldık' : 'nuz Güncellendi'}`,
       html: acceptedApplicationContent(data, isNew)
     };
@@ -246,6 +247,7 @@ const Mutation = {
         to: email,
         from: `Kesişen Yollar Staj 2019<${process.env.MAIL_USER}>`,
         bcc: process.env.MAIL_USER,
+        replyTo: process.env.MAIL_REPLY_TO,
         subject: `Staj 2019 Başvuru Güncelleme`,
         html: updateApplicationContent({
           name: application.name,
