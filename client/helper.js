@@ -14,3 +14,5 @@ export const tablePageStyle = {
 export const textToInnerHtml = text => {
   return <span dangerouslySetInnerHTML={{ __html: text }} />;
 };
+
+export const getWordCount = str => str.trim().split(/\s+/).length;

@@ -2,9 +2,10 @@ import React, { Component } from 'react';
 import gql from 'graphql-tag';
 import { Mutation } from 'react-apollo';
 import ErrorMessage from './ErrorMessage';
-import { valueIsEmpty, textToInnerHtml } from '../helper';
+import { valueIsEmpty, textToInnerHtml, getWordCount } from '../helper';
 import { initialForm } from '../data';
 import { endpoint } from '../config';
+import WordCountHint from './WordCountHint';
 
 const FIRST_FORM_MUTATION = gql`
   mutation FIRST_FORM_MUTATION(
@@ -179,6 +180,12 @@ class FirstForm extends Component {
     }
   }
 
+  saveByWordCount(e, maxWordCount) {
+    var value = e.target.value;
+    if (getWordCount(value) <= maxWordCount) {
+      this.saveToState(e);
+    }
+  }
   saveToState = e => {
     const value =
       e.target.type === 'checkbox' ? e.target.checked : e.target.value;
@@ -599,7 +606,9 @@ class FirstForm extends Component {
                     <input
                       required
                       placeholder=' '
-                      type='text'
+                      type='number'
+                      min='1'
+                      max='50'
                       className='form-input'
                       name='internshipPeriod'
                       value={this.state.required.internshipPeriod}
@@ -661,7 +670,7 @@ class FirstForm extends Component {
                     <input
                       required
                       placeholder=' '
-                      type='text'
+                      type='email'
                       className='form-input'
                       name='acceptanceEmail'
                       value={this.state.required.acceptanceEmail}
@@ -712,7 +721,11 @@ class FirstForm extends Component {
                       name='longQuestion1'
                       rows='5'
                       value={this.state.required.longQuestion1}
-                      onChange={this.saveToState}
+                      onChange={e => this.saveByWordCount(e, 150)}
+                    />
+                    <WordCountHint
+                      limit={150}
+                      text={this.state.required.longQuestion1}
                     />
                   </div>
                   <div className='form-group'>
@@ -727,7 +740,11 @@ class FirstForm extends Component {
                       name='longQuestion2'
                       rows='5'
                       value={this.state.required.longQuestion2}
-                      onChange={this.saveToState}
+                      onChange={e => this.saveByWordCount(e, 200)}
+                    />
+                    <WordCountHint
+                      limit={200}
+                      text={this.state.required.longQuestion2}
                     />
                   </div>
                   <div className='form-group'>
@@ -742,7 +759,11 @@ class FirstForm extends Component {
                       name='longQuestion3'
                       rows='5'
                       value={this.state.required.longQuestion3}
-                      onChange={this.saveToState}
+                      onChange={e => this.saveByWordCount(e, 200)}
+                    />
+                    <WordCountHint
+                      limit={200}
+                      text={this.state.required.longQuestion3}
                     />
                   </div>
                   <div className='form-group'>

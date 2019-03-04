@@ -13,7 +13,7 @@ const initialForm = {
   internshipCountry: 'Staj yapılacak ülke',
   internshipType: 'Staj programı türü',
   companyName: 'Staj yapılacak kuruluşun adı',
-  internshipPeriod: 'Staj süresi',
+  internshipPeriod: 'Staj süresi (hafta)',
   internshipPosition: 'Staj yapılacak pozisyon / görev tanımı',
   acceptanceLetter:
     'Staj yapılacak kuruluştan veya çalışılacak kişiden, staja kabul aldığını ve ödeme almayacağını onaylayan imzalı yazı',
