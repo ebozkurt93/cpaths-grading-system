@@ -41,6 +41,7 @@ const Query = {
       delete form.transcript;
       delete form.acceptanceLetter;
       delete form.acceptanceEmail;
+      delete form.notes;
     }
     return form;
   },

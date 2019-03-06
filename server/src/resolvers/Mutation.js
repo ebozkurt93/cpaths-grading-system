@@ -258,6 +258,22 @@ const Mutation = {
     }
     return { message: 'Success' };
     // in any case send success message
+  },
+  async updateInitialFormNote(parent, args, ctx, info) {
+    hasPermission(ctx.request.user, ['ADMIN']);
+    // check if there is a initialform with that id
+    const initialForm = await ctx.db.query.initialForm({
+      where: { id: args.initialFormId }
+    });
+    if (initialForm === null) {
+      throw new Error('Invalid form');
+    }
+    // update initialform note with the new one
+    await ctx.db.mutation.updateInitialForm({
+      where: { id: args.initialFormId },
+      data: { notes: args.notes && args.notes.length > 0 ? args.notes : null }
+    });
+    return { message: 'Success' };
   }
 };
 

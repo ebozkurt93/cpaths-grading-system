@@ -123,9 +123,7 @@ class Grade extends Component {
                   }
                 }}
               >
-                <fieldset
-                //TODO add loading to fieldset
-                >
+                <fieldset disabled={loading}>
                   <div className='form-group'>
                     <label htmlFor='score1' className='form-label'>
                       score1

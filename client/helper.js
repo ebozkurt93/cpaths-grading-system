@@ -15,4 +15,5 @@ export const textToInnerHtml = text => {
   return <span dangerouslySetInnerHTML={{ __html: text }} />;
 };
 
-export const getWordCount = str => str.trim().split(/\s+/).length;
+export const getWordCount = str =>
+  str === null || str.trim().length === 0 ? 0 : str.trim().split(/\s+/).length;

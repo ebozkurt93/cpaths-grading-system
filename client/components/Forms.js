@@ -8,6 +8,7 @@ import { formContentStyle, textToInnerHtml } from '../helper';
 import { initialForm, isAFile } from '../data';
 import DisplayData from './DisplayData';
 import Modal from './Modal';
+import EditFirstFormNote from './EditFirstFormNote';
 
 const GET_ALL_FORMS_ALL = gql`
   query GET_ALL_FORMS_ALL {
@@ -38,6 +39,7 @@ const GET_ALL_FORMS_ALL = gql`
       ourPrograms
       aboutUs
       invalid
+      notes
     }
   }
 `;
@@ -78,7 +80,8 @@ const UPDATE_INITIALFORM_INVALID_MUTATION = gql`
 class Forms extends Component {
   state = {
     modalData: null,
-    changedFormIds: {}
+    changedFormIds: {},
+    updateNote: null
   };
 
   invalidToggle = (id, e) => {
@@ -240,7 +243,30 @@ class Forms extends Component {
                   title='Başvuru Detayları'
                   closeModal={() => this.setState({ modalData: null })}
                 >
-                  <DisplayData data={this.state.modalData} />
+                  <DisplayData data={this.state.modalData}>
+                    {data.forms.length > 0 && !this.props.filledFormIds && (
+                      <button
+                        className='btn'
+                        onClick={() => {
+                          this.setState({
+                            modalData: null,
+                            updateNote: this.state.modalData
+                          });
+                        }}
+                      >
+                        Not
+                        {this.state.modalData.notes ? 'u Güncelle' : ' ekle'}
+                      </button>
+                    )}
+                  </DisplayData>
+                </Modal>
+              )}
+              {this.state.updateNote && (
+                <Modal
+                  title='Başvuru Notunu Güncelle'
+                  closeModal={() => this.setState({ updateNote: null })}
+                >
+                  <EditFirstFormNote form={this.state.updateNote} />
                 </Modal>
               )}
             </>

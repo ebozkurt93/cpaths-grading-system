@@ -458,6 +458,7 @@ type InitialForm implements Node {
   invalid: Boolean!
   formEditToken: String
   formEditTokenExpiry: Float
+  notes: String
 }
 
 """
@@ -504,6 +505,7 @@ input InitialFormCreateInput {
   invalid: Boolean!
   formEditToken: String
   formEditTokenExpiry: Float
+  notes: String
 }
 
 input InitialFormCreateOneInput {
@@ -583,6 +585,8 @@ enum InitialFormOrderByInput {
   formEditToken_DESC
   formEditTokenExpiry_ASC
   formEditTokenExpiry_DESC
+  notes_ASC
+  notes_DESC
   updatedAt_ASC
   updatedAt_DESC
   createdAt_ASC
@@ -618,6 +622,7 @@ type InitialFormPreviousValues {
   invalid: Boolean!
   formEditToken: String
   formEditTokenExpiry: Float
+  notes: String
 }
 
 type InitialFormSubscriptionPayload {
@@ -693,6 +698,7 @@ input InitialFormUpdateDataInput {
   invalid: Boolean
   formEditToken: String
   formEditTokenExpiry: Float
+  notes: String
 }
 
 input InitialFormUpdateInput {
@@ -723,6 +729,7 @@ input InitialFormUpdateInput {
   invalid: Boolean
   formEditToken: String
   formEditTokenExpiry: Float
+  notes: String
 }
 
 input InitialFormUpdateManyMutationInput {
@@ -753,6 +760,7 @@ input InitialFormUpdateManyMutationInput {
   invalid: Boolean
   formEditToken: String
   formEditTokenExpiry: Float
+  notes: String
 }
 
 input InitialFormUpdateOneRequiredInput {
@@ -2510,6 +2518,72 @@ input InitialFormWhereInput {
   All values greater than or equal the given value.
   """
   formEditTokenExpiry_gte: Float
+  notes: String
+
+  """
+  All values that are not equal to given value.
+  """
+  notes_not: String
+
+  """
+  All values that are contained in given list.
+  """
+  notes_in: [String!]
+
+  """
+  All values that are not contained in given list.
+  """
+  notes_not_in: [String!]
+
+  """
+  All values less than the given value.
+  """
+  notes_lt: String
+
+  """
+  All values less than or equal the given value.
+  """
+  notes_lte: String
+
+  """
+  All values greater than the given value.
+  """
+  notes_gt: String
+
+  """
+  All values greater than or equal the given value.
+  """
+  notes_gte: String
+
+  """
+  All values containing the given string.
+  """
+  notes_contains: String
+
+  """
+  All values not containing the given string.
+  """
+  notes_not_contains: String
+
+  """
+  All values starting with the given string.
+  """
+  notes_starts_with: String
+
+  """
+  All values not starting with the given string.
+  """
+  notes_not_starts_with: String
+
+  """
+  All values ending with the given string.
+  """
+  notes_ends_with: String
+
+  """
+  All values not ending with the given string.
+  """
+  notes_not_ends_with: String
 }
 
 input InitialFormWhereUniqueInput {

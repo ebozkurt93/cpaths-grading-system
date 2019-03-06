@@ -17,7 +17,9 @@ class DisplayData extends Component {
                 <h6>
                   <b>{key.trim()}</b>
                 </h6>
-                <p>{data[key]}</p>
+                <p className={`${data[key] ? '' : 'text-error text-bold'}`}>
+                  {data[key] ? data[key] : '---'}
+                </p>
               </React.Fragment>
             );
           })}
@@ -45,7 +47,9 @@ class DisplayData extends Component {
                     <h6>
                       <b>{textToInnerHtml(initialForm[key])}</b>
                     </h6>
-                    <p>{data[key]}</p>
+                    <p className={`${data[key] ? '' : 'text-error text-bold'}`}>
+                      {data[key] ? data[key] : '---'}
+                    </p>
                   </React.Fragment>
                 );
               }
@@ -54,7 +58,12 @@ class DisplayData extends Component {
           })}
       </div>
     );
-    return data ? all : null;
+    return data ? (
+      <>
+        {all}
+        {this.props.children}
+      </>
+    ) : null;
   }
 }
 export default DisplayData;

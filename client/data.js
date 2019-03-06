@@ -29,7 +29,9 @@ export const initialForm = {
     'Bu stajın sana kariyer hedeflerin doğrultusunda ve hayat tecrübesi anlamında neler katacağını düşünüyorsun? Stajını başarıyla tamamlaman halinde kariyerine ilişkin bir sonraki hedefine ne olacak? (max. 200 kelime)',
   ourPrograms:
     'Kesişen Yollar Danışmanlık Programı veya Kariyer Sohbetlerinden haberdar mısın? Danışmanlık Programına dahilsen veya Kariyer Sohbetlerini takip ediyorsan, ne sıklıkla takip ediyorsun? Programları faydalı buluyor musun? Bu soru başvuru değerlendirmeni etkilemeyecek, ama son bir gayret max. bir kaç dk. ayırıp bu soruyu da samimi şekilde cevaplamanı rica ediyoruz :)',
-  aboutUs: 'Yurt Dışında Staj Programından nasıl haberdar oldun?'
+  aboutUs: 'Yurt Dışında Staj Programından nasıl haberdar oldun?',
+  notesNoHtml: 'Notlar',
+  notes: '<hr/><br/><span class="text-error">Notlar</span>'
 };
 
 export const isAFile = [
