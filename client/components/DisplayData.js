@@ -45,7 +45,15 @@ class DisplayData extends Component {
                 content = (
                   <React.Fragment key={key}>
                     <h6>
-                      <b>{textToInnerHtml(initialForm[key])}</b>
+                      {initialForm[key] === 'Notlar' ? (
+                        <>
+                          <hr />
+                          <br />
+                          <b className='text-error'>Notlar</b>
+                        </>
+                      ) : (
+                        <b>{textToInnerHtml(initialForm[key])}</b>
+                      )}
                     </h6>
                     <p className={`${data[key] ? '' : 'text-error text-bold'}`}>
                       {data[key] ? data[key] : '---'}

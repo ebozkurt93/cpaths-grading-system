@@ -45,7 +45,7 @@ class FirstFormNote extends Component {
               <fieldset>
                 <div className='form-group'>
                   <label htmlFor='note' className='form-label'>
-                    {textToInnerHtml(initialForm['notesNoHtml'])}
+                    {textToInnerHtml(initialForm['notes'])}
                   </label>
                   <textarea
                     placeholder=' '

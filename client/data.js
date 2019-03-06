@@ -30,8 +30,7 @@ export const initialForm = {
   ourPrograms:
     'Kesişen Yollar Danışmanlık Programı veya Kariyer Sohbetlerinden haberdar mısın? Danışmanlık Programına dahilsen veya Kariyer Sohbetlerini takip ediyorsan, ne sıklıkla takip ediyorsun? Programları faydalı buluyor musun? Bu soru başvuru değerlendirmeni etkilemeyecek, ama son bir gayret max. bir kaç dk. ayırıp bu soruyu da samimi şekilde cevaplamanı rica ediyoruz :)',
   aboutUs: 'Yurt Dışında Staj Programından nasıl haberdar oldun?',
-  notesNoHtml: 'Notlar',
-  notes: '<hr/><br/><span class="text-error">Notlar</span>'
+  notes: 'Notlar'
 };
 
 export const isAFile = [
