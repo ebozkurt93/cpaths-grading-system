@@ -17,6 +17,7 @@ const GET_ALL_FORMS_ALL = gql`
       email
       name
       lastname
+      notes
       university
       universityYear
       universityDept
@@ -39,7 +40,6 @@ const GET_ALL_FORMS_ALL = gql`
       ourPrograms
       aboutUs
       invalid
-      notes
     }
   }
 `;

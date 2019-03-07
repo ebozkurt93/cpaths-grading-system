@@ -17,9 +17,7 @@ class DisplayData extends Component {
                 <h6>
                   <b>{key.trim()}</b>
                 </h6>
-                <p className={`${data[key] ? '' : 'text-error text-bold'}`}>
-                  {data[key] ? data[key] : '---'}
-                </p>
+                <p>{data[key] ? data[key] : '-'}</p>
               </React.Fragment>
             );
           })}
@@ -44,20 +42,24 @@ class DisplayData extends Component {
               } else {
                 content = (
                   <React.Fragment key={key}>
-                    <h6>
-                      {initialForm[key] === 'Notlar' ? (
-                        <>
-                          <hr />
-                          <br />
-                          <b className='text-error'>Notlar</b>
-                        </>
-                      ) : (
-                        <b>{textToInnerHtml(initialForm[key])}</b>
-                      )}
-                    </h6>
-                    <p className={`${data[key] ? '' : 'text-error text-bold'}`}>
-                      {data[key] ? data[key] : '---'}
-                    </p>
+                    {initialForm[key] !== 'Notlar' ? (
+                      <>
+                        <h6>
+                          <b>{textToInnerHtml(initialForm[key])}</b>
+                        </h6>
+                        <p>{data[key] ? data[key] : '-'}</p>
+                      </>
+                    ) : (
+                      <div className='text-error'>
+                        <h6>
+                          <b>Notlar</b>
+                        </h6>
+                        <p>{data[key] ? data[key] : '-'}</p>
+                        {this.props.children}
+                        <br />
+                        <br />
+                      </div>
+                    )}
                   </React.Fragment>
                 );
               }
@@ -66,12 +68,7 @@ class DisplayData extends Component {
           })}
       </div>
     );
-    return data ? (
-      <>
-        {all}
-        {this.props.children}
-      </>
-    ) : null;
+    return data ? all : null;
   }
 }
 export default DisplayData;
