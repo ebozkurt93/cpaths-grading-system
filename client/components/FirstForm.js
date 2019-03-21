@@ -225,6 +225,10 @@ class FirstForm extends Component {
       this.setState({ ...newState });
     } else {
       e.target.value = null; // clear file value
+      alert(`${file.name || 'Dosya'} koşullara uymuyor!`);
+      if (!this.props.token) {
+        e.target.required = true;
+      }
     }
   };
 
