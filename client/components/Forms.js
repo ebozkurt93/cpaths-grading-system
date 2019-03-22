@@ -172,7 +172,7 @@ class Forms extends Component {
                             <button className='btn btn-secondary'>
                               {this.props.filledFormIds.has(item.id)
                                 ? 'Güncelle'
-                                : 'Notlandır'}
+                                : 'Değerlendir'}
                             </button>
                           </Link>
                         </td>
@@ -236,6 +236,37 @@ class Forms extends Component {
                     </button>
                   )}
                 </Mutation>
+              )}
+              {data.forms.length > 0 && (
+                <span
+                  style={
+                    !this.props.filledFormIds
+                      ? {
+                          marginLeft: '1rem',
+                          verticalAlign: 'middle'
+                        }
+                      : {}
+                  }
+                >
+                  Toplam: <b>{data.forms.length}</b>
+                  {data.forms[0].invalid !== undefined && (
+                    <span>
+                      {' - Geçerli: '}
+                      <b>
+                        {
+                          data.forms.filter(form => form.invalid === false)
+                            .length
+                        }
+                      </b>
+                    </span>
+                  )}
+                  {this.props.filledFormIds && (
+                    <span>
+                      {' - Değerlendirmediklerim: '}
+                      <b>{data.forms.length - this.props.filledFormIds.size}</b>
+                    </span>
+                  )}
+                </span>
               )}
               {data.forms && firstFormTable}
               {this.state.modalData && (

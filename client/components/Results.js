@@ -59,6 +59,10 @@ export default class Results extends Component {
     const { juryIds, results, users } = this.props;
     return (
       <div>
+        <span>
+          {'Toplam: '}
+          <b>{results.length}</b>
+        </span>
         <table className='table table-striped table-hover table-scroll'>
           <thead>
             <tr>

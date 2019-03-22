@@ -32,13 +32,13 @@ const AdminPage = props => (
               <div style={tablePageStyle}>
                 <h5>Yetkiler ve açıklamaları:</h5>
                 <li>
-                  <b>ADMIN:</b> Başvuruları geçerli olarak değiştirebilir,
-                  kullanıcıların yetkilerini değiştirebilir, sonuçları
-                  görebilir.
+                  <b>ADMIN:</b> Başvuruları geçerli/geçersiz olarak
+                  değiştirebilir, kullanıcıların yetkilerini değiştirebilir,
+                  sonuçları görebilir.
                 </li>
                 <li>
                   <b>JURY:</b> Geçerli başvuruları görebilir, başvuruları
-                  notlandırabilir.
+                  değerlendirebilir.
                 </li>
                 <li>
                   <b>RESULTS:</b> Sadece sonuçları görebilir.
