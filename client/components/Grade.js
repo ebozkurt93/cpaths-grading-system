@@ -38,9 +38,6 @@ class Grade extends Component {
           score1: this.props.gradeData.score1 || '',
           score2: this.props.gradeData.score2 || '',
           score3: this.props.gradeData.score3 || ''
-          // score1: '1',
-          // score2: '3',
-          // score3: '5',
         },
         boolean: (this.props.gradeData.boolean ? 'E' : 'H') || '',
         // boolean: true,
@@ -54,14 +51,9 @@ class Grade extends Component {
           score1: '',
           score2: '',
           score3: ''
-          // score1: '1',
-          // score2: '3',
-          // score3: '5',
         },
         boolean: '',
-        // boolean: true,
         notes: ''
-        // notes: 'asdasdd'
       };
     }
   }
@@ -82,7 +74,7 @@ class Grade extends Component {
 
   checkFormValidity = e => {
     e.preventDefault();
-    if (Object.values(this.state.required).every(v => !valueIsEmpty(v))) {
+    if (Object.values(this.state.required).every(v => !valueIsEmpty(v) && v > 0 && v <= 5 ) && this.state.boolean !== "") {
       return true;
     } else {
       this.setState({ warningMsg: 'Eksik yada hatalı veri' });
@@ -109,15 +101,10 @@ class Grade extends Component {
               <form
                 method='post'
                 onSubmit={async e => {
+                  this.setState({warningMsg: ''})
                   if (this.checkFormValidity(e)) {
                     let resp = await formSubmission();
                     if (resp.data.submitFormGrade.message === 'Success') {
-                      //TODO: clear form data (maybe)
-                      {
-                        /* this.setState(({ submitted }) => ({
-                        submitted: !submitted
-                      })); */
-                      }
                       Router.back();
                     }
                   }
@@ -134,7 +121,7 @@ class Grade extends Component {
                       type='number'
                       className='form-input'
                       name='score1'
-                      min='0'
+                      min='1'
                       max='5'
                       step='1'
                       value={this.state.required.score1}
@@ -151,7 +138,7 @@ class Grade extends Component {
                       type='number'
                       className='form-input'
                       name='score2'
-                      min='0'
+                      min='1'
                       max='5'
                       step='1'
                       value={this.state.required.score2}
@@ -168,7 +155,7 @@ class Grade extends Component {
                       type='number'
                       className='form-input'
                       name='score3'
-                      min='0'
+                      min='1'
                       max='5'
                       step='1'
                       value={this.state.required.score3}
@@ -202,17 +189,6 @@ class Grade extends Component {
                       Hayır
                     </label>
                   </div>
-                  {/* <div className='form-group'>
-                    <label className='form-checkbox'>
-                      <input
-                        type='checkbox'
-                        name='boolean'
-                        checked={this.state.boolean}
-                        onChange={this.saveToState}
-                      />
-                      <i className='form-icon' /> Boolean score
-                    </label>
-                  </div> */}
                   <div className='form-group'>
                     <label htmlFor='notes' className='form-label'>
                       Notlar
@@ -242,6 +218,15 @@ class Grade extends Component {
             </>
           )}
         </Mutation>
+        {this.state.warningMsg && (
+          <div className='toast toast-warning'>
+            <button
+              className='btn btn-clear float-right'
+              onClick={() => this.setState({ warningMsg: '' })}
+            />
+            {this.state.warningMsg}
+          </div>
+        )}
       </>
     );
     return form;
