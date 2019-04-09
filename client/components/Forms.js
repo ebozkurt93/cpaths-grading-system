@@ -5,7 +5,7 @@ import { Query, Mutation } from 'react-apollo';
 import Error from './ErrorMessage';
 import { endpoint } from '../config';
 import { formContentStyle, textToInnerHtml } from '../helper';
-import { initialForm, isAFile, isADateTime } from '../data';
+import { initialForm, isAFile, isADateTime, isVisibleInTable } from '../data';
 import DisplayData from './DisplayData';
 import Modal from './Modal';
 import EditFirstFormNote from './EditFirstFormNote';
@@ -122,7 +122,21 @@ class Forms extends Component {
                     {data.forms.length > 0 && this.props.filledFormIds && (
                       <th style={formContentStyle}>Durum</th>
                     )}
+                    {/* Visible only for ADMIN */}
                     {data.forms.length > 0 &&
+                      !this.props.filledFormIds &&
+                      Object.keys(data.forms[0]).map(key => {
+                        if (isVisibleInTable.includes(key)) {
+                          return (
+                            <th style={formContentStyle} key={key}>
+                              {textToInnerHtml(initialForm[key])}
+                            </th>
+                          );
+                        }
+                      })}
+                    {/* Visible only for JURY */}
+                    {data.forms.length > 0 &&
+                      this.props.filledFormIds &&
                       Object.keys(data.forms[0]).map(key => {
                         if (key in initialForm) {
                           return (
@@ -179,30 +193,58 @@ class Forms extends Component {
                           </Link>
                         </td>
                       )}
-                      {Object.keys(item).map(key => {
-                        if (key in initialForm) {
-                          var content = '';
-                          if (isAFile.includes(key)) {
-                            content = (
-                              <a
-                                href={`${endpoint}/files/${item[key]}`}
-                                target='_blank'
-                              >
-                                {initialForm[key]}
-                              </a>
+                      {/* Visible only for ADMIN */}
+                      {!this.props.filledFormIds &&
+                        Object.keys(item).map(key => {
+                          if (isVisibleInTable.includes(key)) {
+                            var content = '';
+                            if (isAFile.includes(key)) {
+                              content = (
+                                <a
+                                  href={`${endpoint}/files/${item[key]}`}
+                                  target='_blank'
+                                >
+                                  {initialForm[key]}
+                                </a>
+                              );
+                            } else if (isADateTime.includes(key)) {
+                              content = new Date(item[key]).toLocaleString();
+                            } else {
+                              content = item[key];
+                            }
+                            return (
+                              <td style={formContentStyle} key={key}>
+                                {content}
+                              </td>
                             );
-                          } else if (isADateTime.includes(key)) {
-                            content = new Date(item[key]).toLocaleString();
-                          } else {
-                            content = item[key];
                           }
-                          return (
-                            <td style={formContentStyle} key={key}>
-                              {content}
-                            </td>
-                          );
-                        }
-                      })}
+                        })}
+                      {/* Visible only for JURY */}
+                      {this.props.filledFormIds &&
+                        Object.keys(item).map(key => {
+                          if (key in initialForm) {
+                            var content = '';
+                            if (isAFile.includes(key)) {
+                              content = (
+                                <a
+                                  href={`${endpoint}/files/${item[key]}`}
+                                  target='_blank'
+                                >
+                                  {initialForm[key]}
+                                </a>
+                              );
+                            } else if (isADateTime.includes(key)) {
+                              content = new Date(item[key]).toLocaleString();
+                            } else {
+                              content = item[key];
+                            }
+                            return (
+                              <td style={formContentStyle} key={key}>
+                                {content}
+                              </td>
+                            );
+                          }
+                        })}
                     </tr>
                   ))}
                 </tbody>

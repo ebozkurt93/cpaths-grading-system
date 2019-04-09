@@ -71,4 +71,18 @@ export const resultJuryPattern = [
   'total_score'
 ];
 
+export const isVisibleInTable = [
+  'email',
+  'name',
+  'lastname',
+  'university',
+  'universityYear',
+  'universityDept',
+  'gpa',
+  'aboutUs',
+  'notes',
+  'createdAt',
+  'updatedAt'
+];
+
 export const isADateTime = ['createdAt', 'updatedAt'];
