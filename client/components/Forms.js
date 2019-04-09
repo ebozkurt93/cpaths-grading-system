@@ -5,7 +5,7 @@ import { Query, Mutation } from 'react-apollo';
 import Error from './ErrorMessage';
 import { endpoint } from '../config';
 import { formContentStyle, textToInnerHtml } from '../helper';
-import { initialForm, isAFile } from '../data';
+import { initialForm, isAFile, isADateTime } from '../data';
 import DisplayData from './DisplayData';
 import Modal from './Modal';
 import EditFirstFormNote from './EditFirstFormNote';
@@ -40,6 +40,8 @@ const GET_ALL_FORMS_ALL = gql`
       ourPrograms
       aboutUs
       invalid
+      createdAt
+      updatedAt
     }
   }
 `;
@@ -189,10 +191,11 @@ class Forms extends Component {
                                 {initialForm[key]}
                               </a>
                             );
+                          } else if (isADateTime.includes(key)) {
+                            content = new Date(item[key]).toLocaleString();
                           } else {
                             content = item[key];
                           }
-
                           return (
                             <td style={formContentStyle} key={key}>
                               {content}

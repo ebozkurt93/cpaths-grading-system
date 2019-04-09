@@ -30,7 +30,9 @@ export const initialForm = {
   ourPrograms:
     'Kesişen Yollar Danışmanlık Programı veya Kariyer Sohbetlerinden haberdar mısın? Danışmanlık Programına dahilsen veya Kariyer Sohbetlerini takip ediyorsan, ne sıklıkla takip ediyorsun? Programları faydalı buluyor musun? Bu soru başvuru değerlendirmeni etkilemeyecek, ama son bir gayret max. bir kaç dk. ayırıp bu soruyu da samimi şekilde cevaplamanı rica ediyoruz :)',
   aboutUs: 'Yurt Dışında Staj Programından nasıl haberdar oldun?',
-  notes: 'Notlar'
+  notes: 'Notlar',
+  createdAt: 'Başvuru Tarihi',
+  updatedAt: 'Güncelleme Tarihi'
 };
 
 export const isAFile = [
@@ -68,3 +70,5 @@ export const resultJuryPattern = [
   'lastname',
   'total_score'
 ];
+
+export const isADateTime = ['createdAt', 'updatedAt'];

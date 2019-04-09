@@ -41,6 +41,8 @@ type InitialForm {
   formEditToken: String
   formEditTokenExpiry: Float
   notes: String
+  createdAt: DateTime!
+  updatedAt: DateTime!
 }
 
 type FormGrade {

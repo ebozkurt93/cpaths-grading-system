@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { endpoint } from '../config';
-import { initialForm, isAFile } from '../data';
+import { initialForm, isAFile, isADateTime } from '../data';
 import { textToInnerHtml, formContentStyle } from '../helper';
 class DisplayData extends Component {
   render() {
@@ -38,6 +38,15 @@ class DisplayData extends Component {
                       </button>
                     </a>
                   </p>
+                );
+              } else if (isADateTime.includes(key)) {
+                content = (
+                  <React.Fragment key={key}>
+                    <h6>
+                      <b>{textToInnerHtml(initialForm[key])}</b>
+                    </h6>
+                    <p key={key}>{new Date(data[key]).toLocaleString()}</p>
+                  </React.Fragment>
                 );
               } else {
                 content = (

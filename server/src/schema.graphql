@@ -43,6 +43,8 @@ type InitialForm {
   aboutUs: String!
   invalid: Boolean!
   notes: String
+  createdAt: DateTime!
+  updatedAt: DateTime!
 }
 
 type Mutation {
