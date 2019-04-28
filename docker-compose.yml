@@ -8,6 +8,7 @@ services:
       - "80:3000"
     environment:
       SERVER_ENDPOINT: ${SERVER_ENDPOINT}
+      ENABLE_APPLICATIONS: ${ENABLE_APPLICATIONS}
     depends_on:
       - yoga-server
   yoga-server:
@@ -26,6 +27,7 @@ services:
       APP_SECRET: ${APP_SECRET}
       GOOGLE_OAUTH_CLIENTID: ${GOOGLE_OAUTH_CLIENTID}
       GOOGLE_OAUTH_CLIENTSECRET: ${GOOGLE_OAUTH_CLIENTSECRET}
+      ENABLE_APPLICATIONS: ${ENABLE_APPLICATIONS}
     volumes:
       - files:/app/files
     # depends_on:

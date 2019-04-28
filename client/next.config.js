@@ -8,6 +8,7 @@ module.exports = {
   },
   publicRuntimeConfig: {
     // Will be available on both server and client
-    serverUrl: process.env.SERVER_ENDPOINT
+    serverUrl: process.env.SERVER_ENDPOINT,
+    enableApplications: process.env.ENABLE_APPLICATIONS
   }
 };

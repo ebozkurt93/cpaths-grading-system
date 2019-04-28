@@ -4,3 +4,5 @@ const { serverRuntimeConfig, publicRuntimeConfig } = getConfig();
 
 // client side config
 export const endpoint = publicRuntimeConfig.serverUrl;
+export const enableApplications =
+  publicRuntimeConfig.enableApplications === 'true';

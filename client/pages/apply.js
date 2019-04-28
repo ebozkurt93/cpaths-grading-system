@@ -4,6 +4,7 @@ import { Query } from 'react-apollo';
 import gql from 'graphql-tag';
 import ErrorMessage from '../components/ErrorMessage';
 import Error from 'next/error';
+import { enableApplications } from '../config';
 
 const FORM_BY_TOKEN_QUERY = gql`
   query FORM_BY_TOKEN_QUERY($token: String!) {
@@ -60,7 +61,8 @@ const ApplyPage = ({ query }) => {
   return (
     <div>
       <Meta title={query.token ? 'Başvurunu Güncelle' : 'Başvur'} />
-      {content}
+      {!enableApplications && <Error statusCode='404' />}
+      {enableApplications && content}
     </div>
   );
 };
