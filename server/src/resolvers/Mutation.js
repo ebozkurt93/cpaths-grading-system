@@ -42,6 +42,8 @@ const storeUploadedFile = ({ stream }, filetype) => {
   );
 };
 
+const isApplicationsOpen = process.env.ENABLE_APPLICATIONS === 'true';
+
 const Mutation = {
   // async editYourPermissions(parent, args, ctx, info) {
   //   hasPermission(ctx.request.user, []);
@@ -55,6 +57,9 @@ const Mutation = {
     return { message: 'Goodbye!' };
   },
   async registerApplication(parent, args, ctx, info) {
+    if (!isApplicationsOpen) {
+      throw new Error('Applications are closed!');
+    }
     const data = {
       ...Object.keys(args)
         .filter(key => !isAFile.includes(key))
@@ -229,6 +234,9 @@ const Mutation = {
     );
   },
   async requestInitialFormEdit(parent, { email }, ctx, info) {
+    if (!isApplicationsOpen) {
+      throw new Error('Applications are closed!');
+    }
     // get application with that email address
     const application = await ctx.db.query.initialForm(
       { where: { email } },
