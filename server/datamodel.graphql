@@ -5,14 +5,16 @@ enum Permission {
 }
 
 type User {
-  id: ID! @unique
+  id: ID! @unique @id
   name: String!
   email: String! @unique
-  permissions: [Permission]
+  permissions: [Permission] @scalarList(strategy: RELATION)
+  updatedAt: DateTime @updatedAt
+  createdAt: DateTime @createdAt
 }
 
 type InitialForm {
-  id: ID! @unique
+  id: ID! @unique @id
   email: String! @unique
   name: String!
   lastname: String!
@@ -41,17 +43,20 @@ type InitialForm {
   formEditToken: String
   formEditTokenExpiry: Float
   notes: String
-  createdAt: DateTime!
-  updatedAt: DateTime!
+  createdAt: DateTime! @createdAt
+  updatedAt: DateTime! @updatedAt
 }
 
 type FormGrade {
-  id: ID! @unique
-  jury: User!
-  form: InitialForm!
+  id: ID! @unique @id
+  jury: User! @scalar(strategy: RELATION)
+  form: InitialForm! @scalar(strategy: RELATION)
   score1: Int!
   score2: Int!
   score3: Int!
+  score4: Int!
   boolean: Boolean!
   notes: String
+  updatedAt: DateTime @updatedAt
+  createdAt: DateTime @createdAt
 }

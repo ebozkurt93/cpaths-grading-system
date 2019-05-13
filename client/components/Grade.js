@@ -11,6 +11,7 @@ const SUBMIT_FORMGRADE_MUTATION = gql`
     $score1: Int!
     $score2: Int!
     $score3: Int!
+    $score4: Int!
     $boolean: Boolean!
     $notes: String
   ) {
@@ -19,6 +20,7 @@ const SUBMIT_FORMGRADE_MUTATION = gql`
       score1: $score1
       score2: $score2
       score3: $score3
+      score4: $score4
       boolean: $boolean
       notes: $notes
     ) {
@@ -37,8 +39,9 @@ class Grade extends Component {
         required: {
           score1: this.props.gradeData.score1 || '',
           score2: this.props.gradeData.score2 || '',
-          score3: this.props.gradeData.score3 || ''
+          score4: this.props.gradeData.score4 || ''
         },
+        score3: this.props.gradeData.score3 || '',
         boolean: (this.props.gradeData.boolean ? 'E' : 'H') || '',
         // boolean: true,
         notes: this.props.gradeData.notes || ''
@@ -50,8 +53,9 @@ class Grade extends Component {
         required: {
           score1: '',
           score2: '',
-          score3: ''
+          score4: ''
         },
+        score3: '',
         boolean: '',
         notes: ''
       };
@@ -74,7 +78,12 @@ class Grade extends Component {
 
   checkFormValidity = e => {
     e.preventDefault();
-    if (Object.values(this.state.required).every(v => !valueIsEmpty(v) && v > 0 && v <= 5 ) && this.state.boolean !== "") {
+    if (
+      Object.values(this.state.required).every(
+        v => !valueIsEmpty(v) && v > 0 && v <= 5
+      ) &&
+      this.state.boolean !== ''
+    ) {
       return true;
     } else {
       this.setState({ warningMsg: 'Eksik yada hatalı veri' });
@@ -90,7 +99,8 @@ class Grade extends Component {
           variables={{
             score1: parseInt(this.state.required.score1),
             score2: parseInt(this.state.required.score2),
-            score3: parseInt(this.state.required.score3),
+            score3: this.state.score3 !== '' ? parseInt(this.state.score3) : 0,
+            score4: parseInt(this.state.required.score4),
             boolean: this.state.boolean === 'E' ? true : false,
             notes: this.state.notes,
             initialFormId: this.props.formId
@@ -101,7 +111,7 @@ class Grade extends Component {
               <form
                 method='post'
                 onSubmit={async e => {
-                  this.setState({warningMsg: ''})
+                  this.setState({ warningMsg: '' });
                   if (this.checkFormValidity(e)) {
                     let resp = await formSubmission();
                     if (resp.data.submitFormGrade.message === 'Success') {
@@ -147,18 +157,34 @@ class Grade extends Component {
                   </div>
                   <div className='form-group'>
                     <label htmlFor='score3' className='form-label'>
-                      score3
+                      score3 (optional)
+                    </label>
+                    <input
+                      placeholder=' '
+                      type='number'
+                      className='form-input'
+                      name='score3'
+                      min='1'
+                      max='3'
+                      step='1'
+                      value={this.state.score3}
+                      onChange={this.saveToState}
+                    />
+                  </div>
+                  <div className='form-group'>
+                    <label htmlFor='score4' className='form-label'>
+                      score4
                     </label>
                     <input
                       required
                       placeholder=' '
                       type='number'
                       className='form-input'
-                      name='score3'
+                      name='score4'
                       min='1'
                       max='5'
                       step='1'
-                      value={this.state.required.score3}
+                      value={this.state.required.score4}
                       onChange={this.saveToState}
                     />
                   </div>

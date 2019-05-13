@@ -176,6 +176,7 @@ const Mutation = {
           score1: args.score1,
           score2: args.score2,
           score3: args.score3,
+          score4: args.score4,
           boolean: args.boolean,
           notes: args.notes,
           jury: { connect: { id: ctx.request.userId } },

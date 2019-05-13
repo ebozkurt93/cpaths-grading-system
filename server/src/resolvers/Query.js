@@ -101,7 +101,7 @@ const Query = {
     // const userData = await ctx.db.query.users();
     const gradeData = await ctx.db.query.formGrades(
       { where: { form: { invalid: false } } },
-      '{id, jury { id }, form { id }, score1, score2, score3, boolean, notes}'
+      '{id, jury { id }, form { id }, score1, score2, score3, score4, boolean, notes}'
     );
     const applicantData = await ctx.db.query.initialForms(
       { where: { invalid: false } },
@@ -119,7 +119,8 @@ const Query = {
       var index = lst[grade['form']['id']];
       if (index != null || index < results.length) {
         var temp = results[index];
-        const scores = grade['score1'] + grade['score2'] + grade['score3'];
+        const scores =
+          grade['score1'] + grade['score2'] + grade['score3'] + grade['score4'];
         temp['total_score'] += scores;
         temp[`${grade['jury']['id']}_score`] = scores;
         temp[`${grade['jury']['id']}_yn`] = grade['boolean'];

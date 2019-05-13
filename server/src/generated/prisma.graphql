@@ -26,8 +26,11 @@ type FormGrade implements Node {
   score1: Int!
   score2: Int!
   score3: Int!
+  score4: Int!
   boolean: Boolean!
   notes: String
+  updatedAt: DateTime
+  createdAt: DateTime
 }
 
 """
@@ -51,6 +54,7 @@ input FormGradeCreateInput {
   score1: Int!
   score2: Int!
   score3: Int!
+  score4: Int!
   boolean: Boolean!
   notes: String
   jury: UserCreateOneInput!
@@ -81,6 +85,8 @@ enum FormGradeOrderByInput {
   score2_DESC
   score3_ASC
   score3_DESC
+  score4_ASC
+  score4_DESC
   boolean_ASC
   boolean_DESC
   notes_ASC
@@ -96,8 +102,11 @@ type FormGradePreviousValues {
   score1: Int!
   score2: Int!
   score3: Int!
+  score4: Int!
   boolean: Boolean!
   notes: String
+  updatedAt: DateTime
+  createdAt: DateTime
 }
 
 type FormGradeSubscriptionPayload {
@@ -149,6 +158,7 @@ input FormGradeUpdateInput {
   score1: Int
   score2: Int
   score3: Int
+  score4: Int
   boolean: Boolean
   notes: String
   jury: UserUpdateOneRequiredInput
@@ -159,6 +169,7 @@ input FormGradeUpdateManyMutationInput {
   score1: Int
   score2: Int
   score3: Int
+  score4: Int
   boolean: Boolean
   notes: String
 }
@@ -352,6 +363,42 @@ input FormGradeWhereInput {
   All values greater than or equal the given value.
   """
   score3_gte: Int
+  score4: Int
+
+  """
+  All values that are not equal to given value.
+  """
+  score4_not: Int
+
+  """
+  All values that are contained in given list.
+  """
+  score4_in: [Int!]
+
+  """
+  All values that are not contained in given list.
+  """
+  score4_not_in: [Int!]
+
+  """
+  All values less than the given value.
+  """
+  score4_lt: Int
+
+  """
+  All values less than or equal the given value.
+  """
+  score4_lte: Int
+
+  """
+  All values greater than the given value.
+  """
+  score4_gt: Int
+
+  """
+  All values greater than or equal the given value.
+  """
+  score4_gte: Int
   boolean: Boolean
 
   """
@@ -424,6 +471,78 @@ input FormGradeWhereInput {
   All values not ending with the given string.
   """
   notes_not_ends_with: String
+  updatedAt: DateTime
+
+  """
+  All values that are not equal to given value.
+  """
+  updatedAt_not: DateTime
+
+  """
+  All values that are contained in given list.
+  """
+  updatedAt_in: [DateTime!]
+
+  """
+  All values that are not contained in given list.
+  """
+  updatedAt_not_in: [DateTime!]
+
+  """
+  All values less than the given value.
+  """
+  updatedAt_lt: DateTime
+
+  """
+  All values less than or equal the given value.
+  """
+  updatedAt_lte: DateTime
+
+  """
+  All values greater than the given value.
+  """
+  updatedAt_gt: DateTime
+
+  """
+  All values greater than or equal the given value.
+  """
+  updatedAt_gte: DateTime
+  createdAt: DateTime
+
+  """
+  All values that are not equal to given value.
+  """
+  createdAt_not: DateTime
+
+  """
+  All values that are contained in given list.
+  """
+  createdAt_in: [DateTime!]
+
+  """
+  All values that are not contained in given list.
+  """
+  createdAt_not_in: [DateTime!]
+
+  """
+  All values less than the given value.
+  """
+  createdAt_lt: DateTime
+
+  """
+  All values less than or equal the given value.
+  """
+  createdAt_lte: DateTime
+
+  """
+  All values greater than the given value.
+  """
+  createdAt_gt: DateTime
+
+  """
+  All values greater than or equal the given value.
+  """
+  createdAt_gte: DateTime
   jury: UserWhereInput
   form: InitialFormWhereInput
 }
@@ -2857,6 +2976,8 @@ type User implements Node {
   name: String!
   email: String!
   permissions: [Permission!]!
+  updatedAt: DateTime
+  createdAt: DateTime
 }
 
 """
@@ -2924,6 +3045,8 @@ type UserPreviousValues {
   name: String!
   email: String!
   permissions: [Permission!]!
+  updatedAt: DateTime
+  createdAt: DateTime
 }
 
 type UserSubscriptionPayload {
@@ -3218,6 +3341,78 @@ input UserWhereInput {
   All values not ending with the given string.
   """
   email_not_ends_with: String
+  updatedAt: DateTime
+
+  """
+  All values that are not equal to given value.
+  """
+  updatedAt_not: DateTime
+
+  """
+  All values that are contained in given list.
+  """
+  updatedAt_in: [DateTime!]
+
+  """
+  All values that are not contained in given list.
+  """
+  updatedAt_not_in: [DateTime!]
+
+  """
+  All values less than the given value.
+  """
+  updatedAt_lt: DateTime
+
+  """
+  All values less than or equal the given value.
+  """
+  updatedAt_lte: DateTime
+
+  """
+  All values greater than the given value.
+  """
+  updatedAt_gt: DateTime
+
+  """
+  All values greater than or equal the given value.
+  """
+  updatedAt_gte: DateTime
+  createdAt: DateTime
+
+  """
+  All values that are not equal to given value.
+  """
+  createdAt_not: DateTime
+
+  """
+  All values that are contained in given list.
+  """
+  createdAt_in: [DateTime!]
+
+  """
+  All values that are not contained in given list.
+  """
+  createdAt_not_in: [DateTime!]
+
+  """
+  All values less than the given value.
+  """
+  createdAt_lt: DateTime
+
+  """
+  All values less than or equal the given value.
+  """
+  createdAt_lte: DateTime
+
+  """
+  All values greater than the given value.
+  """
+  createdAt_gt: DateTime
+
+  """
+  All values greater than or equal the given value.
+  """
+  createdAt_gte: DateTime
 }
 
 input UserWhereUniqueInput {

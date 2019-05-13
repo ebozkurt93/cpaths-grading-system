@@ -17,6 +17,7 @@ const GET_ALL_FORMGRADES = gql`
       score1
       score2
       score3
+      score4
       boolean
       notes
     }
