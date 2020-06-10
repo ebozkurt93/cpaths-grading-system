@@ -9,8 +9,8 @@ type User {
   name: String!
   email: String! @unique
   permissions: [Permission] @scalarList(strategy: RELATION)
-  updatedAt: DateTime @updatedAt
-  createdAt: DateTime @createdAt
+  updatedAt: DateTime!
+  createdAt: DateTime!
 }
 
 type InitialForm {
@@ -43,8 +43,8 @@ type InitialForm {
   formEditToken: String
   formEditTokenExpiry: Float
   notes: String
-  createdAt: DateTime! @createdAt
-  updatedAt: DateTime! @updatedAt
+  createdAt: DateTime!
+  updatedAt: DateTime!
 }
 
 type FormGrade {
@@ -57,6 +57,6 @@ type FormGrade {
   score4: Int!
   boolean: Boolean!
   notes: String
-  updatedAt: DateTime @updatedAt
-  createdAt: DateTime @createdAt
+  updatedAt: DateTime!
+  createdAt: DateTime!
 }
